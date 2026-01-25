@@ -1,18 +1,41 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import './layout.css';
 
 import { Button } from '../shadcn/components/ui/button';
+import PageContainer from './components/common/PageContainer';
 
 export default function MainLayout() {
-  const navList = ['Portfolio', 'Dashboard', 'Projects', 'Skills', 'Contact'];
+
+  type navListType = {
+    path: string;
+    name: string;
+  }
+  const navList = [
+    { path: 'portfolio', name: 'Porfolio' },
+    { path: 'dashboard', name: 'Dashboard' },
+    { path: 'contact', name: 'Contact' },
+    { path: 'skills', name: 'Skills' },
+    { path: 'projects', name: 'Project' },
+
+  ];
 
   const actionButtons = ['Mode', 'Profle'];
+
+  const navigate = useNavigate();
+  const handleNav = (path: string) => {
+    navigate(`/${path}`)
+  }
+
   return (
     <>
       <nav className="h-5rem w-full flex justify-between items-center p-6">
         <div className="flex-3 flex flex-row gap-3">
-          {navList.map((nav: string) => (
-            <Button>{nav}</Button>
+          {navList.map(({ path, name }: navListType) => (
+            <Button className='hover:cursor-pointer'
+              onClick={() => {
+                handleNav(path)
+              }
+              }>{name}</Button>
           ))}
         </div>
 
@@ -23,7 +46,9 @@ export default function MainLayout() {
         </div>
       </nav>
       <main>
-        <Outlet />
+        <PageContainer>
+          <Outlet />
+        </PageContainer>
       </main>
       <footer />
     </>
