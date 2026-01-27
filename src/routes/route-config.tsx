@@ -5,10 +5,11 @@ import Contact from '../pages/contact';
 import Portfolio from '../pages/portfolio';
 import Projects from '../pages/projects';
 import Skills from '../pages/skills';
-// import Home from './pages/Home';
-// import About from './pages/About';
 
-export default function App() {
+
+export default function RoutesConfig() {
+  
+
   return (
     <Routes>
       <Route element={<MainLayout />}>

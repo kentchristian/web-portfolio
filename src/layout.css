@@ -38,6 +38,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+
+  /* TODO: Fix Later its not syncing */
+  --button-bg: var(--card); /* light mode background */
+  --button-text: var(--background); /* light mode text */
+  --button-hover-bg: oklch(0.95 0 0); /* or any slightly darker variant */
+
+  
 }
 
 .dark {
@@ -73,7 +81,13 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  
+
+  --button-bg: var(--card); /* dark mode background */
+  --button-text: var(--card-foreground);
+  --button-hover-bg: oklch(0.2 0 0); /* slightly lighter than card */
 }
+
 
 @theme inline {
   --color-background: var(--background);

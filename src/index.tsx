@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import Providers from './providers/Providers';
-import App from './routes/route-config';
+import MainApp from './routes/main-app';
 
 const root = document.getElementById('root');
 
@@ -12,7 +12,7 @@ ReactDOM.createRoot(root).render(
   <StrictMode>
     <BrowserRouter>
       <Providers>
-        <App />
+        <MainApp />
       </Providers>
     </BrowserRouter>
   </StrictMode>,

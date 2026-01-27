@@ -3,8 +3,23 @@ import './layout.css';
 
 import { Button } from '../shadcn/components/ui/button';
 import PageContainer from './components/common/PageContainer';
+import { useEffect, useState } from 'react';
+import { cn } from './lib/utils';
+import { getInitialTheme } from './utils/getInitialTheme';
+import { property } from './utils/tailwind-combined-properties';
+
 
 export default function MainLayout() {
+
+
+  const [theme, setTheme] = useState<"light" | "dark">(getInitialTheme);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
 
   type navListType = {
     path: string;
@@ -19,12 +34,32 @@ export default function MainLayout() {
 
   ];
 
-  const actionButtons = ['Mode', 'Profle'];
+
+  type actionButtonType = {
+    title: string;
+    fn: () => void;
+    functionCondition?: boolean;
+  }
+  const actionButton: actionButtonType[] = [
+    {
+      title: 'Mode', 
+      fn: () => setTheme(theme === "dark" ? "light" : "dark"),
+      functionCondition: theme === "dark",
+    },
+    {
+      title: 'Profile', fn: () => {
+        console.log("ACTION: ")
+      }
+    }
+  ];
 
   const navigate = useNavigate();
   const handleNav = (path: string) => {
-    navigate(`/${path}`)
+    navigate(`${path}`)
   }
+
+
+
 
   return (
     <>
@@ -40,8 +75,19 @@ export default function MainLayout() {
         </div>
 
         <div className="flex-1 flex flex-row gap-2 justify-end">
-          {actionButtons.map((button: string) => (
-            <button>{button}</button>
+          {actionButton.map((actions: actionButtonType) => (
+            <Button
+              className={cn(
+                actions.functionCondition && actions.title === "Mode" ?
+                // TODO: #Transfer this color preset at global.css 
+                property.buttonDarkTheme : property.buttonLigthTheme,
+                property.buttonCursorHover,
+                
+              )}
+              onClick={() => {
+                actions.fn() // invoke the function defined
+              }}>{actions.title}
+            </Button>
           ))}
         </div>
       </nav>
