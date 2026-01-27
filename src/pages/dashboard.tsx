@@ -1,13 +1,19 @@
+
+import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
+import { Badge } from "../../shadcn/components/ui/badge";
+import { Tooltip } from "../../shadcn/components/ui/tooltip";
 import CardContainer from "../components/common/CardContainer";
-import type { overViewType } from "../types/dashboard-types";
+import type { overViewType, projectsType } from "../types/dashboard-types";
 import { overViewItems } from "../utils/dummy-data/oveview-dummy";
+import { projects } from "../utils/dummy-data/projcts-dummy";
+import { limitText } from "../utils/limitText";
 
 
 const Dashboard = () => {
 
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-10">
 
       {/* Welcome */}
       <CardContainer
@@ -23,7 +29,7 @@ const Dashboard = () => {
       </CardContainer>
 
       {/* Overview Cards */}
-      <div className="flex flex-row gap-4 p-4">
+      <div className="flex flex-row gap-4 p-4 border">
         {overViewItems.map(({
           icon,
           trends,
@@ -49,6 +55,51 @@ const Dashboard = () => {
 
       </div>
 
+      {/* Chart */}
+      <CardContainer className="flex w-full h-50 justify-center items-center border">
+        Chart here
+      </CardContainer>
+
+
+      <div className="flex flex-row gap-2 border border-amber-300 p-2">
+        {projects.map((data: projectsType) => (
+          <CardContainer className="flex flex-col gap-2 border h-auto">
+            <img src={data?.image} />
+
+            <div className="flex flex-col">
+              <h5 className="inline"> <strong>{data?.title}</strong></h5>
+
+
+              {/* 
+                TODO: Modify Styling for tooltip 
+                     -- add tail and defult theme style 
+               */}
+              <Tooltip >
+                <TooltipTrigger asChild>
+                  <p className="inline" >{limitText(data?.description, 40)}</p>
+                </TooltipTrigger>
+
+                <TooltipContent
+                  className="inline-block w-64 bg-amber-300 p-2">
+                  <p className="wrap-break-words">{data?.description}</p>
+                </TooltipContent>
+              </Tooltip>
+
+            </div>
+
+            <div className="flex flex-row flex-wrap items-center gap-2">
+              {data?.techStack.map((tech: string) => (
+
+                <Badge>
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+
+
+          </CardContainer>
+        ))}
+      </div>
     </div>
   )
 };

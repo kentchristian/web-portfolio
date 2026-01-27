@@ -46,10 +46,11 @@ export default function MainLayout() {
         </div>
       </nav>
       <main>
-        <PageContainer>
+        <PageContainer className='border'>
           <Outlet />
         </PageContainer>
       </main>
+
       <footer />
     </>
   );

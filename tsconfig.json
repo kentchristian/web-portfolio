@@ -21,6 +21,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*.tsx", "src/**/*.ts"], // include both TS and TSX
+  "include": ["src/**/*.tsx", "src/**/*.ts", "shadcn/**/*.tsx"], // include both TS and TSX
   "exclude": ["node_modules"]
 }
