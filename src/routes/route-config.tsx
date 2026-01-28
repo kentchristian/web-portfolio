@@ -5,6 +5,7 @@ import Contact from '../pages/contact';
 import Portfolio from '../pages/portfolio';
 import Projects from '../pages/projects';
 import Skills from '../pages/skills';
+import ProjectsBoilerPlage from '../pages/projects-boiler-plate';
 
 
 export default function RoutesConfig() {
@@ -28,6 +29,11 @@ export default function RoutesConfig() {
           path="projects"
           element={< Projects />}
           key="projects"
+        />
+        <Route
+          path="projects-boiler-plate"
+          element={< ProjectsBoilerPlage />}
+          key="projects-boiler-plate"
         />
         <Route
           path="skills"

@@ -3,22 +3,21 @@ import './layout.css';
 
 import { Button } from '../shadcn/components/ui/button';
 import PageContainer from './components/common/PageContainer';
-import { useEffect, useState } from 'react';
+
 import { cn } from './lib/utils';
-import { getInitialTheme } from './utils/getInitialTheme';
+
+import { useState } from 'react';
 import { property } from './utils/tailwind-combined-properties';
+import { toggleTheme } from './utils/theming-helpers/toggleTheme';
 
+export default function MainLayout() { 
+  const [theme, setTheme] = useState<string>(toggleTheme);
 
-export default function MainLayout() {
+  console.log("THEME : ", theme)
 
-
-  const [theme, setTheme] = useState<"light" | "dark">(getInitialTheme);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  const handleThemeState = () => {
+  setTheme(prev => (prev === "dark" ? "light" : "dark"));
+};
 
 
   type navListType = {
@@ -31,24 +30,27 @@ export default function MainLayout() {
     { path: 'contact', name: 'Contact' },
     { path: 'skills', name: 'Skills' },
     { path: 'projects', name: 'Project' },
+    { path: 'projects-boiler-plate', name: 'Projects BoilerPlate'}
 
   ];
-
 
   type actionButtonType = {
     title: string;
     fn: () => void;
-    functionCondition?: boolean;
   }
   const actionButton: actionButtonType[] = [
     {
       title: 'Mode', 
-      fn: () => setTheme(theme === "dark" ? "light" : "dark"),
-      functionCondition: theme === "dark",
+      fn: () => {
+        toggleTheme();
+        handleThemeState();
+        console.log("THEME :", theme)
+        
+      }       
     },
     {
       title: 'Profile', fn: () => {
-        console.log("ACTION: ")
+        alert("show-profile-dropdown")
       }
     }
   ];
@@ -60,13 +62,18 @@ export default function MainLayout() {
 
 
 
-
+  const buttonTheme = theme === "dark" ? property.buttonDarkTheme : property.buttonLigthTheme;
   return (
     <>
       <nav className="h-5rem w-full flex justify-between items-center p-6">
         <div className="flex-3 flex flex-row gap-3">
           {navList.map(({ path, name }: navListType) => (
-            <Button className='hover:cursor-pointer'
+            <Button
+              className={cn(
+                property.buttonCursorHover,
+                buttonTheme,
+                
+              )}
               onClick={() => {
                 handleNav(path)
               }
@@ -78,11 +85,8 @@ export default function MainLayout() {
           {actionButton.map((actions: actionButtonType) => (
             <Button
               className={cn(
-                actions.functionCondition && actions.title === "Mode" ?
-                // TODO: #Transfer this color preset at global.css 
-                property.buttonDarkTheme : property.buttonLigthTheme,
                 property.buttonCursorHover,
-                
+                buttonTheme,
               )}
               onClick={() => {
                 actions.fn() // invoke the function defined

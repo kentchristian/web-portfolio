@@ -1,18 +1,12 @@
-import { useEffect } from 'react'
+
+import { applyTheme } from '../utils/theming-helpers/applyTheme';
+import { getInitialTheme } from '../utils/theming-helpers/getInitialTheme';
 import RoutesConfig from './route-config';
 
-const MainApp = () => {
-  useEffect(() => {
-    const selectedTheme = localStorage.getItem("dark");
 
-    if(selectedTheme){
-      document.body.classList.add(selectedTheme);
-    }else if (window.matchMedia("(prefers-color-scheme: dark)").matches){
-      document.body.classList.add("dark");
-    }else{
-      document.body.classList.add("light");
-    }
-  }, [])
+const MainApp = () => {
+  const initialTheme = getInitialTheme();
+  applyTheme(initialTheme);
 
 
   return (
