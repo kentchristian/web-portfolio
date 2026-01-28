@@ -7,6 +7,8 @@ import Projects from '../pages/projects';
 import Skills from '../pages/skills';
 import ProjectsBoilerPlage from '../pages/projects-boiler-plate';
 
+import ActivityBoilerPlate from '../pages/activity-boiler-plate';
+
 
 export default function RoutesConfig() {
   
@@ -34,6 +36,11 @@ export default function RoutesConfig() {
           path="projects-boiler-plate"
           element={< ProjectsBoilerPlage />}
           key="projects-boiler-plate"
+        />
+        <Route
+          path="activity-boiler-plate"
+          element={< ActivityBoilerPlate />}
+          key="activity-boiler-plate"
         />
         <Route
           path="skills"

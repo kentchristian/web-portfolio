@@ -30,7 +30,8 @@ export default function MainLayout() {
     { path: 'contact', name: 'Contact' },
     { path: 'skills', name: 'Skills' },
     { path: 'projects', name: 'Project' },
-    { path: 'projects-boiler-plate', name: 'Projects BoilerPlate'}
+    { path: 'projects-boiler-plate', name: 'Projects BoilerPlate'},
+    { path: 'activity-boiler-plate', name: 'Activity'}
 
   ];
 
