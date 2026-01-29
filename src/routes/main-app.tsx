@@ -1,6 +1,6 @@
 
-import { applyTheme } from '../utils/theming-helpers/applyTheme';
-import { getInitialTheme } from '../utils/theming-helpers/getInitialTheme';
+import { applyTheme } from '../lib/utils/theming-helpers/applyTheme';
+import { getInitialTheme } from '../lib/utils/theming-helpers/getInitialTheme';
 import RoutesConfig from './route-config';
 
 

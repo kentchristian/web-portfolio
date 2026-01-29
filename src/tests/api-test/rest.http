@@ -1,0 +1,7 @@
+@baseUrl = https://api.github.com/users/kentchristian/repos?per_page=100
+@contentType = application/json
+
+
+
+
+GET {{baseUrl}}

@@ -7,7 +7,7 @@ type Repo = {
 };
 
 type LanguageStats = {
-  [language: string]: number;
+  [repoName: string]: number;
 };
 
 export default function Contact() {

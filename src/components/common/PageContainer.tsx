@@ -1,6 +1,6 @@
 import React from 'react'
 import { cn } from '../../lib/utils';
-import type { ContainerType } from '../../types/container-types';
+import type { ContainerType } from '../../lib/types/container-types';
 
 
 

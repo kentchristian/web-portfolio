@@ -3,14 +3,17 @@ import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
 import { Badge } from "../../shadcn/components/ui/badge";
 import { Tooltip } from "../../shadcn/components/ui/tooltip";
 import CardContainer from "../components/common/CardContainer";
-import type { overViewType, projectsType } from "../types/dashboard-types";
-import { overViewItems } from "../utils/dummy-data/oveview-dummy";
-import { projects } from "../utils/dummy-data/projcts-dummy";
-import { limitText } from "../utils/limitText";
+import type { overViewType, projectsType } from "../lib/types/dashboard-types";
+import { overViewItems } from "../lib/utils/dummy-data/oveview-dummy";
+import { projects } from "../lib/utils/dummy-data/projcts-dummy";
+import { limitText } from "../lib/utils/limitText";
+import { useGetMetrics } from "../lib/hooks/useGetMetrics";
 
 
 const Dashboard = () => {
+  const { data } = useGetMetrics();
 
+  console.log("DATA: ", data);
 
   return (
     <div className="flex flex-col gap-10">

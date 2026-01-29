@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import Providers from './providers/Providers';
+import Providers from './lib/providers/Providers';
 import MainApp from './routes/main-app';
 
 const root = document.getElementById('root');

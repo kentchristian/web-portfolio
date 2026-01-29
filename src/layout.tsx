@@ -7,8 +7,8 @@ import PageContainer from './components/common/PageContainer';
 import { cn } from './lib/utils';
 
 import { useState } from 'react';
-import { property } from './utils/tailwind-combined-properties';
-import { toggleTheme } from './utils/theming-helpers/toggleTheme';
+import { property } from './lib/utils/tailwind-combined-properties';
+import { toggleTheme } from './lib/utils/theming-helpers/toggleTheme';
 
 export default function MainLayout() { 
   const [theme, setTheme] = useState<string>(toggleTheme);

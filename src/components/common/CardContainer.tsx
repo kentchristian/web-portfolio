@@ -1,5 +1,5 @@
 
-import type { ContainerType } from '../../types/container-types';
+import type { ContainerType } from '../../lib/types/container-types';
 import { cn } from '../../lib/utils';
 
 const CardContainer = ({
