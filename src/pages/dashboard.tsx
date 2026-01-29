@@ -8,6 +8,7 @@ import { overViewItems } from "../lib/utils/dummy-data/oveview-dummy";
 import { projects } from "../lib/utils/dummy-data/projcts-dummy";
 import { limitText } from "../lib/utils/limitText";
 import { useGetMetrics } from "../lib/hooks/useGetMetrics";
+import { icons } from "../lib/constants/icons";
 
 
 const Dashboard = () => {
@@ -17,7 +18,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col gap-10">
-
+      {icons.typeScript}
       {/* Welcome */}
       <CardContainer
         className="w-full h-50 border flex flex-row justify-between items-center">

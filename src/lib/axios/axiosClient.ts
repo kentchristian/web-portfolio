@@ -1,7 +1,7 @@
 
 // api/client.ts
 import axios from 'axios';
-import {  repoV2, } from "./global-config"
+import {  repoV2, } from "../../../global-config"
 
 export const gitHubApi = axios.create({
   // client setup is good but not reading the process.env or that import 
