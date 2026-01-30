@@ -14,11 +14,12 @@ import { icons } from "../lib/constants/icons";
 const Dashboard = () => {
   const { data } = useGetMetrics();
 
-  console.log("DATA: ", data);
+
+  console.log("DATA: ", data)
+  
 
   return (
     <div className="flex flex-col gap-10">
-      {icons.typeScript}
       {/* Welcome */}
       <CardContainer
         className="w-full h-50 border flex flex-row justify-between items-center">
@@ -35,12 +36,13 @@ const Dashboard = () => {
       {/* Overview Cards */}
       <div className="flex flex-row gap-4 p-4 border">
         {overViewItems.map(({
+          key, 
           icon,
           trends,
           amount,
           title
         }: overViewType) => (
-          <CardContainer className={`border flex flex-col justify-between`}>
+          <CardContainer key={key} className={`border flex flex-col justify-between`}>
             {/* 1st row */}
             <div className="flex flex-row items-center justify-between">
               <div>{icon}</div>
@@ -67,7 +69,7 @@ const Dashboard = () => {
 
       <div className="flex flex-row gap-2 border border-amber-300 p-2">
         {projects.map((data: projectsType) => (
-          <CardContainer className="flex flex-col gap-2 border h-auto">
+          <CardContainer key={data.key} className="flex flex-col gap-2 border h-auto">
             <img src={data?.image} />
 
             <div className="flex flex-col">
@@ -92,9 +94,9 @@ const Dashboard = () => {
             </div>
 
             <div className="flex flex-row flex-wrap items-center gap-2">
-              {data?.techStack.map((tech: string) => (
+              {data?.techStack.map((tech: string, index: number) => (
 
-                <Badge>
+                <Badge key={index}>
                   {tech}
                 </Badge>
               ))}

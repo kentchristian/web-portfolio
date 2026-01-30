@@ -11,8 +11,13 @@ export type ReducerType = {
 
 // for hook
 export type ReturnType = {
-  data: LanguageMetrics[] | undefined,
+  data: QueryReturnType | undefined,
   isLoading: boolean,
   isError: boolean,
   status: 'pending' | 'error' | 'success',
+}
+
+export type QueryReturnType = {
+  metrics: Record<string, number>,
+  total: number,
 }

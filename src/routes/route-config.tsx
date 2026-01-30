@@ -13,7 +13,7 @@ export default function RoutesConfig() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route index path="dashboard" key="dashboard" element={<Dashboard />} />
+        <Route index path="" key='dashboard' element={<Dashboard />} />
         <Route
           path="portfolio"
           element={< Portfolio />}
