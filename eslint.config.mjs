@@ -22,5 +22,26 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    plugins: {
+      'unused-imports': unusedImports,
+    },
+    rules: {
+      // remove unused imports
+      'unused-imports/no-unused-imports': 'error',
+
+      // remove unused variables
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+        },
+      ],
+
+      // IMPORTANT: turn off the default rule
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
   },
 ]);

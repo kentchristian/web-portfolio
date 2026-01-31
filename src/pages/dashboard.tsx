@@ -2,24 +2,16 @@
 import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
 import { Badge } from "../../shadcn/components/ui/badge";
 import { Tooltip } from "../../shadcn/components/ui/tooltip";
+import LanguageMetrics from "../components/cards/LanguageMetrics";
 import CardContainer from "../components/containers/CardContainer";
 import type { overViewType, projectsType } from "../lib/types/dashboard-types";
 import { overViewItems } from "../lib/utils/dummy-data/oveview-dummy";
 import { projects } from "../lib/utils/dummy-data/projcts-dummy";
 import { limitText } from "../lib/utils/limitText";
-import { useGetMetrics } from "../lib/hooks/useGetMetrics";
 
-import FrequenceScore from "../common/FrequencyScore";
-import type { MetricType } from "../lib/types/features/languageMetrics";
-import { getAverage } from "../lib/utils/computations/getAverage";
 
 
 const Dashboard = () => {
-  const { data } = useGetMetrics();
-
-  
-  const total = data.total;
-
   return (
     <div className="flex flex-col gap-10">
       {/* Welcome */}
@@ -38,7 +30,7 @@ const Dashboard = () => {
       {/* Overview Cards */}
       <div className="flex flex-row gap-4 p-4 border">
         {overViewItems.map(({
-          key, 
+          key,
           icon,
           trends,
           amount,
@@ -63,26 +55,15 @@ const Dashboard = () => {
       </div>
 
       {/* Chart */}
-      <CardContainer className="p-4 flex flex-col gap-2 w-full h-50 justify-center items-center">
-        {data?.metrics?.map((item: MetricType) => (
-          <FrequenceScore 
-            label={item.lang}
-            average={getAverage(item.frequencyCount, total)}
-            id={item.lang}
-          />
-        ))}
-      </CardContainer>
-
+      {/* TODO: ADD Color and ICON Card as well as tool tip for the card  */}
+      <LanguageMetrics />
 
       <div className="flex flex-row gap-2 border border-amber-300 p-2">
         {projects.map((data: projectsType) => (
           <CardContainer key={data.key} className="flex flex-col gap-2 border h-auto">
             <img src={data?.image} />
-
             <div className="flex flex-col">
               <h5 className="inline"> <strong>{data?.title}</strong></h5>
-
-
               {/* 
                 TODO: Modify Styling for tooltip 
                      -- add tail and defult theme style 
@@ -108,8 +89,6 @@ const Dashboard = () => {
                 </Badge>
               ))}
             </div>
-
-
           </CardContainer>
         ))}
       </div>
