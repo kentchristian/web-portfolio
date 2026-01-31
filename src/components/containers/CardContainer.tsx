@@ -1,6 +1,6 @@
 
 import type { ContainerType } from '../../lib/types/container-types';
-import { cn } from '../../lib/utils';
+import { cn } from '../../lib/cnUtils';
 
 const CardContainer = ({
   children,

@@ -2,9 +2,9 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import './layout.css';
 
 import { Button } from '../shadcn/components/ui/button';
-import PageContainer from './components/common/PageContainer';
+import PageContainer from './components/containers/PageContainer';
 
-import { cn } from './lib/utils';
+import { cn } from './lib/cnUtils';
 
 import { useState } from 'react';
 import { property } from './lib/utils/tailwind-combined-properties';

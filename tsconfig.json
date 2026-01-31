@@ -21,6 +21,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*.tsx", "src/**/*.ts", "shadcn/**/*.tsx", "src/lib/axios/global-config.js", "global-config.ts"], // include both TS and TSX
+  "include": ["src/**/*.tsx", "src/**/*.ts", "shadcn/**/*.tsx", "shadcn/**/*.ts", "src/lib/axios/global-config.js", "global-config.ts"], // include both TS and TSX
   "exclude": ["node_modules"]
 }

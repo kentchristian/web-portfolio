@@ -1,5 +1,5 @@
 import React from 'react'
-import { cn } from '../../lib/utils';
+import { cn } from '../../lib/cnUtils';
 import type { ContainerType } from '../../lib/types/container-types';
 
 

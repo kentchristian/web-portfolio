@@ -2,21 +2,23 @@
 import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
 import { Badge } from "../../shadcn/components/ui/badge";
 import { Tooltip } from "../../shadcn/components/ui/tooltip";
-import CardContainer from "../components/common/CardContainer";
+import CardContainer from "../components/containers/CardContainer";
 import type { overViewType, projectsType } from "../lib/types/dashboard-types";
 import { overViewItems } from "../lib/utils/dummy-data/oveview-dummy";
 import { projects } from "../lib/utils/dummy-data/projcts-dummy";
 import { limitText } from "../lib/utils/limitText";
 import { useGetMetrics } from "../lib/hooks/useGetMetrics";
-import { icons } from "../lib/constants/icons";
+
+import FrequenceScore from "../common/FrequencyScore";
+import type { MetricType } from "../lib/types/features/languageMetrics";
+import { getAverage } from "../lib/utils/computations/getAverage";
 
 
 const Dashboard = () => {
   const { data } = useGetMetrics();
 
-
-  console.log("DATA: ", data)
   
+  const total = data.total;
 
   return (
     <div className="flex flex-col gap-10">
@@ -48,7 +50,6 @@ const Dashboard = () => {
               <div>{icon}</div>
               <div className="flex justify-end">{trends}</div>
             </div>
-
             {/* Amount */}
             <div className="text-3xl">
               {amount}
@@ -62,8 +63,14 @@ const Dashboard = () => {
       </div>
 
       {/* Chart */}
-      <CardContainer className="flex w-full h-50 justify-center items-center border">
-        Chart here
+      <CardContainer className="p-4 flex flex-col gap-2 w-full h-50 justify-center items-center">
+        {data?.metrics?.map((item: MetricType) => (
+          <FrequenceScore 
+            label={item.lang}
+            average={getAverage(item.frequencyCount, total)}
+            id={item.lang}
+          />
+        ))}
       </CardContainer>
 
 

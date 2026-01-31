@@ -1,7 +1,7 @@
 
 export type LanguageMetrics = {
   name: string;
-  language: string | null;
+  language: string;
 }
 
 export type ReducerType = {
@@ -10,14 +10,19 @@ export type ReducerType = {
 
 
 // for hook
-export type ReturnType = {
-  data: QueryReturnType | undefined,
+export type QueryReturnType = {
+  data: MetricsReturnType;
   isLoading: boolean,
   isError: boolean,
   status: 'pending' | 'error' | 'success',
 }
 
-export type QueryReturnType = {
-  metrics: Record<string, number>,
-  total: number,
+
+export type MetricType = {
+  lang: string;
+  frequencyCount: number;
+}
+export type MetricsReturnType = {
+  metrics: MetricType[];
+  total: number;
 }
