@@ -8,6 +8,8 @@ const LanguageMetrics = () => {
 
   const { data, isLoading, status } = useGetMetrics();
 
+
+
   const total = data?.total;
 
   return (
