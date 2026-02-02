@@ -1,3 +1,4 @@
+import tailwindScrollbar from "tailwind-scrollbar";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -7,7 +8,8 @@ const config: Config = {
   theme: {
     extend: {}, // Place to add custom colors, spacing, fonts, etc.
   },
-  plugins: [], // Add Tailwind plugins here
+  plugins: [tailwindScrollbar],
+
 };
 
 export default config;
