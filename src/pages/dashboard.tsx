@@ -1,38 +1,84 @@
+import { Badge } from "../../shadcn/components/ui/badge";
 import { Typography } from "../common/Typography";
 import ContentDisplay from "../components/cards/ContentDisplay";
-import NumberOfProjects from "../components/cards/NumberOfProjects";
 import PageContainer from "../components/containers/PageContainer";
 import { cn } from "../lib/cnUtils";
+import { biography } from "../lib/constants/biography";
 
 
 /** DEFAULT Scrollbar Config */
 const SCROLLBAR_CONFIG = "overflow-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
 const Dashboard = () => {
 
+  const roles = [
+    biography.webDev,
+    biography.techWriter,
+  ]
+
+  const experience = [
+    { amount: '2+ Years', desc: 'of Exprience' },
+    { amount: '10+', desc: 'Projects Completed' },
+    { amount: '500k+', desc: 'Lines of Code' }
+  ]
+
 
   return (
     <PageContainer className="border h-full">
-      <div className="grid grid-cols-[1fr_1px_1fr] border h-120">
+      <div className="grid grid-cols-[1fr_2fr] h-120">
         <section className={
           cn(
             "p-5",
             SCROLLBAR_CONFIG,
           )
         }>
-          <NumberOfProjects
-            total={50}
-            title="Number Of Projects"
-          />
+          <ContentDisplay>
+            <img src="/assets/dashboard.png" alt="profile-pic" className="w-10 h-10" />
+          </ContentDisplay>
         </section>
-        <div className="border-r"></div>
         <section className={
           cn(
             "p-5",
             SCROLLBAR_CONFIG,
           )
         }>
-          <ContentDisplay className="flex flex-col justify-center items-center border">
-            <Typography> Something Content </Typography>
+          <ContentDisplay className="inline-block w-full h-full">
+            <Typography variant="h3">{biography.intro} </Typography>
+            <Typography variant="body" className="mt-4">
+              I'm a <strong>{biography.webDev}</strong> specializing in React and TypeScript, building scalable, maintainable, and efficient web applications. I focus on clean architecture, high performance, and future-proof solutions that turn complex requirements into reliable, production-ready systems.`
+            </Typography>
+            <Typography variant="body" className="mt-4">
+              I'm also a <strong>{biography.techWriter}</strong> producing clear, structured, and versioned documentation for both users and developers. I document system architecture, technical workflows, and step-by-step guides to make projects easier to understand, maintain, and scale.
+            </Typography>
+
+            {roles.map((role, index) => (
+              // Create Custom Component for Role Item
+              <div
+                onClick={() => { alert(role) }}
+                key={index + role}
+                className="mt-4 mr-2 hover:cursor-pointer border rounded-md p-2 inline-block">
+                {role}
+              </div>
+            ))}
+
+            <Badge
+              onClick={() => { alert('Get in Touch') }}
+              className="mt-8 p-4 w-40 flex hover:cursor-pointer">
+              <Typography variant="overline" className="">Get In Touch</Typography>
+            </Badge>
+
+
+            <div className="mt-16 flex flex-row h-20">
+              {experience.map((exp, index) => (
+                <div
+                  key={index + exp.amount}
+                  className="px-8 border-r flex flex-col items-center justify-center">
+                  <Typography variant="h4">{exp.amount}</Typography>
+                  <Typography variant="caption">{exp.desc}</Typography>
+                </div>
+              ))}
+            </div>
+
+
           </ContentDisplay>
         </section>
       </div>

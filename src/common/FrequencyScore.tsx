@@ -12,7 +12,7 @@ const FrequenceScore = ({
   average,
   id,
 }: FrequenceScoreProps) => {
-  
+
   return (
     <Field className="w-full max-w-sm">
       <FieldLabel htmlFor="progress-upload">
