@@ -4,6 +4,7 @@ import ContentDisplay from "../components/cards/ContentDisplay";
 import PageContainer from "../components/containers/PageContainer";
 import { cn } from "../lib/cnUtils";
 import { biography } from "../lib/constants/biography";
+import { images } from "../lib/constants/images";
 
 
 /** DEFAULT Scrollbar Config */
@@ -23,8 +24,8 @@ const Dashboard = () => {
 
 
   return (
-    <PageContainer className="border h-full">
-      <div className="grid grid-cols-[1fr_2fr] h-120">
+    <PageContainer className="h-full">
+      <div className="grid grid-cols-[1fr_3fr] h-120">
         <section className={
           cn(
             "p-5",
@@ -32,7 +33,24 @@ const Dashboard = () => {
           )
         }>
           <ContentDisplay>
-            <img src="/assets/dashboard.png" alt="profile-pic" className="w-10 h-10" />
+            <div className="relative w-70 h-100">
+              <img src={images.profile} alt="profile-pic" className="w-full h-full object-cover rounded-md" />
+
+              {/* Overlay icons */}
+              <div className="absolute top-60 left-20 flex space-x-2 z-20">
+                <div className="bg-blue-600 text-white px-2 py-1 rounded cursor-pointer">LI</div>
+                <div className="bg-gray-800 text-white px-2 py-1 rounded cursor-pointer">GH</div>
+              </div>
+
+              <div className="absolute top-70 left-20 flex">
+                <Badge
+                  className="hover:cursor-pointer p-2"
+                  onClick={() => {
+                    alert('download_cv')
+                  }}>Download CV</Badge>
+              </div>
+            </div>
+
           </ContentDisplay>
         </section>
         <section className={
