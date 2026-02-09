@@ -72,7 +72,7 @@ const Dashboard = () => {
             SCROLLBAR_CONFIG,
           )
         }>
-          <ContentDisplay className="relative w-full h-full">
+          <ContentDisplay className="relative w-full h-85">
             <div className="absolute inset-0 -z-10">
               <img
                 src={images.bg}
@@ -102,7 +102,7 @@ const Dashboard = () => {
 
             <Button
               onClick={() => { alert('Get in Touch') }}
-              className="mt-16 p-4 w-40 flex hover:cursor-pointer">
+              className="mt-8 p-4 w-40 flex hover:cursor-pointer">
               <Typography variant="overline" className="">Get In Touch</Typography>
             </Button>
 
