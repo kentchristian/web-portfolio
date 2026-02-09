@@ -22,6 +22,7 @@ const ContentDisplay = ({
     }>
       {children}
     </CardContainer>
+
   )
 }
 
