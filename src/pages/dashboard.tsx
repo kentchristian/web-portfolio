@@ -11,7 +11,7 @@ import { images } from "../lib/constants/images";
 
 
 /** DEFAULT Scrollbar Config */
-const SCROLLBAR_CONFIG = "overflow-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
+const SCROLLBAR_CONFIG = "overflow-auto themed-scrollbar"
 const ICON = "bg-transparent text-black/90 dark:text-white border border-black/60 dark:border-white/70 p-1 rounded cursor-pointer hover:bg-accent/20 hover:text-black";
 
 
@@ -72,7 +72,7 @@ const Dashboard = () => {
             SCROLLBAR_CONFIG,
           )
         }>
-          <ContentDisplay className="relative w-full h-full overflow-hidden">
+          <ContentDisplay className="relative w-full h-full">
             <div className="absolute inset-0 -z-10">
               <img
                 src={images.bg}
