@@ -1,15 +1,19 @@
 import { Badge } from "../../shadcn/components/ui/badge";
+import { Button } from "../../shadcn/components/ui/button";
+import ToolTip from "../common/ToolTip";
+
 import { Typography } from "../common/Typography";
 import ContentDisplay from "../components/cards/ContentDisplay";
 import PageContainer from "../components/containers/PageContainer";
 import { cn } from "../lib/cnUtils";
 import { biography } from "../lib/constants/biography";
+import { icons } from "../lib/constants/icons";
 import { images } from "../lib/constants/images";
 
 
 /** DEFAULT Scrollbar Config */
 const SCROLLBAR_CONFIG = "overflow-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
-
+const ICON = "bg-transparent text-black/90 dark:text-white border border-black/60 dark:border-white/70 p-1 rounded cursor-pointer hover:bg-accent/20 hover:text-black";
 const Dashboard = () => {
 
   const roles = [
@@ -23,6 +27,11 @@ const Dashboard = () => {
     { amount: '500k+', desc: 'Lines of Code' }
   ]
 
+  const businessIcons = [
+    { name: 'LinkedIn', icon: icons.linkedIn, fn: () => window.open('https://www.linkedin.com/in/keysii/', '_blank') },
+    { name: 'GitHub', icon: icons.github, fn: () => window.open('https://github.com/keysii', '_blank') },
+    { name: 'Resume / CV', icon: icons.cv, fn: () => window.open('/resume.pdf', '_blank') },
+  ]
 
   return (
     <PageContainer className="h-full">
@@ -34,21 +43,26 @@ const Dashboard = () => {
           )
         }>
           <ContentDisplay className="relative w-full h-full">
-            <img src={images.profile} alt="profile-pic" className="w-full h-105 object-cover rounded-md" />
+            <img
+              src={images.lightProfPic}
+              alt="profile-pic"
+              className="w-full h-105 object-cover rounded-md block dark:hidden"
+            />
 
+            <img
+              src={images.darkProfPic}
+              alt="profile-pic"
+              className="w-full h-105 object-cover rounded-md hidden dark:block"
+            />
             {/* Overlay icons */}
-            <div className="absolute top-60 left-20 flex space-x-2 z-20">
-              <div className="bg-blue-600 text-white px-2 py-1 rounded cursor-pointer">LI</div>
-              <div className="bg-gray-800 text-white px-2 py-1 rounded cursor-pointer">GH</div>
+            <div className="absolute top-65 left-5 flex flex-col space-y-1 z-20">
+              {businessIcons.map(({ name, icon, fn }) => (
+                <ToolTip key={name} text={name}>
+                  <Button className={ICON} onClick={fn}>{icon}</Button>
+                </ToolTip>
+              ))}
             </div>
 
-            <div className="absolute top-70 left-20 flex">
-              <Badge
-                className="hover:cursor-pointer p-2"
-                onClick={() => {
-                  alert('download_cv')
-                }}>Download CV</Badge>
-            </div>
           </ContentDisplay>
         </section>
         <section className={
@@ -105,7 +119,7 @@ const Dashboard = () => {
         </section>
       </div>
 
-    </PageContainer>
+    </PageContainer >
   )
 };
 
