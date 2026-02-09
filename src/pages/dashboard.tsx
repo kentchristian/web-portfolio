@@ -1,4 +1,3 @@
-import { Badge } from "../../shadcn/components/ui/badge";
 import { Button } from "../../shadcn/components/ui/button";
 import ToolTip from "../common/ToolTip";
 
@@ -14,6 +13,8 @@ import { images } from "../lib/constants/images";
 /** DEFAULT Scrollbar Config */
 const SCROLLBAR_CONFIG = "overflow-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
 const ICON = "bg-transparent text-black/90 dark:text-white border border-black/60 dark:border-white/70 p-1 rounded cursor-pointer hover:bg-accent/20 hover:text-black";
+
+
 const Dashboard = () => {
 
   const roles = [
@@ -99,11 +100,11 @@ const Dashboard = () => {
               </div>
             ))}
 
-            <Badge
+            <Button
               onClick={() => { alert('Get in Touch') }}
               className="mt-16 p-4 w-40 flex hover:cursor-pointer">
               <Typography variant="overline" className="">Get In Touch</Typography>
-            </Badge>
+            </Button>
 
           </ContentDisplay>
           <div className="mt-2 flex flex-row h-20">

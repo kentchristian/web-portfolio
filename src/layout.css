@@ -32,6 +32,10 @@
   --ring: oklch(0.7 0 0);
 
   --radius: 0.625rem;
+
+  --button-bg: #fefefe;
+  --button-bg-hover: #e5e5e5;
+  --button-fg: #000000;
 }
 
 /* ================= DARK THEME (#020202 base) ================= */
@@ -66,6 +70,10 @@
   --border: oklch(0.18 0 0);
   --input: oklch(0.18 0 0);
   --ring: oklch(0.35 0 0);
+
+  --button-bg: #242424;
+  --button-bg-hover: #2e2e2e;
+  --button-fg: #ffffff;
 }
 
 /* ================= Tailwind Token Mapping ================= */
