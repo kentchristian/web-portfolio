@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react';
 import { toggleTheme } from './lib/utils/theming-helpers/toggleTheme';
 
 export default function MainLayout() {
-  const [theme, setTheme] = useState<string>(toggleTheme);
+  const [_theme, setTheme] = useState<string>(toggleTheme);
 
   const navigate = useNavigate();
   const handleNav = useCallback(
@@ -28,8 +28,8 @@ export default function MainLayout() {
     name: string;
   }
   const navList: navListType[] = [
+    { path: '', name: 'Home' },
     { path: 'portfolio', name: 'Porfolio' },
-    { path: '', name: 'Dashboard' },
     { path: 'contact', name: 'Contact' },
     { path: 'skills', name: 'Skills' },
     { path: 'projects', name: 'Project' },

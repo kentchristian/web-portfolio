@@ -18,7 +18,7 @@ const SCROLLBAR_CONFIG = "overflow-auto themed-scrollbar"
 const ICON = "bg-transparent text-black/90 dark:text-white border border-black/60 dark:border-white/70 p-1 rounded cursor-pointer hover:bg-accent/20 hover:text-black";
 
 
-const Dashboard = () => {
+const Home = () => {
 
   const roles = [
     biography.webDev,
@@ -116,18 +116,22 @@ const Dashboard = () => {
           </FadeIn>
 
 
-          <SlideFromRight delay={1}>
-            <div className="mt-2 flex flex-row h-20">
-              {experience.map((exp, index) => (
-                <div
-                  key={index + exp.amount}
-                  className="px-8 border-r flex flex-col items-center justify-center">
-                  <Typography variant="h4">{exp.amount}</Typography>
-                  <Typography variant="caption">{exp.desc}</Typography>
-                </div>
-              ))}
-            </div>
-          </SlideFromRight>
+          <div className="overflow-x-hidden">
+            <SlideFromRight delay={1}>
+              <div className="mt-2 flex flex-row h-20">
+                {experience.map((exp, index) => (
+                  <div
+                    key={index + exp.amount}
+                    className="px-8 border-r flex flex-col items-center justify-center"
+                  >
+                    <Typography variant="h4">{exp.amount}</Typography>
+                    <Typography variant="caption">{exp.desc}</Typography>
+                  </div>
+                ))}
+              </div>
+            </SlideFromRight>
+          </div>
+
 
         </section>
       </div>
@@ -136,4 +140,4 @@ const Dashboard = () => {
   )
 };
 
-export default Dashboard;
+export default Home;

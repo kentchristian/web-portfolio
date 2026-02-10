@@ -1,19 +1,19 @@
-import { Routes, Route } from 'react-router';
+import { Route, Routes } from 'react-router';
 import MainLayout from '../layout';
-import Dashboard from '../pages/dashboard';
 import Contact from '../pages/contact';
+import Home from '../pages/home';
 import Portfolio from '../pages/portfolio';
 import Projects from '../pages/projects';
 import Skills from '../pages/skills';
 
 
 export default function RoutesConfig() {
-  
+
 
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route index path="" key='dashboard' element={<Dashboard />} />
+        <Route index path="" key='home' element={<Home />} />
         <Route
           path="portfolio"
           element={< Portfolio />}
