@@ -10,8 +10,8 @@ import CertificationCard from "../components/cards/CertificationCard";
 import EducationCard from "../components/cards/EducationCard";
 import ExperienceCard from "../components/cards/ExperienceCard";
 import SkillsCard from "../components/cards/SkillsCard";
-import CardContainer from "../components/containers/CardContainer";
 import PageContainer from "../components/containers/PageContainer";
+import { Typography } from "../common/Typography";
 import { icons } from "../lib/constants/icons";
 
 
@@ -42,47 +42,51 @@ const Portfolio = () => {
         <section className="mx-auto w-full max-w-[92rem] space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-12">
             <FadeUpMotionProv className="xl:col-span-6">
-              <CardContainer
-                className="h-auto w-full"
-                title="Experience"
-                description="A compact timeline of work highlights, roles, and delivery impact."
-                infoText="Experience timeline with role summaries and key outcomes."
-              >
+              <section className="h-auto w-full rounded-xl p-4 shadow-sm">
+                <header className="mb-3">
+                  <Typography variant="h3">Experience</Typography>
+                  <Typography variant="caption" className="mt-1">
+                    A compact timeline of work highlights, roles, and delivery impact.
+                  </Typography>
+                </header>
                 <ExperienceCard />
-              </CardContainer>
+              </section>
             </FadeUpMotionProv>
 
             <SlideRightMotionProv className="xl:col-span-3" delay={0.08}>
-              <CardContainer
-                className="h-auto w-full"
-                title="Technical Skills"
-                description="Core stack and engineering tools used in projects."
-                infoText="Languages, frameworks, and tools currently used in development."
-              >
+              <section className="h-auto w-full rounded-xl p-4 shadow-sm">
+                <header className="mb-3">
+                  <Typography variant="h3">Technical Skills</Typography>
+                  <Typography variant="caption" className="mt-1">
+                    Core stack and engineering tools used in projects.
+                  </Typography>
+                </header>
                 <SkillsCard data={technicalSkills} className="mt-2 border p-2" />
-              </CardContainer>
+              </section>
             </SlideRightMotionProv>
 
             <SlideRightMotionProv className="xl:col-span-3" delay={0.12}>
-              <CardContainer
-                className="h-auto w-full"
-                title="Soft Skills"
-                description="Communication and execution strengths used across teams."
-                infoText="Behavioral strengths used for planning, delivery, and collaboration."
-              >
+              <section className="h-auto w-full rounded-xl p-4 shadow-sm">
+                <header className="mb-3">
+                  <Typography variant="h3">Soft Skills</Typography>
+                  <Typography variant="caption" className="mt-1">
+                    Communication and execution strengths used across teams.
+                  </Typography>
+                </header>
                 <SkillsCard data={softSkills} className="mt-2 border p-2" />
-              </CardContainer>
+              </section>
             </SlideRightMotionProv>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-12">
             <SlideLeftMotionProv className="xl:col-span-6" delay={0.12}>
-              <CardContainer
-                className="h-auto w-full"
-                title="Education"
-                description="Academic foundation and formal learning background."
-                infoText="Education history with institution, degree, and time period."
-              >
+              <section className="h-auto w-full rounded-xl p-4 shadow-sm">
+                <header className="mb-3">
+                  <Typography variant="h3">Education</Typography>
+                  <Typography variant="caption" className="mt-1">
+                    Academic foundation and formal learning background.
+                  </Typography>
+                </header>
                 <EducationCard
                   className="mt-2 w-full max-w-none p-2"
                   icon={icons.typeScript}
@@ -91,16 +95,17 @@ const Portfolio = () => {
                   startDate="2018"
                   endDate="2022"
                 />
-              </CardContainer>
+              </section>
             </SlideLeftMotionProv>
 
             <ZoomInMotionProv className="xl:col-span-6" delay={0.16}>
-              <CardContainer
-                className="h-auto w-full"
-                title="Certifications"
-                description="Validated credentials for cloud and engineering practice."
-                infoText="Professional certifications and their validity window."
-              >
+              <section className="h-auto w-full rounded-xl p-4 shadow-sm">
+                <header className="mb-3">
+                  <Typography variant="h3">Certifications</Typography>
+                  <Typography variant="caption" className="mt-1">
+                    Validated credentials for cloud and engineering practice.
+                  </Typography>
+                </header>
                 <CertificationCard
                   className="mt-2 h-auto w-full max-w-none"
                   icon={icons.typeScript}
@@ -108,7 +113,7 @@ const Portfolio = () => {
                   issuingOrganization="Amazon Web Services (AWS)"
                   issueDate="2023"
                 />
-              </CardContainer>
+              </section>
             </ZoomInMotionProv>
           </div>
         </section>
