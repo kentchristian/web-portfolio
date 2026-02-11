@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { MotionImageMotionProv } from "./DynamicMotion";
 
 interface MotionImageProps {
   children: React.ReactNode;
@@ -6,14 +6,8 @@ interface MotionImageProps {
 
 export function MotionImage({ children }: MotionImageProps) {
   return (
-    <motion.div
-      className="overflow-hidden rounded-md"
-      initial={{ opacity: 0, scale: 0.95, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
+    <MotionImageMotionProv className="overflow-hidden rounded-md">
       {children}
-    </motion.div>
+    </MotionImageMotionProv>
   );
 }

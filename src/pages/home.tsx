@@ -1,7 +1,10 @@
 import { Button } from "../../shadcn/components/ui/button";
-import { FadeIn } from "../animations/FadeIn";
-import { MotionImage } from "../animations/MotionImage";
-import { SlideFromRight } from "../animations/SlideFromRight";
+import {
+  DynamicMotionProvider,
+  FadeInMotionProv,
+  MotionImageMotionProv,
+  SideFromRightMotionProv,
+} from "../animations/DynamicMotion";
 import ToolTip from "../common/ToolTip";
 
 import { Typography } from "../common/Typography";
@@ -39,46 +42,47 @@ const Home = () => {
 
   return (
     <PageContainer className="h-full">
-      <div className="grid grid-cols-[1.5fr_3fr] h-120 ">
-        <section className={
-          cn(
-            "p-5",
-            SCROLLBAR_CONFIG,
-          )
-        }>
-          <MotionImage>
-            <ContentDisplay className="relative w-full h-full">
-              <img
-                src={images.lightProfPic}
-                alt="profile-pic"
-                className="w-full h-105 object-cover rounded-md block dark:hidden"
-              />
+      <DynamicMotionProvider>
+        <div className="grid grid-cols-[1.5fr_3fr] h-120 ">
+          <section className={
+            cn(
+              "p-5",
+              SCROLLBAR_CONFIG,
+            )
+          }>
+            <MotionImageMotionProv className="overflow-hidden rounded-md">
+              <ContentDisplay className="relative w-full h-full">
+                <img
+                  src={images.lightProfPic}
+                  alt="profile-pic"
+                  className="w-full h-105 object-cover rounded-md block dark:hidden"
+                />
 
-              <img
-                src={images.darkProfPic}
-                alt="profile-pic"
-                className="w-full h-105 object-cover rounded-md hidden dark:block"
-              />
-              {/* Overlay icons */}
-              <div className="absolute top-65 left-5 flex flex-col space-y-1 z-20">
-                {businessIcons.map(({ name, icon, fn }) => (
-                  <ToolTip key={name} text={name}>
-                    <Button className={ICON} onClick={fn}>{icon}</Button>
-                  </ToolTip>
-                ))}
-              </div>
-            </ContentDisplay>
-          </MotionImage>
+                <img
+                  src={images.darkProfPic}
+                  alt="profile-pic"
+                  className="w-full h-105 object-cover rounded-md hidden dark:block"
+                />
+                {/* Overlay icons */}
+                <div className="absolute top-65 left-5 flex flex-col space-y-1 z-20">
+                  {businessIcons.map(({ name, icon, fn }) => (
+                    <ToolTip key={name} text={name}>
+                      <Button className={ICON} onClick={fn}>{icon}</Button>
+                    </ToolTip>
+                  ))}
+                </div>
+              </ContentDisplay>
+            </MotionImageMotionProv>
 
-        </section>
-        <section className={
-          cn(
-            "p-5",
-            SCROLLBAR_CONFIG,
-          )
-        }>
-          <FadeIn>
-            <ContentDisplay className="relative w-full h-85">
+          </section>
+          <section className={
+            cn(
+              "p-5",
+              SCROLLBAR_CONFIG,
+            )
+          }>
+            <FadeInMotionProv>
+              <ContentDisplay className="relative w-full h-85">
               <div className="absolute inset-0 -z-10">
                 <img
                   src={images.bg}
@@ -112,29 +116,30 @@ const Home = () => {
                 <Typography variant="overline" className="">Get In Touch</Typography>
               </Button>
 
-            </ContentDisplay>
-          </FadeIn>
+              </ContentDisplay>
+            </FadeInMotionProv>
 
 
-          <div className="overflow-x-hidden">
-            <SlideFromRight delay={1}>
-              <div className="mt-2 flex flex-row h-20">
-                {experience.map((exp, index) => (
-                  <div
-                    key={index + exp.amount}
-                    className="px-8 border-r flex flex-col items-center justify-center"
-                  >
-                    <Typography variant="h4">{exp.amount}</Typography>
-                    <Typography variant="caption">{exp.desc}</Typography>
-                  </div>
-                ))}
-              </div>
-            </SlideFromRight>
-          </div>
+            <div className="overflow-x-hidden">
+              <SideFromRightMotionProv delay={1}>
+                <div className="mt-2 flex flex-row h-20">
+                  {experience.map((exp, index) => (
+                    <div
+                      key={index + exp.amount}
+                      className="px-8 border-r flex flex-col items-center justify-center"
+                    >
+                      <Typography variant="h4">{exp.amount}</Typography>
+                      <Typography variant="caption">{exp.desc}</Typography>
+                    </div>
+                  ))}
+                </div>
+              </SideFromRightMotionProv>
+            </div>
 
 
-        </section>
-      </div>
+          </section>
+        </div>
+      </DynamicMotionProvider>
 
     </PageContainer >
   )

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { SideFromRightMotionProv } from "./DynamicMotion";
 
 interface SlideFromRightProps {
   children: React.ReactNode;
@@ -6,13 +6,8 @@ interface SlideFromRightProps {
 }
 export function SlideFromRight({ children, delay = 0 }: SlideFromRightProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 60 }}     // start 60px to the right
-      whileInView={{ opacity: 1, x: 0 }} // slide to original position
-      viewport={{ once: true }}          // animate only once
-      transition={{ duration: 0.8, delay, ease: "easeOut" }}
-    >
+    <SideFromRightMotionProv delay={delay}>
       {children}
-    </motion.div>
+    </SideFromRightMotionProv>
   );
 }
