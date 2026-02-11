@@ -1,4 +1,6 @@
 
+import CertificationCard from "../components/cards/CertificationCard";
+import EducationCard from "../components/cards/EducationCard";
 import ExperienceCard from "../components/cards/ExperienceCard";
 import SkillsCard from "../components/cards/SkillsCard";
 import PageContainer from "../components/containers/PageContainer";
@@ -20,6 +22,20 @@ const Portfolio = () => {
     <PageContainer className="h-full">
       <ExperienceCard />
       <SkillsCard data={skillsData} className="border p-2 mt-2 w-120" />
+      <EducationCard
+        className="p-2 mt-2"
+        icon={icons.typeScript}
+        institution="University of Scient and Technology (USTP)"
+        degree="Bachelor of Science in Infrmation Technology (BSIT)"
+        startDate="2018"
+        endDate="2022" />
+      <CertificationCard
+        className="border p-2 mt-2"
+        icon={icons.typeScript}
+        certificationName="AWS Certified Solutions Architect - Associate"
+        issuingOrganization="Amazon Web Services (AWS)"
+        issueDate="2023"
+      />
     </PageContainer >
   )
 };

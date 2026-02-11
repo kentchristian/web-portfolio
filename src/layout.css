@@ -130,6 +130,28 @@
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
   }
 
+  .themed-scrollbar-hover {
+    scrollbar-width: none;
+  }
+
+  .themed-scrollbar-hover:hover,
+  .themed-scrollbar-hover:focus,
+  .themed-scrollbar-hover:focus-within {
+    scrollbar-width: thin;
+  }
+
+  .themed-scrollbar-hover::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .themed-scrollbar-hover:hover::-webkit-scrollbar,
+  .themed-scrollbar-hover:focus::-webkit-scrollbar,
+  .themed-scrollbar-hover:focus-within::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
   .themed-scrollbar::-webkit-scrollbar {
     width: 8px;
     height: 8px;

@@ -12,7 +12,7 @@ interface SkillsCardProps {
 
 const SkillsCard = ({ data, className }: SkillsCardProps) => {
   return (
-    <div className={cn("flex flex-col w-full gap-2 overflow-y-auto max-h-60 themed-scrollbar", className)}>
+    <div className={cn("flex flex-col shadow-sm w-full gap-2 overflow-y-auto max-h-60 themed-scrollbar themed-scrollbar-hover", className)}>
       {data.map(({ skill, icon }, index) => (
         <div key={skill + index} className="flex flex-row  space-x-2 items-center mb-2">
           {icon}
