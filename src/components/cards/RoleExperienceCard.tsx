@@ -41,7 +41,7 @@ const RoleExperienceCard = ({
         <Typography variant="h4">{company}</Typography>
         {icon}
       </header>
-      <Typography variant="caption" className="flex justify-end">{date}</Typography>
+      <Typography variant="caption" className="flex justify-end mx-2">{date}</Typography>
       <Typography variant="h2" className="px-4">{role}</Typography>
 
       <section className="inline-block w-full p-2 gap-2">
