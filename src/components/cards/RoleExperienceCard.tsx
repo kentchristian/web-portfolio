@@ -32,6 +32,8 @@ const RoleExperienceCard = ({
         "border border-gray-200 bg-white",
         "flex flex-col gap-2 overflow-auto scroll-thin rounded-lg",
         "shadow-sm",
+        "hover:opacity-50",
+        "hover:opacity-100!",
         "transition-all duration-300 ease-out",
         "hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02]",
         "will-change-transform"
