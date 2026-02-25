@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { Badge } from "../../../shadcn/components/ui/badge";
 import { Typography } from "../../common/Typography";
+import { cn } from "../../lib/cnUtils";
 
 interface RoleExperienceCardProps {
   role: string;
@@ -24,13 +25,24 @@ const RoleExperienceCard = ({
 }: RoleExperienceCardProps
 ) => {
   return (
-    <div className="max-h-70 border flex flex-col">
+    <div
+      className={cn(
+        "cursor-pointer",
+        "max-h-150 max-w-100",
+        "border border-gray-200 bg-white",
+        "flex flex-col gap-2 overflow-auto scroll-thin rounded-lg",
+        "shadow-sm",
+        "transition-all duration-300 ease-out",
+        "hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02]",
+        "will-change-transform"
+      )}
+    >
       <header className="flex flex-row p-2 items-center justify-between border-b shadow-sm">
         <Typography variant="h4">{company}</Typography>
         {icon}
       </header>
-      <Typography variant="caption" className="justify-end">{date}</Typography>
-      <Typography variant="h3" className="p-2">{role}</Typography>
+      <Typography variant="caption" className="flex justify-end">{date}</Typography>
+      <Typography variant="h2" className="px-4">{role}</Typography>
 
       <section className="inline-block w-full p-2 gap-2">
         {skills.map((skill) => (
@@ -40,7 +52,7 @@ const RoleExperienceCard = ({
         ))}
       </section>
 
-      <ul>
+      <ul className="list-disc pl-6 ml-6 max-h-50 overflow-auto themed-scrollbar">
         {description.map((desc, index) => (
           <li key={index} className="p-2">
             <Typography variant="body">{desc}</Typography>
@@ -57,7 +69,7 @@ const RoleExperienceCard = ({
       </footer>
 
 
-    </div>
+    </div >
   )
 }
 
