@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router';
 import MainLayout from '../layout';
 import Contact from '../pages/contact';
+import Experience from '../pages/experience';
 import Home from '../pages/home';
 import Portfolio from '../pages/portfolio';
 import Projects from '../pages/projects';
@@ -14,6 +15,7 @@ export default function RoutesConfig() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route index path="" key='home' element={<Home />} />
+        <Route path="experience" element={<Experience />} key='home' />
         <Route
           path="portfolio"
           element={< Portfolio />}
@@ -29,6 +31,7 @@ export default function RoutesConfig() {
           element={< Projects />}
           key="projects"
         />
+
         {/* <Route
           path="projects-boiler-plate"
           element={< ProjectsBoilerPlage />}

@@ -6,12 +6,12 @@ import {
   SlideRightMotionProv,
   ZoomInMotionProv,
 } from "../animations/DynamicMotion";
+import { Typography } from "../common/Typography";
 import CertificationCard from "../components/cards/CertificationCard";
 import EducationCard from "../components/cards/EducationCard";
 import ExperienceCard from "../components/cards/ExperienceCard";
 import SkillsCard from "../components/cards/SkillsCard";
 import PageContainer from "../components/containers/PageContainer";
-import { Typography } from "../common/Typography";
 import { icons } from "../lib/constants/icons";
 
 
@@ -37,21 +37,25 @@ const Portfolio = () => {
   ];
 
   return (
-    <PageContainer className="h-full">
+    <PageContainer className="h-[200vh] w-full overflow-hidden flex flex-col">
       <DynamicMotionProvider>
-        <section className="mx-auto w-full max-w-[92rem] space-y-4">
+        <FadeUpMotionProv className="xl:col-span-6 h-[50vh] flex-1 border border-red-300">
+          <section className="w-full rounded-xl p-4 flex flex-col ">
+            <header className="mb-3">
+              <Typography variant="h3">Experience</Typography>
+              <Typography variant="caption" className="mt-1">
+                A compact timeline of work highlights, roles, and delivery impact.
+              </Typography>
+            </header>
+            <ExperienceCard />
+          </section>
+        </FadeUpMotionProv>
+
+
+
+
+        <section className="mx-auto w-full max-w-368 space-y-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-12">
-            <FadeUpMotionProv className="xl:col-span-6">
-              <section className="h-auto w-full rounded-xl p-4 shadow-sm">
-                <header className="mb-3">
-                  <Typography variant="h3">Experience</Typography>
-                  <Typography variant="caption" className="mt-1">
-                    A compact timeline of work highlights, roles, and delivery impact.
-                  </Typography>
-                </header>
-                <ExperienceCard />
-              </section>
-            </FadeUpMotionProv>
 
             <SlideRightMotionProv className="xl:col-span-3" delay={0.08}>
               <section className="h-auto w-full rounded-xl p-4 shadow-sm">

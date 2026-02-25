@@ -29,6 +29,7 @@ export default function MainLayout() {
   }
   const navList: navListType[] = [
     { path: '', name: 'Home' },
+    { path: 'experience', name: 'Experience' },
     { path: 'portfolio', name: 'Porfolio' },
     { path: 'contact', name: 'Contact' },
     { path: 'skills', name: 'Skills' },

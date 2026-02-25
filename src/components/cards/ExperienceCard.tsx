@@ -66,8 +66,8 @@ const ExperienceCard = () => {
     experienceData.find((item) => item.id === activeId) ?? experienceData[0];
 
   return (
-    <div className="grid grid-cols-[1.5fr_3fr] shadow-sm">
-      <section className="themed-scrollbar themed-scrollbar-hover max-h-70 overflow-auto rounded-sm border border-r-0 p-2">
+    <div className="grid grid-cols-[1.5fr_3fr] gap-2">
+      <section className="flex flex-col items-center justify-center themed-scrollbar themed-scrollbar-hover h-50vh overflow-auto border border-red-300">
         {experienceData.map((item) => {
           const isActive = item.id === activeExperience.id;
           const isSelected = item.id === selectedId;
