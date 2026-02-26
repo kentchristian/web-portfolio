@@ -1,0 +1,88 @@
+[
+  {
+    "role": "Data Entry",
+    "company": "LGU – Manolo Fortich – Registrar Office",
+    "date": "2018",
+    "description": [
+      "Managed and organized official client records to ensure streamlined data retrieval.",
+      "Accurately encoded and maintained physical registry documents within the municipal database.",
+      "Ensured data integrity and confidentiality for sensitive governmental records."
+    ],
+    "skills": [
+      "Data Entry",
+      "Record Management",
+      "Database Maintenance",
+      "Documentation",
+      "Attention to Detail",
+      "60 WPM - 98% Accuracy"
+    ],
+    "companyUrl": "https://manolofortich.gov.ph/",
+    "icon": "lgu-manolo-fortich"
+  },
+  {
+    "role": "Startup Program Participant",
+    "company": "USTP – TechStars Startup Program",
+    "date": "2023",
+    "description": [
+      "Contributed to the strategic planning and development of a one-stop shop second-hand marketplace startup.",
+      "Participated in high-stakes startup pitch presentations and stakeholder discussions to secure buy-in.",
+      "Conducted comprehensive value proposition analysis to identify competitive advantages and customer benefits.",
+      "Collaboratively solved complex business and operational challenges within a fast-paced team environment.",
+      "Worked cross-functionally with students from diverse academic disciplines to build a holistic business model."
+    ],
+    "skills": [
+      "Strategic Planning",
+      "Value Proposition Canvas",
+      "Public Speaking",
+      "Business Development",
+      "Cross-functional Collaboration",
+      "Market Research"
+    ],
+    "companyUrl": "https://www.ustp.edu.ph/",
+    "icon": null
+  },
+  {
+    "role": "Full-Stack Developer",
+    "company": "Capstone Project – Appointment System",
+    "date": "2024",
+    "description": [
+      "Developed and integrated RESTful backend APIs to facilitate seamless communication between web and mobile platforms.",
+      "Designed and structured the system’s Entity Relationship Diagram (ERD) to ensure efficient data architecture.",
+      "Created detailed use case diagrams to define system functionality and map out user interactions.",
+      "Developed comprehensive user manuals for both web and mobile application features to enhance user onboarding.",
+      "Contributed to technical and project documentation while successfully defending the system during technical presentations."
+    ],
+    "skills": [
+      "REST API Development",
+      "System Design",
+      "ERD & Database Modeling",
+      "Technical Writing",
+      "Mobile & Web Integration",
+      "Public Speaking"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Full-Stack Developer & Technical Lead",
+    "company": "Capstone Project – Appointment System",
+    "date": "2024",
+    "description": [
+      "Developed and integrated RESTful backend APIs to facilitate seamless communication between web and mobile platforms.",
+      "Designed and structured the system’s Entity Relationship Diagram (ERD) to ensure efficient data architecture.",
+      "Created detailed use case diagrams to define system functionality and map out user interactions.",
+      "Developed comprehensive user manuals for both web and mobile application features to enhance user onboarding.",
+      "Contributed to technical and project documentation while successfully defending the system during technical presentations."
+    ],
+    "skills": [
+      "REST API Development",
+      "System Design",
+      "ERD & Database Modeling",
+      "Technical Writing",
+      "Mobile & Web Integration",
+      "Public Speaking"
+    ],
+    "companyUrl": "",
+    "icon": null
+  }
+]

@@ -3,14 +3,14 @@ import { Badge } from "../../../shadcn/components/ui/badge";
 import { Typography } from "../../common/Typography";
 import { cn } from "../../lib/cnUtils";
 
-interface RoleExperienceCardProps {
+export interface RoleExperienceCardProps {
   role: string;
   company: string;
   date: string;
   description: string[];
   skills: string[];
   companyUrl: string;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string | null;
 
 }
 
