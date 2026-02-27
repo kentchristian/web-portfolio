@@ -90,7 +90,7 @@ const Experience = () => {
   }));
 
   return (
-    <PageContainer className="w-screen space-y-6 overflow-auto bg-background text-foreground">
+    <PageContainer className="w-screen space-y-6 overflow-auto">
       <DynamicMotionProvider>
         <CytechExperienceShowcase
           company="Cytech International"
