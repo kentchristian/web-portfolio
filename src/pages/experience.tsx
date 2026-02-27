@@ -4,7 +4,7 @@ import experienceData from "../lib/data/experience-data.json"
 
 const Experience = () => {
   return (
-    <PageContainer className="gap-4 flex flex-row w-h w-screen overflow-auto">
+    <PageContainer className="gap-4 flex flex-wrap w-h w-screen overflow-auto">
       {experienceData.map((experience: RoleExperienceCardProps, index: number) => (
         <RoleExperienceCard
           key={index}

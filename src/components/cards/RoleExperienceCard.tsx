@@ -28,9 +28,9 @@ const RoleExperienceCard = ({
     <div
       className={cn(
         "cursor-pointer",
-        "max-h-150 max-w-100",
+        "h-[37.5rem] w-full max-w-[25rem]",
         "border border-gray-200 bg-white",
-        "flex flex-col gap-2 overflow-auto scroll-thin rounded-lg",
+        "flex flex-col gap-2 overflow-hidden rounded-lg",
         "shadow-sm",
         "hover:opacity-50",
         "hover:opacity-100!",
@@ -54,7 +54,7 @@ const RoleExperienceCard = ({
         ))}
       </section>
 
-      <ul className="list-disc pl-6 ml-6 max-h-50 overflow-auto themed-scrollbar">
+      <ul className="themed-scrollbar ml-6 min-h-0 flex-1 list-disc overflow-auto pl-6">
         {description.map((desc, index) => (
           <li key={index} className="p-2">
             <Typography variant="body">{desc}</Typography>
@@ -62,7 +62,7 @@ const RoleExperienceCard = ({
         ))}
       </ul>
 
-      <footer className="p-2 border-t flex justify-end items-center">
+      <footer className="mt-auto flex h-10 shrink-0 items-center justify-end border-t px-3">
         <Link to={companyUrl} target="_blank" rel="noopener noreferrer">
           <Typography variant="body-sm" className="text-blue-500 hover:underline">
             {company}

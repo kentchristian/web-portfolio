@@ -1,44 +1,185 @@
 [
   {
-    "role": "Data Entry",
-    "company": "LGU – Manolo Fortich – Registrar Office",
-    "date": "2018",
+    "role": "Technical Writer",
+    "company": "Cytech International",
+    "date": "2025 – Present",
     "description": [
-      "Managed and organized official client records to ensure streamlined data retrieval.",
-      "Accurately encoded and maintained physical registry documents within the municipal database.",
-      "Ensured data integrity and confidentiality for sensitive governmental records."
+      "Pioneered the development of a centralized documentation platform using MkDocs, supporting complex multi-versioning and seamless asset management.",
+      "Capitalized on AI agents to automate rapid documentation generation, drastically reducing manual drafting time while ensuring high technical accuracy.",
+      "Established a robust 'Docs-as-Code' workflow using Markdown (.md) to ensure documentation integrity through systematic reviews and automated testing.",
+      "Collaborated cross-functionally across the entire engineering team to meet weekly delivery targets and stakeholder requirements.",
+      "Engineered a user-friendly documentation website designed for easy collaboration and high-speed information retrieval."
     ],
     "skills": [
-      "Data Entry",
-      "Record Management",
-      "Database Maintenance",
-      "Documentation",
-      "Attention to Detail",
-      "60 WPM - 98% Accuracy"
+      "MkDocs",
+      "AI Agent Integration",
+      "Docs-as-Code",
+      "Markdown (.md)",
+      "Versioning Control",
+      "Technical Writing",
+      "Stakeholder Collaboration"
     ],
-    "companyUrl": "https://manolofortich.gov.ph/",
-    "icon": "lgu-manolo-fortich"
+    "companyUrl": "",
+    "icon": null
   },
   {
-    "role": "Startup Program Participant",
-    "company": "USTP – TechStars Startup Program",
-    "date": "2023",
+    "role": "Frontend Developer (White Labeling & Branding Systems)",
+    "company": "Cytech International",
+    "date": "December 2025",
     "description": [
-      "Contributed to the strategic planning and development of a one-stop shop second-hand marketplace startup.",
-      "Participated in high-stakes startup pitch presentations and stakeholder discussions to secure buy-in.",
-      "Conducted comprehensive value proposition analysis to identify competitive advantages and customer benefits.",
-      "Collaboratively solved complex business and operational challenges within a fast-paced team environment.",
-      "Worked cross-functionally with students from diverse academic disciplines to build a holistic business model."
+      "Architected white-labeling solutions for the entire Aquila platform, enabling dynamic UI adjustments to meet specific client branding requirements.",
+      "Developed a robust theming system to ensure the platform's visual identity aligns seamlessly with diverse client targets and brand guidelines.",
+      "Managed and optimized frontend assets and high-performance UI components tailored for a multi-tenant environment.",
+      "Refactored core platform styles to support scalable branding configurations without compromising system integrity.",
+      "Collaborated on the integration of EDR agents specifically for white-labeled email campaign delivery and asset tracking."
     ],
     "skills": [
-      "Strategic Planning",
-      "Value Proposition Canvas",
-      "Public Speaking",
-      "Business Development",
-      "Cross-functional Collaboration",
-      "Market Research"
+      "White Labeling (Multi-tenancy)",
+      "Dynamic Theming (CSS-in-JS/SASS)",
+      "Frontend Asset Management",
+      "Multi-tenant Architecture",
+      "Brand Identity Integration",
+      "UI Optimization"
     ],
-    "companyUrl": "https://www.ustp.edu.ph/",
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Micro-Frontend Developer (Security & Core Architecture)",
+    "company": "Cytech International",
+    "date": "December 2025",
+    "description": [
+      "Engineered a centralized Frontend Axios client with custom hooks to standardize secure API communication across micro-modules.",
+      "Developed automated connectivity cases for API integrations to accelerate testing cycles and ensure endpoint reliability.",
+      "Managed and integrated legacy system components into a modern micro-frontend architecture while maintaining global configuration stability.",
+      "Architected specialized Cyber Security modules and structured scalable API patterns within a decoupled ecosystem using pnpm.",
+      "Utilized react-router to optimize complex navigation and shared state management across multiple repositories."
+    ],
+    "skills": [
+      "Micro-Frontend (MFE)",
+      "Axios Client Integration",
+      "API Connectivity Testing",
+      "Custom React Hooks",
+      "Legacy Management",
+      "Cyber Security Modules"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Full-Stack Developer (Training & Development Cycle)",
+    "company": "Cytech International",
+    "date": "December 2025",
+    "description": [
+      "Engineered the backend architecture and business logic for a comprehensive Expenses Application.",
+      "Architected and deployed RESTful APIs to facilitate secure and efficient data communication.",
+      "Configured Docker environments and assisted team members with containerization setup and integration.",
+      "Developed an interactive frontend dashboard featuring robust data validation for financial tracking.",
+      "Collaborated across the full development lifecycle, from environment setup to frontend deployment."
+    ],
+    "skills": [
+      "RESTful API Development",
+      "Docker & Containerization",
+      "Backend Engineering",
+      "Frontend Dashboards",
+      "Data Validation",
+      "Full-Stack Integration"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Strategic Components & Charts Frontend Developer",
+    "company": "Cytech International",
+    "date": "December 2025",
+    "description": [
+      "Collaborated on the development of a centralized UI library using Storybook to standardize component architecture.",
+      "Partnered with Visual Designers (VD) and stakeholders to ensure component specifications met strict acceptance criteria.",
+      "Engineered complex, strategic UI components and data visualization charts for high-level business requirements.",
+      "Worked local development workflows and package management using pnpm and Rsbuild for high-performance builds.",
+      "Facilitated design-to-code handoffs by maintaining clear documentation and interactive component states."
+    ],
+    "skills": [
+      "React",
+      "Storybook",
+      "Rsbuild",
+      "pnpm",
+      "UI/UX Collaboration",
+      "Data Visualization",
+      "Component-Driven Development"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Web Developer - FE (Rapid Prototyping)",
+    "company": "Cytech International",
+    "date": "October 2025 - Present",
+    "description": [
+      "Collaborated on the strategic development of a rapid demo platform, optimizing the one-week production workflow to ensure timely delivery using stub data.",
+      "Implemented stub data architectures to simulate live environments for stakeholder demonstrations.",
+      "Executed network and data debugging to ensure seamless frontend-to-backend integration logic.",
+      "Maintained high code quality and version control standards using GitLab in a collaborative team setting.",
+      "Applied rapid problem-solving techniques to meet critical project milestones under tight time constraints."
+    ],
+    "skills": [
+      "GitLab",
+      "Rapid Prototyping",
+      "Network Debugging",
+      "Data Integration",
+      "Agile Development",
+      "Stub Data Mocking"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Web Developer",
+    "company": "Cytech International",
+    "date": "October 2025 - Present",
+    "description": [
+      "Refactored frontend scanning architecture to support concurrent multi-target requests, significantly improving batch processing efficiency.",
+      "Engineered dynamic risk response interfaces with complex data tables to visualize mitigation actions and deep-dive threat forensics.",
+      "Designed and implemented an end-to-end risk management dashboard for tracking incident responses and mitigation workflows.",
+      "Integrated OpenAI-driven sprint features to automate task prioritization and enhance development velocity.",
+      "Optimized build processes and test suites to ensure high-performance delivery across the Next.js and Django ecosystem."
+    ],
+    "skills": [
+      "Next.js & Zustand",
+      "TanStack React Query",
+      "Django REST Framework",
+      "Celery Worker",
+      "Open Project Management",
+      "GitLab",
+      "Performance Optimization",
+      "Seamless Team Collaboration",
+      "Technical Communication"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Research & Development Intern",
+    "company": "Logicbase Interactive",
+    "date": "March - May 2025",
+    "description": [
+      "Architected and developed a centralized OJT Monitoring System to streamline intern tracking and reporting workflows.",
+      "Performed rigorous Quality Assurance (QA) testing for Point of Sale (POS) systems, identifying critical bugs and ensuring software stability.",
+      "Collaborated within intern team to design and develop a web-based POS system from the ground up.",
+      "Produced digital assets, including professional video edits and graphic designs, to enhance brand storytelling.",
+      "Managed social media presence by creating creative content strategies and engaging posts to drive platform growth."
+    ],
+    "skills": [
+      "Full-Stack Web Development",
+      "Quality Assurance (QA) Testing",
+      "Software Debugging",
+      "Cross-Functional Collaboration",
+      "Video Production (CapCut Pro)",
+      "Graphic Design (Canva)",
+      "Social Media Management",
+      "Agile Teamwork"
+    ],
+    "companyUrl": "",
     "icon": null
   },
   {
@@ -64,25 +205,45 @@
     "icon": null
   },
   {
-    "role": "Full-Stack Developer & Technical Lead",
-    "company": "Capstone Project – Appointment System",
-    "date": "2024",
+    "role": "Startup Program Participant",
+    "company": "USTP – TechStars Startup Program",
+    "date": "2023",
     "description": [
-      "Developed and integrated RESTful backend APIs to facilitate seamless communication between web and mobile platforms.",
-      "Designed and structured the system’s Entity Relationship Diagram (ERD) to ensure efficient data architecture.",
-      "Created detailed use case diagrams to define system functionality and map out user interactions.",
-      "Developed comprehensive user manuals for both web and mobile application features to enhance user onboarding.",
-      "Contributed to technical and project documentation while successfully defending the system during technical presentations."
+      "Contributed to the strategic planning and development of a one-stop shop second-hand marketplace startup.",
+      "Participated in high-stakes startup pitch presentations and stakeholder discussions to secure buy-in.",
+      "Conducted comprehensive value proposition analysis to identify competitive advantages and customer benefits.",
+      "Collaboratively solved complex business and operational challenges within a fast-paced team environment.",
+      "Worked cross-functionally with students from diverse academic disciplines to build a holistic business model."
     ],
     "skills": [
-      "REST API Development",
-      "System Design",
-      "ERD & Database Modeling",
-      "Technical Writing",
-      "Mobile & Web Integration",
-      "Public Speaking"
+      "Strategic Planning",
+      "Value Proposition Canvas",
+      "Public Speaking",
+      "Business Development",
+      "Cross-functional Collaboration",
+      "Market Research"
     ],
-    "companyUrl": "",
+    "companyUrl": "https://www.ustp.edu.ph/",
     "icon": null
+  },
+  {
+    "role": "Data Entry",
+    "company": "LGU – Manolo Fortich – Registrar Office",
+    "date": "2018",
+    "description": [
+      "Managed and organized official client records to ensure streamlined data retrieval.",
+      "Accurately encoded and maintained physical registry documents within the municipal database.",
+      "Ensured data integrity and confidentiality for sensitive governmental records."
+    ],
+    "skills": [
+      "Data Entry",
+      "Record Management",
+      "Database Maintenance",
+      "Documentation",
+      "Attention to Detail",
+      "60 WPM - 98% Accuracy"
+    ],
+    "companyUrl": "https://manolofortich.gov.ph/",
+    "icon": "lgu-manolo-fortich"
   }
 ]
