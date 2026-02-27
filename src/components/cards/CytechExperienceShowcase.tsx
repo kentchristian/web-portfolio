@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Badge } from "../../../shadcn/components/ui/badge";
 import { Typography } from "../../common/Typography";
 import { cn } from "../../lib/cnUtils";
@@ -29,10 +29,6 @@ const CytechExperienceShowcase = ({
   experiences,
 }: CytechExperienceShowcaseProps) => {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const scrollingExperiences = useMemo(
-    () => [...experiences, ...experiences],
-    [experiences]
-  );
 
   useEffect(() => {
     const scroller = scrollerRef.current;
@@ -48,6 +44,7 @@ const CytechExperienceShowcase = ({
     let lastTimestamp = 0;
     let ignoreNextScrollEvent = false;
     let userControlUntil = 0;
+    let direction = 1;
     const speed = 0.05;
     const userPauseMs = 2000;
 
@@ -94,15 +91,20 @@ const CytechExperienceShowcase = ({
       lastTimestamp = timestamp;
 
       const isUserControlling = timestamp < userControlUntil;
-      const loopWidth = scroller.scrollWidth / 2;
+      const maxScrollLeft = scroller.scrollWidth - scroller.clientWidth;
 
-      if (!isUserControlling && loopWidth > scroller.clientWidth) {
+      if (!isUserControlling && maxScrollLeft > 0) {
         ignoreNextScrollEvent = true;
-        scroller.scrollLeft += delta * speed;
+        const nextScrollLeft = scroller.scrollLeft + delta * speed * direction;
 
-        // Duplicated-track loop: wrap at midpoint for seamless motion.
-        if (scroller.scrollLeft >= loopWidth) {
-          scroller.scrollLeft -= loopWidth;
+        if (nextScrollLeft >= maxScrollLeft) {
+          scroller.scrollLeft = maxScrollLeft;
+          direction = -1;
+        } else if (nextScrollLeft <= 0) {
+          scroller.scrollLeft = 0;
+          direction = 1;
+        } else {
+          scroller.scrollLeft = nextScrollLeft;
         }
       }
 
@@ -131,7 +133,7 @@ const CytechExperienceShowcase = ({
         "relative overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-md md:p-6",
         "before:pointer-events-none before:absolute before:-top-14 before:right-12 before:h-44 before:w-44 before:rounded-full before:bg-cyan-200/20 before:blur-3xl dark:before:bg-[#020202]/35",
         "after:pointer-events-none after:absolute after:-bottom-20 after:left-8 after:h-52 after:w-52 after:rounded-full after:bg-blue-200/20 after:blur-3xl dark:after:bg-[#020202]/45",
-        "max-w-[96%]"
+        "max-w-[97%]"
       )}
     >
       <div className="pointer-events-none absolute inset-0 -z-0">
@@ -183,7 +185,7 @@ const CytechExperienceShowcase = ({
             },
           }}
         >
-          {scrollingExperiences.map((experience, index) => (
+          {experiences.map((experience, index) => (
             <motion.div
               key={`${experience.role}-${experience.date}-${index}`}
               className="w-[23rem] shrink-0 md:w-[24.5rem]"
