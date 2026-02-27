@@ -20,8 +20,8 @@
       "Social Media Management",
       "Agile Teamwork"
     ],
-    "companyUrl": "",
-    "icon": null
+    "companyUrl": "https://www.logicbaseinteractive.com/",
+    "icon": "logicbase"
   },
   {
     "role": "Full-Stack Developer",
@@ -42,8 +42,8 @@
       "Mobile & Web Integration",
       "Public Speaking"
     ],
-    "companyUrl": "",
-    "icon": null
+    "companyUrl": "https://www.ustp.edu.ph/",
+    "icon": "ustp"
   },
   {
     "role": "Startup Program Participant",
@@ -65,7 +65,7 @@
       "Market Research"
     ],
     "companyUrl": "https://www.ustp.edu.ph/",
-    "icon": null
+    "icon": "ustp"
   },
   {
     "role": "Data Entry",
@@ -85,6 +85,6 @@
       "60 WPM - 98% Accuracy"
     ],
     "companyUrl": "https://manolofortich.gov.ph/",
-    "icon": "lgu-manolo-fortich"
+    "icon": "manolo"
   }
 ]

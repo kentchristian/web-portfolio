@@ -7,6 +7,7 @@ import RoleExperienceCard, { type RoleExperienceCardProps } from "./RoleExperien
 
 interface CytechExperienceShowcaseProps {
   company: string;
+  websiteUrl?: string;
   dateTag: string;
   experiences: RoleExperienceCardProps[];
 }
@@ -23,6 +24,7 @@ const revealViewport = {
 
 const CytechExperienceShowcase = ({
   company,
+  websiteUrl,
   dateTag,
   experiences,
 }: CytechExperienceShowcaseProps) => {
@@ -123,22 +125,42 @@ const CytechExperienceShowcase = ({
       viewport={revealViewport}
       transition={revealTransition}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-cyan-50 p-4 shadow-md md:p-6",
-        "before:pointer-events-none before:absolute before:-top-14 before:right-12 before:h-44 before:w-44 before:rounded-full before:bg-cyan-200/20 before:blur-3xl",
-        "after:pointer-events-none after:absolute after:-bottom-20 after:left-8 after:h-52 after:w-52 after:rounded-full after:bg-blue-200/20 after:blur-3xl"
+        "relative overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-md md:p-6",
+        "before:pointer-events-none before:absolute before:-top-14 before:right-12 before:h-44 before:w-44 before:rounded-full before:bg-cyan-200/20 before:blur-3xl dark:before:bg-[#020202]/35",
+        "after:pointer-events-none after:absolute after:-bottom-20 after:left-8 after:h-52 after:w-52 after:rounded-full after:bg-blue-200/20 after:blur-3xl dark:after:bg-[#020202]/45"
       )}
     >
+      <div className="pointer-events-none absolute inset-0 -z-0">
+        <div className="absolute inset-0 bg-linear-to-b from-white/80 via-white/65 to-white/90 dark:from-[#020202]/30 dark:via-[#020202]/45 dark:to-[#020202]/65" />
+        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_10%,rgba(255,255,255,0.5),rgba(255,255,255,0))] dark:bg-[radial-gradient(80%_60%_at_20%_10%,rgba(2,2,2,0.35),rgba(2,2,2,0))]" />
+      </div>
+
       <div className="relative z-10 mb-4 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <Typography variant="overline" className="text-slate-600">
+          <Typography variant="overline" className="text-muted-foreground">
             Company Spotlight
           </Typography>
-          <Typography variant="h2" className="text-slate-900">
+          {websiteUrl ? (
+            <Typography variant="body-sm" asChild>
+              <a
+                href={websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex text-primary underline underline-offset-2 hover:opacity-90"
+              >
+                {websiteUrl}
+              </a>
+            </Typography>
+          ) : null}
+          <Typography variant="h2">
             {company}
           </Typography>
         </div>
 
-        <Badge variant="outline" className="border-slate-300 bg-white/80 text-slate-700">
+        <Badge
+          variant="outline"
+          className="border-border bg-background text-muted-foreground"
+        >
           {dateTag}
         </Badge>
       </div>
