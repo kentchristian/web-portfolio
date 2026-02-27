@@ -62,13 +62,15 @@ const RoleExperienceCard = ({
         ))}
       </ul>
 
-      <footer className="mt-auto flex h-10 shrink-0 items-center justify-end border-t px-3">
-        <Link to={companyUrl} target="_blank" rel="noopener noreferrer">
-          <Typography variant="body-sm" className="text-blue-500 hover:underline">
-            {company}
-          </Typography>
-        </Link>
-      </footer>
+      {companyUrl ? (
+        <footer className="mt-auto flex h-10 shrink-0 items-center justify-end border-t px-3">
+          <Link to={companyUrl} target="_blank" rel="noopener noreferrer">
+            <Typography variant="body-sm" className="text-blue-500 hover:underline">
+              {company}
+            </Typography>
+          </Link>
+        </footer>
+      ) : null}
 
 
     </div >

@@ -152,6 +152,21 @@
     height: 8px;
   }
 
+  .themed-scrollbar-hover::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+
+  .themed-scrollbar-hover::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .themed-scrollbar-hover::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+
   .themed-scrollbar::-webkit-scrollbar {
     width: 8px;
     height: 8px;

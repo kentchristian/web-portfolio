@@ -1,0 +1,161 @@
+[
+  {
+    "role": "Technical Writer",
+    "company": "Cytech International",
+    "date": "2025 – Present",
+    "description": [
+      "Pioneered the development of a centralized documentation platform using MkDocs, supporting complex multi-versioning and seamless asset management.",
+      "Capitalized on AI agents to automate rapid documentation generation, drastically reducing manual drafting time while ensuring high technical accuracy.",
+      "Established a robust 'Docs-as-Code' workflow using Markdown (.md) to ensure documentation integrity through systematic reviews and automated testing.",
+      "Collaborated cross-functionally across the entire engineering team to meet weekly delivery targets and stakeholder requirements.",
+      "Engineered a user-friendly documentation website designed for easy collaboration and high-speed information retrieval."
+    ],
+    "skills": [
+      "MkDocs",
+      "AI Agent Integration",
+      "Docs-as-Code",
+      "Markdown (.md)",
+      "Versioning Control",
+      "Technical Writing",
+      "Stakeholder Collaboration"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Frontend Developer (White Labeling & Branding Systems)",
+    "company": "Cytech International",
+    "date": "December 2025",
+    "description": [
+      "Architected white-labeling solutions for the entire Aquila platform, enabling dynamic UI adjustments to meet specific client branding requirements.",
+      "Developed a robust theming system to ensure the platform's visual identity aligns seamlessly with diverse client targets and brand guidelines.",
+      "Managed and optimized frontend assets and high-performance UI components tailored for a multi-tenant environment.",
+      "Refactored core platform styles to support scalable branding configurations without compromising system integrity.",
+      "Collaborated on the integration of EDR agents specifically for white-labeled email campaign delivery and asset tracking."
+    ],
+    "skills": [
+      "White Labeling (Multi-tenancy)",
+      "Dynamic Theming (CSS-in-JS/SASS)",
+      "Frontend Asset Management",
+      "Multi-tenant Architecture",
+      "Brand Identity Integration",
+      "UI Optimization"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Micro-Frontend Developer (Security & Core Architecture)",
+    "company": "Cytech International",
+    "date": "December 2025",
+    "description": [
+      "Engineered a centralized Frontend Axios client with custom hooks to standardize secure API communication across micro-modules.",
+      "Developed automated connectivity cases for API integrations to accelerate testing cycles and ensure endpoint reliability.",
+      "Managed and integrated legacy system components into a modern micro-frontend architecture while maintaining global configuration stability.",
+      "Architected specialized Cyber Security modules and structured scalable API patterns within a decoupled ecosystem using pnpm.",
+      "Utilized react-router to optimize complex navigation and shared state management across multiple repositories."
+    ],
+    "skills": [
+      "Micro-Frontend (MFE)",
+      "Axios Client Integration",
+      "API Connectivity Testing",
+      "Custom React Hooks",
+      "Legacy Management",
+      "Cyber Security Modules"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Full-Stack Developer (Training & Development Cycle)",
+    "company": "Cytech International",
+    "date": "December 2025",
+    "description": [
+      "Engineered the backend architecture and business logic for a comprehensive Expenses Application.",
+      "Architected and deployed RESTful APIs to facilitate secure and efficient data communication.",
+      "Configured Docker environments and assisted team members with containerization setup and integration.",
+      "Developed an interactive frontend dashboard featuring robust data validation for financial tracking.",
+      "Collaborated across the full development lifecycle, from environment setup to frontend deployment."
+    ],
+    "skills": [
+      "RESTful API Development",
+      "Docker & Containerization",
+      "Backend Engineering",
+      "Frontend Dashboards",
+      "Data Validation",
+      "Full-Stack Integration"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Strategic Components & Charts Frontend Developer",
+    "company": "Cytech International",
+    "date": "December 2025",
+    "description": [
+      "Collaborated on the development of a centralized UI library using Storybook to standardize component architecture.",
+      "Partnered with Visual Designers (VD) and stakeholders to ensure component specifications met strict acceptance criteria.",
+      "Engineered complex, strategic UI components and data visualization charts for high-level business requirements.",
+      "Worked local development workflows and package management using pnpm and Rsbuild for high-performance builds.",
+      "Facilitated design-to-code handoffs by maintaining clear documentation and interactive component states."
+    ],
+    "skills": [
+      "React",
+      "Storybook",
+      "Rsbuild",
+      "pnpm",
+      "UI/UX Collaboration",
+      "Data Visualization",
+      "Component-Driven Development"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Web Developer - FE (Rapid Prototyping)",
+    "company": "Cytech International",
+    "date": "October 2025 - Present",
+    "description": [
+      "Collaborated on the strategic development of a rapid demo platform, optimizing the one-week production workflow to ensure timely delivery using stub data.",
+      "Implemented stub data architectures to simulate live environments for stakeholder demonstrations.",
+      "Executed network and data debugging to ensure seamless frontend-to-backend integration logic.",
+      "Maintained high code quality and version control standards using GitLab in a collaborative team setting.",
+      "Applied rapid problem-solving techniques to meet critical project milestones under tight time constraints."
+    ],
+    "skills": [
+      "GitLab",
+      "Rapid Prototyping",
+      "Network Debugging",
+      "Data Integration",
+      "Agile Development",
+      "Stub Data Mocking"
+    ],
+    "companyUrl": "",
+    "icon": null
+  },
+  {
+    "role": "Web Developer",
+    "company": "Cytech International",
+    "date": "October 2025 - Present",
+    "description": [
+      "Refactored frontend scanning architecture to support concurrent multi-target requests, significantly improving batch processing efficiency.",
+      "Engineered dynamic risk response interfaces with complex data tables to visualize mitigation actions and deep-dive threat forensics.",
+      "Designed and implemented an end-to-end risk management dashboard for tracking incident responses and mitigation workflows.",
+      "Integrated OpenAI-driven sprint features to automate task prioritization and enhance development velocity.",
+      "Optimized build processes and test suites to ensure high-performance delivery across the Next.js and Django ecosystem."
+    ],
+    "skills": [
+      "Next.js & Zustand",
+      "TanStack React Query",
+      "Django REST Framework",
+      "Celery Worker",
+      "Open Project Management",
+      "GitLab",
+      "Performance Optimization",
+      "Seamless Team Collaboration",
+      "Technical Communication"
+    ],
+    "companyUrl": "",
+    "icon": null
+  }
+]
