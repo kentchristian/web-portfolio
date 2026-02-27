@@ -38,13 +38,13 @@ const resolveCompanyIcon = (
     return null;
   }
 
-  const usesDarkBadge = key === "cytech";
+  const isCytech = key === "cytech";
 
   return (
     <span
       className={[
         "inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-md border p-1 shadow-sm",
-        usesDarkBadge ? "border-border bg-[#020202] p-1.5" : "border-border bg-card",
+        isCytech ? "border-border bg-card p-1.5 dark:bg-[#020202]" : "border-border bg-card",
       ].join(" ")}
     >
       <img
