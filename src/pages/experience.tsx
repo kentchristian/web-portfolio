@@ -90,7 +90,7 @@ const Experience = () => {
   }));
 
   return (
-    <PageContainer className="w-screen space-y-6 overflow-auto">
+    <PageContainer className="w-full max-w-full space-y-4 overflow-x-hidden overflow-y-auto sm:space-y-6">
       <DynamicMotionProvider>
         <CytechExperienceShowcase
           company="Cytech International"
@@ -101,7 +101,7 @@ const Experience = () => {
 
         <FadeUpMotionProv className="space-y-3">
           <Typography variant="h3">Other Experience</Typography>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3 sm:gap-4">
             {otherExperiences.map((experience, index) => (
               <SideFromRightMotionProv
                 key={`${experience.company}-${experience.role}-${index}`}

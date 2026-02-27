@@ -17,7 +17,7 @@ import { images } from "../lib/constants/images";
 
 
 /** DEFAULT Scrollbar Config */
-const SCROLLBAR_CONFIG = "overflow-auto themed-scrollbar"
+const SCROLLBAR_CONFIG = "overflow-auto themed-scrollbar";
 const ICON = "bg-transparent text-black/90 dark:text-white border border-black/60 dark:border-white/70 p-1 rounded cursor-pointer hover:bg-accent/20 hover:text-black";
 
 
@@ -41,30 +41,30 @@ const Home = () => {
   ]
 
   return (
-    <PageContainer className="h-full">
+    <PageContainer className="h-full overflow-x-hidden">
       <DynamicMotionProvider>
-        <div className="grid grid-cols-[1.5fr_3fr] h-120 ">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-[minmax(16rem,1.2fr)_2fr] md:gap-5">
           <section className={
             cn(
-              "p-5",
+              "p-3 sm:p-4 md:p-5",
               SCROLLBAR_CONFIG,
             )
           }>
             <MotionImageMotionProv className="overflow-hidden rounded-md">
-              <ContentDisplay className="relative w-full h-full">
+              <ContentDisplay className="relative h-auto min-h-[20rem] w-full overflow-hidden sm:min-h-[24rem] md:min-h-[34rem]">
                 <img
                   src={images.lightProfPic}
                   alt="profile-pic"
-                  className="w-full h-105 object-cover rounded-md block dark:hidden"
+                  className="block h-[20rem] w-full rounded-md object-cover dark:hidden sm:h-[24rem] md:h-[34rem]"
                 />
 
                 <img
                   src={images.darkProfPic}
                   alt="profile-pic"
-                  className="w-full h-105 object-cover rounded-md hidden dark:block"
+                  className="hidden h-[20rem] w-full rounded-md object-cover dark:block sm:h-[24rem] md:h-[34rem]"
                 />
                 {/* Overlay icons */}
-                <div className="absolute top-65 left-5 flex flex-col space-y-1 z-20">
+                <div className="absolute bottom-3 left-3 z-20 flex flex-col gap-1">
                   {businessIcons.map(({ name, icon, fn }) => (
                     <ToolTip key={name} text={name}>
                       <Button className={ICON} onClick={fn}>{icon}</Button>
@@ -77,12 +77,12 @@ const Home = () => {
           </section>
           <section className={
             cn(
-              "p-5",
+              "p-3 sm:p-4 md:p-5",
               SCROLLBAR_CONFIG,
             )
           }>
             <FadeInMotionProv>
-              <ContentDisplay className="relative w-full h-85">
+              <ContentDisplay className="relative h-auto min-h-[20rem] w-full sm:min-h-[22rem] md:min-h-[24rem]">
               <div className="absolute inset-0 -z-10">
                 <img
                   src={images.bg}
@@ -100,19 +100,21 @@ const Home = () => {
                 I'm also a <strong>{biography.techWriter}</strong> producing clear, structured, and versioned documentation for both users and developers. I document system architecture, technical workflows, and step-by-step guides to make projects easier to understand, maintain, and scale.
               </Typography>
 
-              {roles.map((role, index) => (
-                // Create Custom Component for Role Item
-                <div
-                  onClick={() => { alert(role) }}
-                  key={index + role}
-                  className="mt-4 mr-2 hover:cursor-pointer border rounded-md p-2 inline-block">
-                  {role}
-                </div>
-              ))}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {roles.map((role, index) => (
+                  // Create Custom Component for Role Item
+                  <div
+                    onClick={() => { alert(role) }}
+                    key={index + role}
+                    className="hover:cursor-pointer border rounded-md p-2">
+                    {role}
+                  </div>
+                ))}
+              </div>
 
               <Button
                 onClick={() => { alert('Get in Touch') }}
-                className="mt-8 p-4 w-40 flex hover:cursor-pointer">
+                className="mt-6 flex w-full max-w-44 p-4 hover:cursor-pointer">
                 <Typography variant="overline" className="">Get In Touch</Typography>
               </Button>
 
@@ -122,11 +124,15 @@ const Home = () => {
 
             <div className="overflow-x-hidden">
               <SideFromRightMotionProv delay={1}>
-                <div className="mt-2 flex flex-row h-20">
+                <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-0">
                   {experience.map((exp, index) => (
                     <div
                       key={index + exp.amount}
-                      className="px-8 border-r flex flex-col items-center justify-center"
+                      className={cn(
+                        "flex h-20 flex-col items-center justify-center rounded-md border px-4",
+                        "sm:rounded-none sm:border-y-0 sm:border-l-0 sm:border-r",
+                        index === 0 && "sm:border-l"
+                      )}
                     >
                       <Typography variant="h4">{exp.amount}</Typography>
                       <Typography variant="caption">{exp.desc}</Typography>

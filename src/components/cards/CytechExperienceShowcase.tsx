@@ -133,7 +133,7 @@ const CytechExperienceShowcase = ({
         "relative overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-md md:p-6",
         "before:pointer-events-none before:absolute before:-top-14 before:right-12 before:h-44 before:w-44 before:rounded-full before:bg-cyan-200/20 before:blur-3xl dark:before:bg-[#020202]/35",
         "after:pointer-events-none after:absolute after:-bottom-20 after:left-8 after:h-52 after:w-52 after:rounded-full after:bg-blue-200/20 after:blur-3xl dark:after:bg-[#020202]/45",
-        "max-w-[97%]"
+        "w-full max-w-full"
       )}
     >
       <div className="pointer-events-none absolute inset-0 -z-0">
@@ -188,7 +188,7 @@ const CytechExperienceShowcase = ({
           {experiences.map((experience, index) => (
             <motion.div
               key={`${experience.role}-${experience.date}-${index}`}
-              className="w-[23rem] shrink-0 md:w-[24.5rem]"
+              className="w-[18.5rem] shrink-0 sm:w-[21rem] md:w-[24.5rem]"
               variants={{
                 hidden: { opacity: 0, y: 8 },
                 visible: {

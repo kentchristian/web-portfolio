@@ -1,17 +1,41 @@
-import { Outlet, useNavigate } from 'react-router-dom';
-import './layout.css';
+import { Menu, X } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '../shadcn/components/ui/button';
 import PageContainer from './components/containers/PageContainer';
-
-import { useCallback, useState } from 'react';
+import './layout.css';
+import { cn } from './lib/cnUtils';
 import { images } from './lib/constants/images';
 import { toggleTheme } from './lib/utils/theming-helpers/toggleTheme';
 
+type NavItem = {
+  path: string;
+  name: string;
+};
+
+type ActionButton = {
+  title: string;
+  fn: () => void;
+};
+
+const navList: NavItem[] = [
+  { path: '', name: 'Home' },
+  { path: 'experience', name: 'Experience' },
+  // { path: 'portfolio', name: 'Porfolio' },
+  // { path: 'contact', name: 'Contact' },
+  // { path: 'skills', name: 'Skills' },
+  // { path: 'projects', name: 'Project' },
+  // { path: 'projects-boiler-plate', name: 'Projects BoilerPlate' },
+  // { path: 'activity-boiler-plate', name: 'Activity' }
+];
+
 export default function MainLayout() {
   const [_theme, setTheme] = useState<string>(toggleTheme);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const handleNav = useCallback(
     (path: string) => {
       navigate(path);
@@ -21,29 +45,39 @@ export default function MainLayout() {
 
   const handleThemeState = useCallback(() => {
     toggleTheme();
-    setTheme(prev => (prev === "dark" ? "light" : "dark"));
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   }, []);
 
-  type navListType = {
-    path: string;
-    name: string;
-  }
-  const navList: navListType[] = [
-    { path: '', name: 'Home' },
-    { path: 'experience', name: 'Experience' },
-    { path: 'portfolio', name: 'Porfolio' },
-    { path: 'contact', name: 'Contact' },
-    { path: 'skills', name: 'Skills' },
-    { path: 'projects', name: 'Project' },
-    { path: 'projects-boiler-plate', name: 'Projects BoilerPlate' },
-    { path: 'activity-boiler-plate', name: 'Activity' }
-  ];
+  useEffect(() => {
+    setIsDrawerOpen(false);
+  }, [location.pathname]);
 
-  type actionButtonType = {
-    title: string;
-    fn: () => void;
-  }
-  const actionButton: actionButtonType[] = [
+  useEffect(() => {
+    if (!isDrawerOpen) {
+      document.body.style.overflow = '';
+      return;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsDrawerOpen(false);
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isDrawerOpen]);
+
+  const handleNavAndClose = (path: string) => {
+    handleNav(path);
+    setIsDrawerOpen(false);
+  };
+
+  const actionButtons: ActionButton[] = [
     {
       title: 'Mode',
       fn: handleThemeState
@@ -51,53 +85,191 @@ export default function MainLayout() {
     {
       title: 'Profile',
       fn: () => {
-        alert("show-profile-dropdown")
+        alert('show-profile-dropdown');
       }
     }
   ];
 
   return (
     <>
-      <nav className="h-5rem w-full flex justify-between items-center p-6">
-        <div className="flex-3 flex flex-row items-center gap-4">
-          <button
-            type="button"
-            onClick={() => {
-              handleNav('');
-            }}
-            className="flex items-center gap-2"
-            aria-label="Go to home"
-          >
-            <img
-              src={images.keysiiLogo}
-              alt="Keysii logo"
-              className="h-10 w-10 rounded-full object-cover border"
-            />
-          </button>
-
-          {navList.map(({ path, name }: navListType) => (
-            <Button
-              key={path || "dashboard"}
+      <nav className="w-full border-b border-border bg-background/95 px-3 py-3 sm:px-4 md:px-6">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="flex items-center justify-between gap-3 md:hidden">
+            <button
+              type="button"
               onClick={() => {
-                handleNav(path)
-              }
-              }>{name}</Button>
-          ))}
-        </div>
+                handleNav('');
+              }}
+              className="flex shrink-0 items-center gap-2"
+              aria-label="Go to home"
+            >
+              <img
+                src={images.keysiiLogo}
+                alt="Keysii logo"
+                className="h-10 w-10 rounded-full border object-cover"
+              />
+            </button>
 
-        <div className="flex-1 flex flex-row gap-2 justify-end">
-          {actionButton.map((actions: actionButtonType) => (
             <Button
-              key={actions.title}
+              size="icon"
+              variant="outline"
+              type="button"
               onClick={() => {
-                actions.fn() // invoke the function defined
-              }}>{actions.title}
+                setIsDrawerOpen((prev) => !prev);
+              }}
+              aria-label={isDrawerOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-controls="mobile-navigation-drawer"
+              aria-expanded={isDrawerOpen}
+            >
+              {isDrawerOpen ? <X size={18} /> : <Menu size={18} />}
             </Button>
-          ))}
+          </div>
+
+          <div className="hidden md:flex md:items-center md:justify-between md:gap-4">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  handleNav('');
+                }}
+                className="mr-1 flex shrink-0 items-center gap-2"
+                aria-label="Go to home"
+              >
+                <img
+                  src={images.keysiiLogo}
+                  alt="Keysii logo"
+                  className="h-10 w-10 rounded-full border object-cover"
+                />
+              </button>
+
+              <div className="flex flex-1 flex-wrap gap-2">
+                {navList.map(({ path, name }: NavItem) => (
+                  <Button
+                    key={path || 'dashboard'}
+                    size="sm"
+                    className="flex-1 sm:flex-none"
+                    onClick={() => {
+                      handleNav(path);
+                    }}
+                  >
+                    {name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex w-full flex-wrap gap-2 md:w-auto md:justify-end">
+              {actionButtons.map((action: ActionButton) => (
+                <Button
+                  key={action.title}
+                  size="sm"
+                  className="flex-1 sm:flex-none"
+                  onClick={() => {
+                    action.fn();
+                  }}
+                >
+                  {action.title}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
       </nav>
-      <main>
-        <PageContainer className='border'>
+
+      <div
+        className={cn(
+          'fixed inset-0 z-50 md:hidden',
+          isDrawerOpen ? 'pointer-events-auto' : 'pointer-events-none'
+        )}
+        aria-hidden={!isDrawerOpen}
+      >
+        <button
+          type="button"
+          aria-label="Close menu overlay"
+          className={cn(
+            'absolute inset-0 bg-black/50 transition-opacity duration-300',
+            isDrawerOpen ? 'opacity-100' : 'opacity-0'
+          )}
+          onClick={() => {
+            setIsDrawerOpen(false);
+          }}
+        />
+
+        <aside
+          id="mobile-navigation-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation drawer"
+          className={cn(
+            'absolute right-0 top-0 h-full w-[82%] max-w-xs border-l border-border bg-background p-4 shadow-xl transition-transform duration-300 ease-out',
+            isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+          )}
+        >
+          <div className="mb-4 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => {
+                handleNavAndClose('');
+              }}
+              className="flex items-center gap-2"
+              aria-label="Go to home"
+            >
+              <img
+                src={images.keysiiLogo}
+                alt="Keysii logo"
+                className="h-9 w-9 rounded-full border object-cover"
+              />
+              <span className="text-sm font-semibold">Navigation</span>
+            </button>
+
+            <Button
+              size="icon-sm"
+              variant="outline"
+              type="button"
+              aria-label="Close menu"
+              onClick={() => {
+                setIsDrawerOpen(false);
+              }}
+            >
+              <X size={16} />
+            </Button>
+          </div>
+
+          <div className="space-y-2">
+            {navList.map(({ path, name }: NavItem) => (
+              <Button
+                key={`mobile-${path || 'dashboard'}`}
+                size="sm"
+                className="w-full justify-start"
+                onClick={() => {
+                  handleNavAndClose(path);
+                }}
+              >
+                {name}
+              </Button>
+            ))}
+          </div>
+
+          <div className="mt-4 border-t border-border pt-4 space-y-2">
+            {actionButtons.map((action: ActionButton) => (
+              <Button
+                key={`mobile-action-${action.title}`}
+                size="sm"
+                className="w-full justify-start"
+                onClick={() => {
+                  action.fn();
+                  setIsDrawerOpen(false);
+                }}
+              >
+                {action.title}
+              </Button>
+            ))}
+          </div>
+        </aside>
+      </div>
+
+      <main className="w-full">
+        <PageContainer className="border border-border p-3 sm:p-4 md:p-6">
           <Outlet />
         </PageContainer>
       </main>
