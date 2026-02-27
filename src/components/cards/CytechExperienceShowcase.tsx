@@ -11,6 +11,16 @@ interface CytechExperienceShowcaseProps {
   experiences: RoleExperienceCardProps[];
 }
 
+const revealTransition = {
+  duration: 0.85,
+  ease: [0.25, 0.1, 0.25, 1] as const,
+};
+
+const revealViewport = {
+  once: true,
+  amount: 0.2,
+};
+
 const CytechExperienceShowcase = ({
   company,
   dateTag,
@@ -110,8 +120,8 @@ const CytechExperienceShowcase = ({
     <motion.section
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+      viewport={revealViewport}
+      transition={revealTransition}
       className={cn(
         "relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-cyan-50 p-4 shadow-md md:p-6",
         "before:pointer-events-none before:absolute before:-top-14 before:right-12 before:h-44 before:w-44 before:rounded-full before:bg-cyan-200/20 before:blur-3xl",
@@ -139,7 +149,7 @@ const CytechExperienceShowcase = ({
           className="themed-scrollbar-hover flex gap-4 overflow-x-auto pb-3"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={revealViewport}
           variants={{
             hidden: {},
             visible: {
@@ -156,7 +166,7 @@ const CytechExperienceShowcase = ({
                 visible: {
                   opacity: 1,
                   y: 0,
-                  transition: { duration: 0.24, ease: [0.22, 1, 0.36, 1] },
+                  transition: revealTransition,
                 },
               }}
             >

@@ -1,20 +1,17 @@
-import { motion } from "framer-motion";
+import {
+  DynamicMotionProvider,
+  FadeUpMotionProv,
+  SideFromRightMotionProv,
+} from "../animations/DynamicMotion";
+import { Typography } from "../common/Typography";
 import CytechExperienceShowcase from "../components/cards/CytechExperienceShowcase";
 import RoleExperienceCard, { type RoleExperienceCardProps } from "../components/cards/RoleExperienceCard";
 import PageContainer from "../components/containers/PageContainer";
-import { Typography } from "../common/Typography";
 import cytechExperienceData from "../lib/data/cytech-experience-data.json";
 import experienceData from "../lib/data/experience-data.json";
 
-const revealTransition = {
-  duration: 0.28,
-  ease: [0.22, 1, 0.36, 1] as const,
-};
-
-const revealViewport = {
-  once: true,
-  amount: 0.22,
-};
+const CARD_STAGGER_STEP = 0.06;
+const CARD_STAGGER_MAX = 0.3;
 
 const getGeneralizedDateTag = (dates: string[]): string => {
   let hasPresent = false;
@@ -42,45 +39,35 @@ const Experience = () => {
 
   return (
     <PageContainer className="w-screen space-y-6 overflow-auto">
-      <CytechExperienceShowcase
-        company="Cytech International"
-        dateTag={getGeneralizedDateTag(cytechExperiences.map((experience) => experience.date))}
-        experiences={cytechExperiences}
-      />
+      <DynamicMotionProvider>
+        <CytechExperienceShowcase
+          company="Cytech International"
+          dateTag={getGeneralizedDateTag(cytechExperiences.map((experience) => experience.date))}
+          experiences={cytechExperiences}
+        />
 
-      <motion.section
-        className="space-y-3"
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={revealViewport}
-        transition={revealTransition}
-      >
-        <Typography variant="h3">Other Experience</Typography>
-        <div className="flex flex-wrap gap-4">
-          {otherExperiences.map((experience, index) => (
-            <motion.div
-              key={`${experience.company}-${experience.role}-${index}`}
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={revealViewport}
-              transition={{
-                ...revealTransition,
-                delay: Math.min(index * 0.05, 0.22),
-              }}
-            >
-              <RoleExperienceCard
-                role={experience.role}
-                company={experience.company}
-                date={experience.date}
-                description={experience.description}
-                skills={experience.skills}
-                companyUrl={experience.companyUrl}
-                icon={experience.icon}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
+        <FadeUpMotionProv className="space-y-3">
+          <Typography variant="h3">Other Experience</Typography>
+          <div className="flex flex-wrap gap-4">
+            {otherExperiences.map((experience, index) => (
+              <SideFromRightMotionProv
+                key={`${experience.company}-${experience.role}-${index}`}
+                delay={Math.min((index + 1) * CARD_STAGGER_STEP, CARD_STAGGER_MAX)}
+              >
+                <RoleExperienceCard
+                  role={experience.role}
+                  company={experience.company}
+                  date={experience.date}
+                  description={experience.description}
+                  skills={experience.skills}
+                  companyUrl={experience.companyUrl}
+                  icon={experience.icon}
+                />
+              </SideFromRightMotionProv>
+            ))}
+          </div>
+        </FadeUpMotionProv>
+      </DynamicMotionProvider>
     </PageContainer>
   );
 };
