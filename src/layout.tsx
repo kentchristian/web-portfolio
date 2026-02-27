@@ -5,6 +5,7 @@ import { Button } from '../shadcn/components/ui/button';
 import PageContainer from './components/containers/PageContainer';
 
 import { useCallback, useState } from 'react';
+import { images } from './lib/constants/images';
 import { toggleTheme } from './lib/utils/theming-helpers/toggleTheme';
 
 export default function MainLayout() {
@@ -58,7 +59,22 @@ export default function MainLayout() {
   return (
     <>
       <nav className="h-5rem w-full flex justify-between items-center p-6">
-        <div className="flex-3 flex flex-row gap-3">
+        <div className="flex-3 flex flex-row items-center gap-4">
+          <button
+            type="button"
+            onClick={() => {
+              handleNav('');
+            }}
+            className="flex items-center gap-2"
+            aria-label="Go to home"
+          >
+            <img
+              src={images.keysiiLogo}
+              alt="Keysii logo"
+              className="h-10 w-10 rounded-full object-cover border"
+            />
+          </button>
+
           {navList.map(({ path, name }: navListType) => (
             <Button
               key={path || "dashboard"}
