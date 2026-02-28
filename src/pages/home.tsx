@@ -51,17 +51,17 @@ const Home = () => {
             )
           }>
             <MotionImageMotionProv className="overflow-hidden rounded-md">
-              <ContentDisplay className="relative h-auto min-h-[20rem] w-full overflow-hidden sm:min-h-[24rem] md:min-h-[34rem]">
+              <ContentDisplay className="relative border-0 h-auto min-h-[15rem] w-full overflow-hidden sm:min-h-[20rem] md:min-h-[30rem]">
                 <img
                   src={images.lightProfPic}
                   alt="profile-pic"
-                  className="block h-[20rem] w-full rounded-md object-cover dark:hidden sm:h-[24rem] md:h-[34rem]"
+                  className="block h-[15rem] w-full rounded-md object-cover dark:hidden sm:h-[24rem] md:h-[34rem]"
                 />
 
                 <img
                   src={images.darkProfPic}
                   alt="profile-pic"
-                  className="hidden h-[20rem] w-full rounded-md object-cover dark:block sm:h-[24rem] md:h-[34rem]"
+                  className="hidden h-[15rem] w-full rounded-md object-cover dark:block sm:h-[24rem] md:h-[34rem]"
                 />
                 {/* Overlay icons */}
                 <div className="absolute bottom-3 left-3 z-20 flex flex-col gap-1">
@@ -83,40 +83,40 @@ const Home = () => {
           }>
             <FadeInMotionProv>
               <ContentDisplay className="relative h-auto min-h-[20rem] w-full sm:min-h-[22rem] md:min-h-[24rem]">
-              <div className="absolute inset-0 -z-10">
-                <img
-                  src={images.bg}
-                  alt="background"
-                  className="w-full h-full object-cover object-[65%_25%] opacity-30 saturate-75 brightness-110 dark:opacity-45 dark:saturate-90 dark:brightness-85"
-                />
-                <div className="absolute inset-0 bg-linear-to-b from-white/80 via-white/65 to-white/90 dark:from-[#020202]/30 dark:via-[#020202]/45 dark:to-[#020202]/65" />
-                <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_10%,rgba(255,255,255,0.5),rgba(255,255,255,0))] dark:bg-[radial-gradient(80%_60%_at_20%_10%,rgba(2,2,2,0.35),rgba(2,2,2,0))]" />
-              </div>
+                <div className="absolute inset-0 -z-10">
+                  <img
+                    src={images.bg}
+                    alt="background"
+                    className="w-full h-full object-cover object-[65%_25%] opacity-30 saturate-75 brightness-110 dark:opacity-45 dark:saturate-90 dark:brightness-85"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-b from-white/80 via-white/65 to-white/90 dark:from-[#020202]/30 dark:via-[#020202]/45 dark:to-[#020202]/65" />
+                  <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_10%,rgba(255,255,255,0.5),rgba(255,255,255,0))] dark:bg-[radial-gradient(80%_60%_at_20%_10%,rgba(2,2,2,0.35),rgba(2,2,2,0))]" />
+                </div>
 
-              <Typography variant="body" className="mt-4">
-                I'm a <strong>{biography.webDev}</strong> specializing in React and TypeScript, building scalable, maintainable, and efficient web applications. I focus on clean architecture, high performance, and future-proof solutions that turn complex requirements into reliable, production-ready systems.
-              </Typography>
-              <Typography variant="body" className="mt-4">
-                I'm also a <strong>{biography.techWriter}</strong> producing clear, structured, and versioned documentation for both users and developers. I document system architecture, technical workflows, and step-by-step guides to make projects easier to understand, maintain, and scale.
-              </Typography>
+                <Typography variant="body" className="mt-4">
+                  I'm a <strong>{biography.webDev}</strong> specializing in React and TypeScript, building scalable, maintainable, and efficient web applications. I focus on clean architecture, high performance, and future-proof solutions that turn complex requirements into reliable, production-ready systems.
+                </Typography>
+                <Typography variant="body" className="mt-4">
+                  I'm also a <strong>{biography.techWriter}</strong> producing clear, structured, and versioned documentation for both users and developers. I document system architecture, technical workflows, and step-by-step guides to make projects easier to understand, maintain, and scale.
+                </Typography>
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                {roles.map((role, index) => (
-                  // Create Custom Component for Role Item
-                  <div
-                    onClick={() => { alert(role) }}
-                    key={index + role}
-                    className="hover:cursor-pointer border rounded-md p-2">
-                    {role}
-                  </div>
-                ))}
-              </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {roles.map((role, index) => (
+                    // Create Custom Component for Role Item
+                    <div
+                      onClick={() => { alert(role) }}
+                      key={index + role}
+                      className="hover:cursor-pointer border rounded-md p-2">
+                      {role}
+                    </div>
+                  ))}
+                </div>
 
-              <Button
-                onClick={() => { alert('Get in Touch') }}
-                className="mt-6 flex w-full max-w-44 p-4 hover:cursor-pointer">
-                <Typography variant="overline" className="">Get In Touch</Typography>
-              </Button>
+                <Button
+                  onClick={() => { alert('Get in Touch') }}
+                  className="mt-6 flex w-full max-w-44 p-4 hover:cursor-pointer">
+                  <Typography variant="overline" className="">Get In Touch</Typography>
+                </Button>
 
               </ContentDisplay>
             </FadeInMotionProv>

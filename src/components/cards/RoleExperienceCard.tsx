@@ -42,7 +42,7 @@ const RoleExperienceCard = ({
     <div
       className={cn(
         "cursor-pointer",
-        "h-[37.5rem] w-full max-w-[25rem]",
+        "h-[30rem] w-full max-w-[25rem]",
         "border border-border bg-card text-card-foreground",
         "flex flex-col gap-2 overflow-hidden rounded-lg",
         "shadow-sm",
@@ -57,12 +57,12 @@ const RoleExperienceCard = ({
         <div className="min-w-0 flex-1">
           {isCompanyTruncated ? (
             <ToolTip text={company} className="min-w-40 max-w-80">
-              <Typography variant="h4" className="truncate">
+              <Typography variant="body-lg" weight={600} className="truncate leading-tight">
                 {truncatedCompany}
               </Typography>
             </ToolTip>
           ) : (
-            <Typography variant="h4" className="truncate">
+            <Typography variant="body-lg" weight={600} className="truncate leading-tight">
               {company}
             </Typography>
           )}
@@ -72,13 +72,13 @@ const RoleExperienceCard = ({
       <Typography variant="caption" className="mx-2 flex justify-end text-muted-foreground">
         {date}
       </Typography>
-      <Typography variant="h2" className="px-4">
+      <Typography variant="h4" className="px-4 leading-tight">
         {role}
       </Typography>
 
       <section className="inline-block w-full p-2 gap-2">
         {skills.map((skill) => (
-          <Badge key={skill} variant="secondary" className="m-1 gap-1">
+          <Badge key={skill} variant="secondary" className="m-1 gap-1 text-[11px]">
             {skill}
           </Badge>
         ))}
@@ -87,7 +87,7 @@ const RoleExperienceCard = ({
       <ul className="themed-scrollbar ml-6 min-h-0 flex-1 list-disc overflow-auto pl-6">
         {description.map((desc, index) => (
           <li key={index} className="p-2">
-            <Typography variant="body" className="text-muted-foreground">
+            <Typography variant="body-sm" className="leading-relaxed text-muted-foreground">
               {desc}
             </Typography>
           </li>
@@ -96,11 +96,21 @@ const RoleExperienceCard = ({
 
       {companyUrl ? (
         <footer className="mt-auto flex h-10 shrink-0 items-center justify-end border-t border-border px-3">
-          <Link to={companyUrl} target="_blank" rel="noopener noreferrer">
-            <Typography variant="body-sm" className="text-primary hover:underline">
-              {company}
-            </Typography>
-          </Link>
+          {isCompanyTruncated ? (
+            <ToolTip text={company} className="min-w-40 max-w-80">
+              <Link to={companyUrl} target="_blank" rel="noopener noreferrer" className="max-w-full">
+                <Typography variant="caption" className="max-w-[14rem] truncate text-primary hover:underline">
+                  {truncatedCompany}
+                </Typography>
+              </Link>
+            </ToolTip>
+          ) : (
+            <Link to={companyUrl} target="_blank" rel="noopener noreferrer">
+              <Typography variant="caption" className="text-primary hover:underline">
+                {company}
+              </Typography>
+            </Link>
+          )}
         </footer>
       ) : null}
 
