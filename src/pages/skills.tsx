@@ -10,10 +10,11 @@ import {
   Layers,
   MessageSquareText,
   ShieldCheck,
+  X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import type { IconType } from "react-icons";
 import { FaCode, FaGithub } from "react-icons/fa";
 import {
@@ -64,6 +65,12 @@ type Certification = {
   title: string;
   provider: string;
   year: string;
+  image: string;
+  imageAlt: string;
+  overlayImage?: string;
+  overlayImageAlt?: string;
+  certificateImage?: string;
+  certificateImageAlt?: string;
 };
 
 type GithubRepo = {
@@ -153,26 +160,46 @@ const CERTIFICATIONS: Certification[] = [
     title: "Problem Solving and Innovation",
     provider: "Wadhwani Foundation",
     year: "2025",
+    image: "/certificates/wadhwani-problem-solving.svg",
+    imageAlt: "Problem Solving and Innovation certificate preview",
+    overlayImage: "/certificates/wadhwani-problem-solving-overlay.svg",
+    overlayImageAlt: "Problem Solving and Innovation certificate full preview",
+    certificateImage: "/certificates/cert_problem_solving.jpeg",
+    certificateImageAlt: "Problem Solving and Innovation certificate",
   },
   {
     title: "Impactful Writing Skills",
     provider: "Wadhwani Foundation",
     year: "2025",
+    image: "/certificates/wadhwani-impactful-writing.svg",
+    imageAlt: "Impactful Writing Skills certificate preview",
+    overlayImage: "/certificates/wadhwani-impactful-writing-overlay.svg",
+    overlayImageAlt: "Impactful Writing Skills certificate full preview",
+    certificateImage: "/certificates/cert_impactful_writing.jpeg",
+    certificateImageAlt: "Impactful Writing Skills certificate",
   },
   {
     title: "Introduction to ITIL V4",
     provider: "Simplilearn",
     year: "2025",
+    image: "/certificates/simplilearn-itil.svg",
+    imageAlt: "Introduction to ITIL V4 certificate preview",
+    certificateImage: "/certificates/cert_simplearn.jpeg",
+    certificateImageAlt: "Introduction to ITIL V4 certificate",
   },
   {
     title: "CCNAv7: Introduction to Networks",
     provider: "Cisco Networking Academy",
     year: "2021",
+    image: "/certificates/cisco-ccna.svg",
+    imageAlt: "CCNAv7 Introduction to Networks certificate preview",
   },
   {
     title: "Techstars Startup Weekend",
     provider: "USTP, Cagayan de Oro",
     year: "2023",
+    image: "/certificates/techstars-weekend.svg",
+    imageAlt: "Techstars Startup Weekend certificate preview",
   },
 ];
 
@@ -391,6 +418,7 @@ const Skills = () => {
   const [isLanguageLoading, setIsLanguageLoading] = useState(true);
   const [languageError, setLanguageError] = useState<string | null>(null);
   const [languageNotice, setLanguageNotice] = useState<string | null>(null);
+  const [selectedCertificate, setSelectedCertificate] = useState<Certification | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -422,6 +450,27 @@ const Skills = () => {
       controller.abort();
     };
   }, []);
+
+  useEffect(() => {
+    if (!selectedCertificate) {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedCertificate(null);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [selectedCertificate]);
 
   const totalSkillEntries = useMemo(
     () => SKILL_GROUPS.reduce((total, group) => total + group.items.length, 0),
@@ -499,8 +548,8 @@ const Skills = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.45, delay: index * 0.05 }}
-                        whileHover={{ y: -2 }}
-                        className="group relative overflow-hidden rounded-xl border bg-background/65 p-4 transition-shadow hover:shadow-md"
+                        whileHover={{ y: -4, transition: { duration: 0.14, delay: 0, ease: "easeOut" } }}
+                        className="group relative overflow-hidden rounded-xl border bg-background/65 p-4 transition-shadow will-change-transform hover:shadow-md"
                       >
                         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,233,0.12),transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                         <div className="relative z-10">
@@ -544,7 +593,7 @@ const Skills = () => {
                   </Typography>
                 </header>
 
-                <ul className="space-y-3">
+                <ul className="relative flex flex-col pb-1 pt-1">
                   {CERTIFICATIONS.map((certification, index) => (
                     <motion.li
                       key={`${certification.title}-${certification.year}`}
@@ -552,18 +601,53 @@ const Skills = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, amount: 0.2 }}
                       transition={{ duration: 0.4, delay: index * 0.05 }}
-                      className="rounded-xl border bg-background/60 p-3"
+                      whileHover={{
+                        y: -18,
+                        x: 10,
+                        scale: 1.015,
+                        zIndex: 40,
+                        transition: { type: "spring", stiffness: 320, damping: 28, mass: 0.6, delay: 0 },
+                      }}
+                      style={{ zIndex: CERTIFICATIONS.length - index }}
+                      className={`${index === 0 ? "" : "-mt-16 sm:-mt-20"} group relative cursor-pointer overflow-hidden rounded-xl border bg-background/90 shadow-lg`}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Open ${certification.title} certificate preview`}
+                      onClick={() => {
+                        setSelectedCertificate(certification);
+                      }}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          setSelectedCertificate(certification);
+                        }
+                      }}
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <Typography variant="body" weight={600} className="leading-tight">
+                      <div className="absolute inset-0 bg-linear-to-br from-sky-500/10 via-transparent to-emerald-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      <div className="relative">
+                        <div className="relative h-28 w-full overflow-hidden">
+                          <img
+                            src={certification.image}
+                            alt={certification.imageAlt}
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/20 to-black/60" />
+                          <div className="absolute right-2 top-2">
+                            <Badge variant="secondary" className="backdrop-blur">
+                              {certification.year}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        <div className="relative z-10 p-3">
+                          <Typography variant="body" weight={600} className="leading-tight text-white">
                             {certification.title}
                           </Typography>
-                          <Typography variant="caption" className="mt-1 block text-muted-foreground">
+                          <Typography variant="caption" className="mt-1 block text-white/80">
                             {certification.provider}
                           </Typography>
                         </div>
-                        <Badge variant="secondary">{certification.year}</Badge>
                       </div>
                     </motion.li>
                   ))}
@@ -752,6 +836,73 @@ const Skills = () => {
             </section>
           </FadeUpMotionProv>
         </div>
+
+        <AnimatePresence>
+          {selectedCertificate ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70 p-3 sm:p-5"
+              onClick={() => {
+                setSelectedCertificate(null);
+              }}
+              role="presentation"
+            >
+              <motion.article
+                initial={{ opacity: 0, y: 24, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 12, scale: 0.97 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="w-full max-w-5xl overflow-hidden rounded-2xl border bg-card shadow-2xl"
+                role="dialog"
+                aria-modal="true"
+                aria-label={`${selectedCertificate.title} certificate`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
+                <header className="flex items-start justify-between gap-3 border-b px-4 py-3 sm:px-5">
+                  <div>
+                    <Typography variant="body-lg" weight={600}>
+                      {selectedCertificate.title}
+                    </Typography>
+                    <Typography variant="caption" className="mt-1 block text-muted-foreground">
+                      {selectedCertificate.provider} • {selectedCertificate.year}
+                    </Typography>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="inline-flex rounded-md border p-2 transition hover:bg-accent/20"
+                    aria-label="Close certificate preview"
+                    onClick={() => {
+                      setSelectedCertificate(null);
+                    }}
+                  >
+                    <X size={16} />
+                  </button>
+                </header>
+
+                <div className="p-3 sm:p-4">
+                  <img
+                    src={
+                      selectedCertificate.certificateImage ??
+                      selectedCertificate.overlayImage ??
+                      selectedCertificate.image
+                    }
+                    alt={
+                      selectedCertificate.certificateImageAlt ??
+                      selectedCertificate.overlayImageAlt ??
+                      selectedCertificate.imageAlt
+                    }
+                    className="max-h-[80vh] w-full rounded-lg border bg-muted/20 object-contain"
+                  />
+                </div>
+              </motion.article>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </DynamicMotionProvider>
     </PageContainer>
   );
