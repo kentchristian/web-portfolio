@@ -2,6 +2,7 @@ import { X } from 'lucide-react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Button } from '../../../shadcn/components/ui/button';
 import { Typography } from '../../common/Typography';
+import { sendEmailWithEmailJs } from '../../lib/services/emailjs';
 
 type ContactLink = {
   name: string;
@@ -14,6 +15,9 @@ type GetInTouchProps = {
   setIsContactModalOpen: (isOpen: boolean) => void;
   businessIcons: ContactLink[];
   recipientEmail?: string;
+  emailJsServiceId?: string;
+  emailJsTemplateId?: string;
+  emailJsPublicKey?: string;
 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,10 +27,15 @@ const GetInTouch = ({
   setIsContactModalOpen,
   businessIcons,
   recipientEmail = 'kentchristiancagadas@gmail.com',
+  emailJsServiceId = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID ?? '',
+  emailJsTemplateId = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID ?? '',
+  emailJsPublicKey = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY ?? '',
 }: GetInTouchProps) => {
   const [fromEmail, setFromEmail] = useState('');
+  const [contactSubject, setContactSubject] = useState('');
   const [contactMessage, setContactMessage] = useState('');
   const [contactError, setContactError] = useState<string | null>(null);
+  const [isSendingMessage, setIsSendingMessage] = useState(false);
 
   useEffect(() => {
     if (!isContactModalOpen) {
@@ -47,16 +56,34 @@ const GetInTouch = ({
   }, [isContactModalOpen, setIsContactModalOpen]);
 
   const handleCloseModal = () => {
+    if (isSendingMessage) {
+      return;
+    }
+
     setContactError(null);
     setIsContactModalOpen(false);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
+    if (isSendingMessage) {
+      return;
+    }
+
     const emailValue = fromEmail.trim();
+    const recipientEmailValue = recipientEmail.trim();
+    const subjectValue = contactSubject.trim();
     const messageValue = contactMessage.trim();
+    const serviceIdValue = emailJsServiceId.trim();
+    const templateIdValue = emailJsTemplateId.trim();
+    const publicKeyValue = emailJsPublicKey.trim();
 
     if (!EMAIL_PATTERN.test(emailValue)) {
       setContactError('Please provide a valid email.');
+      return;
+    }
+
+    if (subjectValue.length < 3) {
+      setContactError('Please enter a subject with at least 3 characters.');
       return;
     }
 
@@ -65,15 +92,44 @@ const GetInTouch = ({
       return;
     }
 
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${emailValue}`);
-    const body = encodeURIComponent(`From: ${emailValue}\n\n${messageValue}`);
+    if (!EMAIL_PATTERN.test(recipientEmailValue)) {
+      setContactError(
+        'Recipient email is missing/invalid. Set recipientEmail or update the default in GetInTouch.'
+      );
+      return;
+    }
 
-    window.open(`mailto:${recipientEmail}?subject=${subject}&body=${body}`, '_self');
+    if (!serviceIdValue || !templateIdValue || !publicKeyValue) {
+      setContactError(
+        'Missing EmailJS config. Set PUBLIC_EMAILJS_SERVICE_ID, PUBLIC_EMAILJS_TEMPLATE_ID, and PUBLIC_EMAILJS_PUBLIC_KEY.'
+      );
+      return;
+    }
 
-    setFromEmail('');
-    setContactMessage('');
     setContactError(null);
-    setIsContactModalOpen(false);
+    setIsSendingMessage(true);
+
+    try {
+      await sendEmailWithEmailJs({
+        serviceId: serviceIdValue,
+        templateId: templateIdValue,
+        publicKey: publicKeyValue,
+        toEmail: recipientEmailValue,
+        fromEmail: emailValue,
+        subject: subjectValue,
+        message: messageValue,
+      });
+
+      setFromEmail('');
+      setContactSubject('');
+      setContactMessage('');
+      setIsContactModalOpen(false);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unable to send message.';
+      setContactError(errorMessage);
+    } finally {
+      setIsSendingMessage(false);
+    }
   };
 
   if (!isContactModalOpen) {
@@ -107,6 +163,7 @@ const GetInTouch = ({
             size="icon-sm"
             variant="outline"
             aria-label="Close contact modal"
+            disabled={isSendingMessage}
             onClick={handleCloseModal}
           >
             <X size={16} />
@@ -121,6 +178,7 @@ const GetInTouch = ({
             id="from-email"
             type="email"
             value={fromEmail}
+            disabled={isSendingMessage}
             onChange={(event) => {
               setFromEmail(event.target.value);
               if (contactError) {
@@ -131,12 +189,31 @@ const GetInTouch = ({
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
           />
 
+          <label htmlFor="contact-subject" className="mt-1 text-sm font-medium">
+            Subject
+          </label>
+          <input
+            id="contact-subject"
+            type="text"
+            value={contactSubject}
+            disabled={isSendingMessage}
+            onChange={(event) => {
+              setContactSubject(event.target.value);
+              if (contactError) {
+                setContactError(null);
+              }
+            }}
+            placeholder="Project inquiry"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+          />
+
           <label htmlFor="contact-message" className="mt-1 text-sm font-medium">
             Message
           </label>
           <textarea
             id="contact-message"
             value={contactMessage}
+            disabled={isSendingMessage}
             onChange={(event) => {
               setContactMessage(event.target.value);
               if (contactError) {
@@ -154,8 +231,8 @@ const GetInTouch = ({
             </Typography>
           )}
 
-          <Button type="button" className="mt-2" onClick={handleSendMessage}>
-            Send Message
+          <Button type="button" className="mt-2" onClick={handleSendMessage} disabled={isSendingMessage}>
+            {isSendingMessage ? 'Sending...' : 'Send Message'}
           </Button>
         </div>
 

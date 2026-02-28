@@ -236,6 +236,7 @@ const Home = () => {
         isContactModalOpen={isContactModalOpen}
         setIsContactModalOpen={setIsContactModalOpen}
         businessIcons={businessIcons}
+        recipientEmail="kentchristiancagadas@gmail.com"
       />
 
 
