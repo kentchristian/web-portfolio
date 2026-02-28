@@ -124,6 +124,29 @@
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 420ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
+  }
+
+  .theme-switching,
+  .theme-switching *,
+  .theme-switching *::before,
+  .theme-switching *::after {
+    transition-property: background-color, color, border-color, fill, stroke, box-shadow;
+    transition-duration: 420ms !important;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+}
+
 @layer utilities {
   .themed-scrollbar {
     scrollbar-width: thin;

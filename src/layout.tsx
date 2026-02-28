@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   FaBars,
   FaBriefcase,
@@ -7,6 +7,7 @@ import {
   FaFolderOpen,
   FaHome,
   FaMoon,
+  FaSun,
   FaTimes,
   FaUser
 } from 'react-icons/fa';
@@ -19,7 +20,8 @@ import ProfileStatsModal from './components/modals/ProfileStatsModal';
 import './layout.css';
 import { cn } from './lib/cnUtils';
 import { images } from './lib/constants/images';
-import { toggleTheme } from './lib/utils/theming-helpers/toggleTheme';
+import { applyTheme } from './lib/utils/theming-helpers/applyTheme';
+import { getInitialTheme } from './lib/utils/theming-helpers/getInitialTheme';
 
 type NavItem = {
   path: string;
@@ -31,6 +33,10 @@ type ActionButton = {
   title: string;
   icon: IconType;
   fn: () => void;
+};
+
+type DocumentWithViewTransition = Document & {
+  startViewTransition?: (updateCallback: () => void) => unknown;
 };
 
 const navList: NavItem[] = [
@@ -47,9 +53,10 @@ const navList: NavItem[] = [
 ];
 
 export default function MainLayout() {
-  const [_theme, setTheme] = useState<string>(toggleTheme);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => getInitialTheme());
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isProfileStatsModalOpen, setIsProfileStatsModalOpen] = useState(false);
+  const themeTransitionTimerRef = useRef<number | null>(null);
   const menuIconSize = 24;
   const activeMenuButtonClass = 'text-foreground';
   const desktopMenuButtonClass =
@@ -66,9 +73,52 @@ export default function MainLayout() {
     [navigate]
   );
 
+  const beginThemeTransition = useCallback(() => {
+    const html = document.documentElement;
+    html.classList.add('theme-switching');
+    // Ensure transition styles are committed before changing theme tokens.
+    void html.getBoundingClientRect();
+
+    if (themeTransitionTimerRef.current) {
+      window.clearTimeout(themeTransitionTimerRef.current);
+    }
+
+    themeTransitionTimerRef.current = window.setTimeout(() => {
+      html.classList.remove('theme-switching');
+      themeTransitionTimerRef.current = null;
+    }, 460);
+  }, []);
+
   const handleThemeState = useCallback(() => {
-    toggleTheme();
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    const applyNextTheme = () => {
+      applyTheme(nextTheme);
+      setTheme(nextTheme);
+    };
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const documentWithViewTransition = document as DocumentWithViewTransition;
+
+    if (!prefersReducedMotion && documentWithViewTransition.startViewTransition) {
+      documentWithViewTransition.startViewTransition(() => {
+        applyNextTheme();
+      });
+      return;
+    }
+
+    beginThemeTransition();
+    window.requestAnimationFrame(() => {
+      applyNextTheme();
+    });
+  }, [beginThemeTransition, theme]);
+
+  useEffect(() => {
+    return () => {
+      if (themeTransitionTimerRef.current) {
+        window.clearTimeout(themeTransitionTimerRef.current);
+      }
+      document.documentElement.classList.remove('theme-switching');
+    };
   }, []);
 
   useEffect(() => {
@@ -123,11 +173,6 @@ export default function MainLayout() {
   );
 
   const actionButtons: ActionButton[] = [
-    {
-      title: 'Mode',
-      icon: FaMoon,
-      fn: handleThemeState
-    },
     {
       title: 'Profile',
       icon: FaUser,
@@ -221,6 +266,28 @@ export default function MainLayout() {
             </div>
 
             <div className="flex w-full flex-wrap gap-2 md:w-auto md:justify-end">
+              <Button
+                size="sm"
+                variant="ghost"
+                className={desktopMenuButtonClass}
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                onClick={handleThemeState}
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={theme}
+                    initial={{ rotate: theme === 'dark' ? -35 : 35, scale: 0.7, opacity: 0 }}
+                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                    exit={{ rotate: theme === 'dark' ? 35 : -35, scale: 0.7, opacity: 0 }}
+                    transition={{ duration: 0.24, ease: 'easeOut' }}
+                    className={theme === 'dark' ? 'text-amber-400' : 'text-sky-500'}
+                  >
+                    {theme === 'dark' ? <FaMoon size={menuIconSize} /> : <FaSun size={menuIconSize} />}
+                  </motion.span>
+                </AnimatePresence>
+                <span className="text-[11px] leading-none">Mode</span>
+              </Button>
+
               {actionButtons.map((action: ActionButton) => (
                 <Button
                   key={action.title}
@@ -331,6 +398,28 @@ export default function MainLayout() {
           </div>
 
           <div className="mt-4 border-t border-border pt-4 space-y-2">
+            <Button
+              size="sm"
+              variant="ghost"
+              className={mobileMenuButtonClass}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              onClick={handleThemeState}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={theme}
+                  initial={{ rotate: theme === 'dark' ? -35 : 35, scale: 0.7, opacity: 0 }}
+                  animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                  exit={{ rotate: theme === 'dark' ? 35 : -35, scale: 0.7, opacity: 0 }}
+                  transition={{ duration: 0.24, ease: 'easeOut' }}
+                  className={theme === 'dark' ? 'text-amber-400' : 'text-sky-500'}
+                >
+                  {theme === 'dark' ? <FaMoon size={menuIconSize} /> : <FaSun size={menuIconSize} />}
+                </motion.span>
+              </AnimatePresence>
+              <span className="text-sm leading-none">Mode</span>
+            </Button>
+
             {actionButtons.map((action: ActionButton) => (
               <Button
                 key={`mobile-action-${action.title}`}
