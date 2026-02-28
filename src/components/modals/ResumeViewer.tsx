@@ -1,5 +1,5 @@
 import { ExternalLink, X } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Button } from '../../../shadcn/components/ui/button';
 import { Typography } from '../../common/Typography';
 
@@ -14,6 +14,16 @@ const ResumeViewer = ({
   setIsResumeModalOpen,
   resumeSrc,
 }: ResumeViewerProps) => {
+  const embeddedResumeSrc = `${resumeSrc}#view=FitH`;
+  const resumeFileName = useMemo(() => {
+    try {
+      const parsed = new URL(resumeSrc, window.location.origin);
+      return parsed.pathname.split('/').filter(Boolean).pop() ?? 'resume.pdf';
+    } catch {
+      return 'resume.pdf';
+    }
+  }, [resumeSrc]);
+
   useEffect(() => {
     if (!isResumeModalOpen) {
       return undefined;
@@ -60,7 +70,7 @@ const ResumeViewer = ({
           <div>
             <Typography variant="h3">Resume / CV</Typography>
             <Typography variant="caption" className="text-muted-foreground">
-              Previewing 2026_CagadasKent_Resume.pdf
+              Previewing {resumeFileName}
             </Typography>
           </div>
 
@@ -87,7 +97,7 @@ const ResumeViewer = ({
         </div>
 
         <div className="h-full bg-muted/25">
-          <iframe title="Resume PDF" src={resumeSrc} className="h-full w-full" />
+          <iframe key={embeddedResumeSrc} title="Resume PDF" src={embeddedResumeSrc} className="h-full w-full" />
         </div>
       </div>
     </div>

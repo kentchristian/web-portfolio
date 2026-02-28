@@ -26,7 +26,7 @@ import experienceData from '../lib/data/experience-data.json';
 
 /** DEFAULT Scrollbar Config */
 const SCROLLBAR_CONFIG = 'overflow-auto themed-scrollbar';
-const RESUME_FILE_PATH = '/2026_CagadasKent_Resume.pdf';
+const RESUME_FILE_PATH = `${import.meta.env.BASE_URL}2026_CagadasKent_Resume.pdf?v=20260228-2230`;
 const SOCIAL_BUTTON_CLASS =
   'size-10 rounded-full border border-white/55 bg-black/30 text-white shadow-sm backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:cursor-pointer hover:bg-black/45';
 
