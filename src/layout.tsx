@@ -53,7 +53,7 @@ export default function MainLayout() {
   const desktopMenuButtonClass =
     'relative h-auto w-15 flex-col gap-1.5 rounded-none border-b-2 border-b-transparent py-2 transition-colors duration-200 hover:bg-transparent hover:text-muted-foreground';
   const mobileMenuButtonClass =
-    'relative h-auto w-full flex-col gap-1.5 rounded-none border-b-2 border-b-transparent py-3 transition-colors duration-200 hover:bg-transparent hover:text-muted-foreground';
+    'relative h-auto w-full justify-start gap-2 rounded-none border-b-2 border-b-transparent py-3 transition-colors duration-200 hover:bg-transparent hover:text-muted-foreground';
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -315,7 +315,7 @@ export default function MainLayout() {
                   }}
                 >
                   <Icon size={menuIconSize} />
-                  <span className="text-[11px] leading-none">{name}</span>
+                  <span className="text-sm leading-none">{name}</span>
                   {isActive ? (
                     <motion.span
                       layoutId="mobile-nav-active-line"
@@ -328,7 +328,7 @@ export default function MainLayout() {
             })}
           </div>
 
-          <div className="flex flex-row mt-4 border-t border-border pt-4 space-y-1">
+          <div className="mt-4 border-t border-border pt-4 space-y-2">
             {actionButtons.map((action: ActionButton) => (
               <Button
                 key={`mobile-action-${action.title}`}
@@ -342,7 +342,7 @@ export default function MainLayout() {
                 }}
               >
                 <action.icon size={menuIconSize} />
-                <span className="text-[11px] leading-none">{action.title}</span>
+                <span className="text-sm leading-none">{action.title}</span>
               </Button>
             ))}
           </div>
