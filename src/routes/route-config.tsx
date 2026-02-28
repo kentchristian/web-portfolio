@@ -4,33 +4,20 @@ import Contact from '../pages/contact';
 import Experience from '../pages/experience';
 import Home from '../pages/home';
 import Portfolio from '../pages/portfolio';
+import Profile from '../pages/Profile';
 import Projects from '../pages/projects';
 import Skills from '../pages/skills';
 
-
 export default function RoutesConfig() {
-
-
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route index path="" key='home' element={<Home />} />
-        <Route path="experience" element={<Experience />} key='home' />
-        <Route
-          path="portfolio"
-          element={< Portfolio />}
-          key="portfolio"
-        />
-        <Route
-          path="contact"
-          element={< Contact />}
-          key="contact"
-        />
-        <Route
-          path="projects"
-          element={< Projects />}
-          key="projects"
-        />
+        <Route index path="" key="home" element={<Home />} />
+        <Route path="experience" element={<Experience />} key="home" />
+        <Route path="portfolio" element={<Portfolio />} key="portfolio" />
+        <Route path="profile" element={<Profile />} key="profile" />
+        <Route path="contact" element={<Contact />} key="contact" />
+        <Route path="projects" element={<Projects />} key="projects" />
 
         {/* <Route
           path="projects-boiler-plate"
@@ -42,11 +29,7 @@ export default function RoutesConfig() {
           element={< ActivityBoilerPlate />}
           key="activity-boiler-plate"
         /> */}
-        <Route
-          path="skills"
-          element={< Skills />}
-          key="skills"
-        />
+        <Route path="skills" element={<Skills />} key="skills" />
         {/* <Route path="about" element={<About />} /> */}
       </Route>
     </Routes>
