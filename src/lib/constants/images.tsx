@@ -3,6 +3,7 @@ import bg from "../../../public/bg-image.jpeg";
 import darkProfPic from "../../../public/dark-prof-pic.jpeg";
 import keysiiLogo from "../../../public/keysii_logo.jpeg";
 import lightProfPic from "../../../public/light-prof-pic.png";
+import profPic from "../../../public/prof-pic.png";
 
 
 export const images = {
@@ -10,4 +11,5 @@ export const images = {
   darkProfPic: darkProfPic,
   bg: bg,
   keysiiLogo: keysiiLogo,
+  profPic: profPic,
 }

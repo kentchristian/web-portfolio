@@ -15,6 +15,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '../shadcn/components/ui/button';
 import PageContainer from './components/containers/PageContainer';
+import ProfileStatsModal from './components/modals/ProfileStatsModal';
 import './layout.css';
 import { cn } from './lib/cnUtils';
 import { images } from './lib/constants/images';
@@ -48,6 +49,7 @@ const navList: NavItem[] = [
 export default function MainLayout() {
   const [_theme, setTheme] = useState<string>(toggleTheme);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isProfileStatsModalOpen, setIsProfileStatsModalOpen] = useState(false);
   const menuIconSize = 24;
   const activeMenuButtonClass = 'text-foreground';
   const desktopMenuButtonClass =
@@ -130,7 +132,7 @@ export default function MainLayout() {
       title: 'Profile',
       icon: FaUser,
       fn: () => {
-        alert('show-profile-dropdown');
+        setIsProfileStatsModalOpen(true);
       }
     }
   ];
@@ -356,6 +358,10 @@ export default function MainLayout() {
       </main>
 
       <footer />
+      <ProfileStatsModal
+        isOpen={isProfileStatsModalOpen}
+        setIsOpen={setIsProfileStatsModalOpen}
+      />
     </>
   );
 }

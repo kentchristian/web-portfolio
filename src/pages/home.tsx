@@ -1,5 +1,5 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type KeyboardEvent, type MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../shadcn/components/ui/button';
 import {
@@ -14,6 +14,7 @@ import { Typography } from '../common/Typography';
 import ContentDisplay from '../components/cards/ContentDisplay';
 import PageContainer from '../components/containers/PageContainer';
 import GetInTouch from '../components/modals/GetInTouch';
+import ProfileStatsModal from '../components/modals/ProfileStatsModal';
 import ResumeViewer from '../components/modals/ResumeViewer';
 import { cn } from '../lib/cnUtils';
 import { biography } from '../lib/constants/biography';
@@ -39,6 +40,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+  const [isProfileStatsModalOpen, setIsProfileStatsModalOpen] = useState(false);
 
   const roles = [
     biography.webDev,
@@ -77,6 +79,30 @@ const Home = () => {
     },
   ];
 
+  const shouldIgnoreProfileModalOpen = (target: EventTarget | null) =>
+    target instanceof HTMLElement &&
+    Boolean(target.closest('button') || target.closest('a') || target.closest('input'));
+
+  const handleProfileCardClick = (event: MouseEvent<HTMLElement>) => {
+    if (shouldIgnoreProfileModalOpen(event.target)) {
+      return;
+    }
+    setIsProfileStatsModalOpen(true);
+  };
+
+  const handleProfileCardKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    if (shouldIgnoreProfileModalOpen(event.target)) {
+      return;
+    }
+
+    event.preventDefault();
+    setIsProfileStatsModalOpen(true);
+  };
+
   return (
     <PageContainer className="h-full overflow-x-hidden">
       <DynamicMotionProvider>
@@ -88,59 +114,80 @@ const Home = () => {
             )
           }>
             <MotionImageMotionProv className="overflow-hidden rounded-xl">
-              <ContentDisplay className="relative !h-auto min-h-[22rem] !w-full overflow-hidden border-0 !p-0 sm:min-h-[26rem] md:min-h-[32rem]">
-                <img
-                  src={images.lightProfPic}
-                  alt="profile-pic"
-                  className="absolute inset-0 block h-full w-full object-cover object-center dark:hidden"
-                />
+              <div
+                role="button"
+                tabIndex={0}
+                aria-label="Open profile web stats"
+                onClick={handleProfileCardClick}
+                onKeyDown={handleProfileCardKeyDown}
+                className="cursor-pointer"
+              >
+                <ContentDisplay className="relative !h-auto min-h-[22rem] !w-full overflow-hidden border-0 !p-0 sm:min-h-[26rem] md:min-h-[32rem]">
+                  <img
+                    src={images.lightProfPic}
+                    alt="profile-pic"
+                    className="absolute inset-0 block h-full w-full object-cover object-center dark:hidden"
+                  />
 
-                <img
-                  src={images.darkProfPic}
-                  alt="profile-pic"
-                  className="absolute inset-0 hidden h-full w-full object-cover object-center dark:block"
-                />
+                  <img
+                    src={images.darkProfPic}
+                    alt="profile-pic"
+                    className="absolute inset-0 hidden h-full w-full object-cover object-center dark:block"
+                  />
 
-                <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/25 to-black/75" />
+                  <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/25 to-black/75" />
 
-                <span className="absolute left-4 top-4 z-20 inline-flex w-fit items-center gap-2 rounded-full border border-white/50 bg-black/30 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur-sm sm:left-6 sm:top-6">
-                  <Sparkles size={13} />
-                  Open For Collaboration
-                </span>
+                  <span className="absolute left-4 top-4 z-20 inline-flex w-fit items-center gap-2 rounded-full border border-white/50 bg-black/30 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur-sm sm:left-6 sm:top-6">
+                    <Sparkles size={13} />
+                    Open For Collaboration
+                  </span>
 
-                <div className="mt-60 relative z-10 flex h-full flex-col justify-end gap-4 p-4 sm:p-6">
-                  <div>
-                    <Typography variant="h2" className="text-white">Kent Christian</Typography>
-                    <Typography variant="body-sm" className="mt-2 max-w-sm text-white/90">
-                      Building scalable web applications with clean architecture, smooth UX, and production-grade reliability.
-                    </Typography>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {businessIcons.map(({ name, icon, fn }) => (
-                      <ToolTip key={name} text={name}>
-                        <Button
-                          type="button"
-                          className={SOCIAL_BUTTON_CLASS}
-                          onClick={fn}
-                          aria-label={name}
-                        >
-                          {icon}
-                        </Button>
-                      </ToolTip>
-                    ))}
-                  </div>
                   <Button
                     type="button"
-                    className="w-fit"
+                    size="sm"
+                    variant="outline"
+                    className="absolute right-4 top-4 z-20 border-white/50 bg-black/35 text-white backdrop-blur-sm hover:bg-black/50 sm:right-6 sm:top-6"
                     onClick={() => {
-                      setIsContactModalOpen(true);
+                      setIsProfileStatsModalOpen(true);
                     }}
                   >
-                    Get in Touch
+                    Profile Stats
                   </Button>
-                </div>
-              </ContentDisplay>
+
+                  <div className="mt-60 relative z-10 flex h-full flex-col justify-end gap-4 p-4 sm:p-6">
+                    <div>
+                      <Typography variant="h2" className="text-white">Kent Christian</Typography>
+                      <Typography variant="body-sm" className="mt-2 max-w-sm text-white/90">
+                        Building scalable web applications with clean architecture, smooth UX, and production-grade reliability.
+                      </Typography>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {businessIcons.map(({ name, icon, fn }) => (
+                        <ToolTip key={name} text={name}>
+                          <Button
+                            type="button"
+                            className={SOCIAL_BUTTON_CLASS}
+                            onClick={fn}
+                            aria-label={name}
+                          >
+                            {icon}
+                          </Button>
+                        </ToolTip>
+                      ))}
+                    </div>
+                    <Button
+                      type="button"
+                      className="w-fit"
+                      onClick={() => {
+                        setIsContactModalOpen(true);
+                      }}
+                    >
+                      Get in Touch
+                    </Button>
+                  </div>
+                </ContentDisplay>
+              </div>
             </MotionImageMotionProv>
 
           </section>
@@ -252,6 +299,10 @@ const Home = () => {
         isResumeModalOpen={isResumeModalOpen}
         setIsResumeModalOpen={setIsResumeModalOpen}
         resumeSrc={RESUME_FILE_PATH}
+      />
+      <ProfileStatsModal
+        isOpen={isProfileStatsModalOpen}
+        setIsOpen={setIsProfileStatsModalOpen}
       />
 
 
