@@ -193,6 +193,8 @@ const CERTIFICATIONS: Certification[] = [
     year: "2021",
     image: "/certificates/cisco-ccna.svg",
     imageAlt: "CCNAv7 Introduction to Networks certificate preview",
+    certificateImage: "/certificates/cert_ccn_intro.jpeg",
+    certificateImageAlt: "CCNAv7 Introduction to Networks certificate",
   },
   {
     title: "Techstars Startup Weekend",
