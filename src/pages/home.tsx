@@ -142,18 +142,6 @@ const Home = () => {
                     Open For Collaboration
                   </span>
 
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    className="absolute right-4 top-4 z-20 border-white/50 bg-black/35 text-white backdrop-blur-sm hover:bg-black/50 sm:right-6 sm:top-6"
-                    onClick={() => {
-                      setIsProfileStatsModalOpen(true);
-                    }}
-                  >
-                    Profile Stats
-                  </Button>
-
                   <div className="mt-60 relative z-10 flex h-full flex-col justify-end gap-4 p-4 sm:p-6">
                     <div>
                       <Typography variant="h2" className="text-white">Kent Christian</Typography>

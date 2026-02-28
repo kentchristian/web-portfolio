@@ -2,7 +2,6 @@ import {
   Award,
   BookText,
   Braces,
-  ChartColumnBig,
   Database,
   FileCode2,
   GitBranch,
@@ -15,6 +14,23 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import type { IconType } from "react-icons";
+import { FaCode, FaGithub } from "react-icons/fa";
+import {
+  SiCplusplus,
+  SiCss3,
+  SiGo,
+  SiHtml5,
+  SiJavascript,
+  SiKotlin,
+  SiOpenjdk,
+  SiPhp,
+  SiPython,
+  SiRuby,
+  SiRust,
+  SiSwift,
+  SiTypescript,
+} from "react-icons/si";
 import { Badge } from "../../shadcn/components/ui/badge";
 import {
   DynamicMotionProvider,
@@ -39,6 +55,9 @@ type DomainScore = {
   label: string;
   score: number;
   rationale: string;
+  icon: LucideIcon;
+  iconClassName: string;
+  barClassName: string;
 };
 
 type Certification = {
@@ -56,6 +75,13 @@ type LanguageMetric = {
   language: string;
   count: number;
   share: number;
+};
+
+type LanguageTheme = {
+  icon: IconType;
+  chipClassName: string;
+  barClassName: string;
+  shareClassName: string;
 };
 
 type GithubSignalResult = {
@@ -156,37 +182,134 @@ const DOMAIN_SCORES: DomainScore[] = [
     score: 92,
     rationale:
       "Driven by JavaScript, React, Next.js, Laravel, Django, REST APIs, and micro-frontend architecture experience.",
+    icon: Globe2,
+    iconClassName: "border-sky-500/35 bg-sky-500/15 text-sky-700 dark:text-sky-300",
+    barClassName: "from-sky-500 via-cyan-500 to-blue-500",
   },
   {
     label: "Architecture & Delivery",
     score: 87,
     rationale:
       "Grounded in MFE concepts, API design, Storybook workflows, Rsbuild, Docker, and platform delivery through Vercel/GitHub Pages.",
+    icon: Layers,
+    iconClassName: "border-indigo-500/35 bg-indigo-500/15 text-indigo-700 dark:text-indigo-300",
+    barClassName: "from-indigo-500 via-blue-500 to-cyan-500",
   },
   {
     label: "Documentation & Technical Writing",
     score: 89,
     rationale: "Backed by technical writing, docs-as-code practices, MkDocs, and markdown-first documentation workflows.",
+    icon: BookText,
+    iconClassName: "border-emerald-500/35 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
+    barClassName: "from-emerald-500 via-teal-500 to-lime-500",
   },
   {
     label: "Communication & Collaboration",
     score: 86,
     rationale: "Reflected through technical communication, collaboration habits, and structured stakeholder-facing writing.",
+    icon: MessageSquareText,
+    iconClassName: "border-fuchsia-500/35 bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300",
+    barClassName: "from-fuchsia-500 via-pink-500 to-rose-500",
   },
   {
     label: "Networking & Security",
     score: 79,
     rationale: "Supported by IP addressing, VLANs, ACLs, firewall setup, and Cisco routing/switching foundations.",
+    icon: ShieldCheck,
+    iconClassName: "border-amber-500/35 bg-amber-500/15 text-amber-700 dark:text-amber-300",
+    barClassName: "from-amber-500 via-orange-500 to-red-500",
   },
 ];
 
-const LANGUAGE_GRADIENTS = [
-  "from-sky-500 via-cyan-500 to-teal-500",
-  "from-indigo-500 via-blue-500 to-cyan-500",
-  "from-amber-500 via-orange-500 to-red-500",
-  "from-emerald-500 via-lime-500 to-green-500",
-  "from-fuchsia-500 via-pink-500 to-rose-500",
-];
+const LANGUAGE_THEMES: Record<string, LanguageTheme> = {
+  JavaScript: {
+    icon: SiJavascript,
+    chipClassName: "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    barClassName: "from-amber-400 via-yellow-400 to-amber-500",
+    shareClassName: "text-amber-700 dark:text-amber-300",
+  },
+  TypeScript: {
+    icon: SiTypescript,
+    chipClassName: "border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+    barClassName: "from-blue-500 via-sky-500 to-cyan-500",
+    shareClassName: "text-sky-700 dark:text-sky-300",
+  },
+  PHP: {
+    icon: SiPhp,
+    chipClassName: "border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300",
+    barClassName: "from-indigo-500 via-violet-500 to-blue-500",
+    shareClassName: "text-indigo-700 dark:text-indigo-300",
+  },
+  Python: {
+    icon: SiPython,
+    chipClassName: "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+    barClassName: "from-emerald-500 via-teal-500 to-cyan-500",
+    shareClassName: "text-emerald-700 dark:text-emerald-300",
+  },
+  Java: {
+    icon: SiOpenjdk,
+    chipClassName: "border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300",
+    barClassName: "from-orange-500 via-red-500 to-rose-500",
+    shareClassName: "text-orange-700 dark:text-orange-300",
+  },
+  HTML: {
+    icon: SiHtml5,
+    chipClassName: "border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+    barClassName: "from-rose-500 via-orange-500 to-amber-500",
+    shareClassName: "text-rose-700 dark:text-rose-300",
+  },
+  CSS: {
+    icon: SiCss3,
+    chipClassName: "border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
+    barClassName: "from-cyan-500 via-blue-500 to-indigo-500",
+    shareClassName: "text-cyan-700 dark:text-cyan-300",
+  },
+  Go: {
+    icon: SiGo,
+    chipClassName: "border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300",
+    barClassName: "from-teal-500 via-cyan-500 to-blue-500",
+    shareClassName: "text-teal-700 dark:text-teal-300",
+  },
+  Rust: {
+    icon: SiRust,
+    chipClassName: "border-stone-500/40 bg-stone-500/10 text-stone-700 dark:text-stone-300",
+    barClassName: "from-stone-500 via-amber-500 to-orange-500",
+    shareClassName: "text-stone-700 dark:text-stone-300",
+  },
+  Ruby: {
+    icon: SiRuby,
+    chipClassName: "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300",
+    barClassName: "from-red-500 via-rose-500 to-fuchsia-500",
+    shareClassName: "text-red-700 dark:text-red-300",
+  },
+  Kotlin: {
+    icon: SiKotlin,
+    chipClassName: "border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300",
+    barClassName: "from-violet-500 via-fuchsia-500 to-pink-500",
+    shareClassName: "text-violet-700 dark:text-violet-300",
+  },
+  Swift: {
+    icon: SiSwift,
+    chipClassName: "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    barClassName: "from-amber-500 via-orange-500 to-red-500",
+    shareClassName: "text-amber-700 dark:text-amber-300",
+  },
+  "C++": {
+    icon: SiCplusplus,
+    chipClassName: "border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300",
+    barClassName: "from-blue-500 via-indigo-500 to-violet-500",
+    shareClassName: "text-blue-700 dark:text-blue-300",
+  },
+};
+
+const DEFAULT_LANGUAGE_THEME: LanguageTheme = {
+  icon: FaCode,
+  chipClassName: "border-muted-foreground/30 bg-muted/30 text-foreground",
+  barClassName: "from-slate-500 via-slate-400 to-slate-500",
+  shareClassName: "text-muted-foreground",
+};
+
+const getLanguageTheme = (language: string): LanguageTheme => LANGUAGE_THEMES[language] ?? DEFAULT_LANGUAGE_THEME;
 
 const FALLBACK_LANGUAGE_METRICS: LanguageMetric[] = [
   { language: "JavaScript", count: 4, share: 40 },
@@ -305,6 +428,8 @@ const Skills = () => {
     []
   );
   const topGithubLanguage = languageMetrics[0]?.language ?? "Unavailable";
+  const topLanguageTheme = getLanguageTheme(topGithubLanguage);
+  const TopLanguageIcon = topLanguageTheme.icon;
 
   return (
     <PageContainer className="h-full overflow-x-hidden">
@@ -340,7 +465,14 @@ const Skills = () => {
                     <Typography variant="body-sm" className="text-muted-foreground">
                       Top GitHub Language
                     </Typography>
-                    <Typography variant="h4">{topGithubLanguage}</Typography>
+                    <div className="mt-1 flex items-center gap-2">
+                      <span
+                        className={`inline-flex size-6 items-center justify-center rounded-md border ${topLanguageTheme.chipClassName}`}
+                      >
+                        <TopLanguageIcon size={13} />
+                      </span>
+                      <Typography variant="h4">{topGithubLanguage}</Typography>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -466,6 +598,11 @@ const Skills = () => {
                     <div key={domain.label} className="space-y-1.5">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex items-center gap-2">
+                          <span
+                            className={`inline-flex size-6 items-center justify-center rounded-md border ${domain.iconClassName}`}
+                          >
+                            <domain.icon size={14} />
+                          </span>
                           <Typography variant="body" weight={600}>
                             {domain.label}
                           </Typography>
@@ -490,7 +627,7 @@ const Skills = () => {
                           whileInView={{ width: `${domain.score}%` }}
                           viewport={{ once: true, amount: 0.8 }}
                           transition={{ duration: 0.75, delay: index * 0.08 }}
-                          className={`h-full rounded-full bg-linear-to-r ${LANGUAGE_GRADIENTS[index % LANGUAGE_GRADIENTS.length]}`}
+                          className={`h-full rounded-full bg-linear-to-r ${domain.barClassName}`}
                         />
                       </div>
                     </div>
@@ -503,7 +640,7 @@ const Skills = () => {
               <article className="h-full rounded-2xl border bg-card p-4 shadow-sm sm:p-5">
                 <header className="mb-5 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
-                    <Globe2 size={18} />
+                    <FaGithub size={18} />
                     <Typography variant="h3">GitHub Language Signal</Typography>
                   </div>
                   <ToolTip text="Computed from public repositories using the primary language field per repo. Forked repositories are excluded to better represent authored work.">
@@ -528,40 +665,45 @@ const Skills = () => {
                   </div>
                 ) : languageMetrics.length > 0 ? (
                   <div className="space-y-4">
-                    {languageMetrics.map((metric, index) => (
-                      <div key={metric.language} className="space-y-1.5">
-                        <div className="flex items-center justify-between gap-2">
-                          <ToolTip
-                            text={`${metric.count} repositories use ${metric.language} as their primary language (${metric.share}% of measured public repos).`}
-                          >
-                            <button
-                              type="button"
-                              aria-label={`Explain ${metric.language} language signal`}
-                              className="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 transition hover:bg-accent/20"
+                    {languageMetrics.map((metric, index) => {
+                      const languageTheme = getLanguageTheme(metric.language);
+                      const LanguageIcon = languageTheme.icon;
+
+                      return (
+                        <div key={metric.language} className="space-y-1.5">
+                          <div className="flex items-center justify-between gap-2">
+                            <ToolTip
+                              text={`${metric.count} repositories use ${metric.language} as their primary language (${metric.share}% of measured public repos).`}
                             >
-                              <ChartColumnBig size={12} />
-                              <Typography variant="body-sm" className="text-left">
-                                {metric.language}
-                              </Typography>
-                            </button>
-                          </ToolTip>
+                              <button
+                                type="button"
+                                aria-label={`Explain ${metric.language} language signal`}
+                                className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 transition hover:bg-accent/20 ${languageTheme.chipClassName}`}
+                              >
+                                <LanguageIcon size={12} />
+                                <Typography variant="body-sm" className="text-left">
+                                  {metric.language}
+                                </Typography>
+                              </button>
+                            </ToolTip>
 
-                          <Typography variant="body-sm" className="text-muted-foreground">
-                            {metric.share}%
-                          </Typography>
-                        </div>
+                            <Typography variant="body-sm" className={languageTheme.shareClassName}>
+                              {metric.share}%
+                            </Typography>
+                          </div>
 
-                        <div className="h-2.5 overflow-hidden rounded-full bg-secondary/60">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${metric.share}%` }}
-                            viewport={{ once: true, amount: 0.8 }}
-                            transition={{ duration: 0.75, delay: index * 0.08 }}
-                            className={`h-full rounded-full bg-linear-to-r ${LANGUAGE_GRADIENTS[index % LANGUAGE_GRADIENTS.length]}`}
-                          />
+                          <div className="h-2.5 overflow-hidden rounded-full bg-secondary/60">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${metric.share}%` }}
+                              viewport={{ once: true, amount: 0.8 }}
+                              transition={{ duration: 0.75, delay: index * 0.08 }}
+                              className={`h-full rounded-full bg-linear-to-r ${languageTheme.barClassName}`}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
 
                     {languageNotice ? (
                       <Typography variant="caption" className="block text-amber-600 dark:text-amber-400">
@@ -575,11 +717,16 @@ const Skills = () => {
                       GitHub language data is currently unavailable.
                     </Typography>
                     <div className="flex flex-wrap gap-1.5">
-                      {["JavaScript", "PHP", "Python", "Java"].map((language) => (
-                        <Badge key={language} variant="outline">
-                          {language}
-                        </Badge>
-                      ))}
+                      {["JavaScript", "PHP", "Python", "Java"].map((language) => {
+                        const languageTheme = getLanguageTheme(language);
+                        const LanguageIcon = languageTheme.icon;
+                        return (
+                          <Badge key={language} variant="outline" className={languageTheme.chipClassName}>
+                            <LanguageIcon size={12} />
+                            {language}
+                          </Badge>
+                        );
+                      })}
                     </div>
                   </div>
                 )}

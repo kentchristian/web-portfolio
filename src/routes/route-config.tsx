@@ -1,9 +1,7 @@
 import { Route, Routes } from 'react-router';
 import MainLayout from '../layout';
-import Contact from '../pages/contact';
 import Experience from '../pages/experience';
 import Home from '../pages/home';
-import Portfolio from '../pages/portfolio';
 import Profile from '../pages/Profile';
 import Projects from '../pages/projects';
 import Skills from '../pages/skills';
@@ -14,9 +12,7 @@ export default function RoutesConfig() {
       <Route element={<MainLayout />}>
         <Route index path="" key="home" element={<Home />} />
         <Route path="experience" element={<Experience />} key="home" />
-        <Route path="portfolio" element={<Portfolio />} key="portfolio" />
         <Route path="profile" element={<Profile />} key="profile" />
-        <Route path="contact" element={<Contact />} key="contact" />
         <Route path="projects" element={<Projects />} key="projects" />
 
         {/* <Route
