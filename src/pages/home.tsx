@@ -35,8 +35,8 @@ const Home = () => {
   ]
 
   const businessIcons = [
-    { name: 'LinkedIn', icon: icons.linkedIn, fn: () => window.open('https://www.linkedin.com/in/keysii/', '_blank') },
-    { name: 'GitHub', icon: icons.github, fn: () => window.open('https://github.com/keysii', '_blank') },
+    { name: 'LinkedIn', icon: icons.linkedIn, fn: () => window.open('https://www.linkedin.com/in/kent-christian-cagadas-0985a1350/', '_blank') },
+    { name: 'GitHub', icon: icons.github, fn: () => window.open('https://github.com/kentchristian', '_blank') },
     { name: 'Resume / CV', icon: icons.cv, fn: () => window.open('/resume.pdf', '_blank') },
   ]
 

@@ -22,10 +22,11 @@ type ActionButton = {
 const navList: NavItem[] = [
   { path: '', name: 'Home' },
   { path: 'experience', name: 'Experience' },
+  { path: 'projects', name: 'Project' },
   // { path: 'portfolio', name: 'Porfolio' },
   // { path: 'contact', name: 'Contact' },
   // { path: 'skills', name: 'Skills' },
-  // { path: 'projects', name: 'Project' },
+
   // { path: 'projects-boiler-plate', name: 'Projects BoilerPlate' },
   // { path: 'activity-boiler-plate', name: 'Activity' }
 ];
