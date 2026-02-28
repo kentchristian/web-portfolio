@@ -22,6 +22,7 @@ type MotionShellProps = {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  viewport?: ViewportOptions;
 };
 
 const defaultTransition: Transition = {
@@ -96,16 +97,18 @@ function MotionShell({
   children,
   className,
   delay = 0,
+  viewport: viewportOverride,
   motionVariants,
 }: MotionShellProps & { motionVariants: Variants }) {
   const { transition, viewport } = useContext(DynamicMotionContext);
+  const resolvedViewport = viewportOverride ?? viewport;
 
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={viewport}
+      viewport={resolvedViewport}
       variants={motionVariants}
       transition={{ ...transition, delay }}
     >
