@@ -1,5 +1,16 @@
-import { Menu, X } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import {
+  FaBars,
+  FaBriefcase,
+  FaCode,
+  FaFolderOpen,
+  FaHome,
+  FaMoon,
+  FaTimes,
+  FaUser
+} from 'react-icons/fa';
+import type { IconType } from 'react-icons';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '../shadcn/components/ui/button';
@@ -12,18 +23,20 @@ import { toggleTheme } from './lib/utils/theming-helpers/toggleTheme';
 type NavItem = {
   path: string;
   name: string;
+  icon: IconType;
 };
 
 type ActionButton = {
   title: string;
+  icon: IconType;
   fn: () => void;
 };
 
 const navList: NavItem[] = [
-  { path: '', name: 'Home' },
-  { path: 'experience', name: 'Experience' },
-  { path: 'projects', name: 'Project' },
-  { path: 'skills', name: 'Skills' },
+  { path: '', name: 'Home', icon: FaHome },
+  { path: 'experience', name: 'Experience', icon: FaBriefcase },
+  { path: 'projects', name: 'Projects', icon: FaFolderOpen },
+  { path: 'skills', name: 'Skills', icon: FaCode },
   // { path: 'portfolio', name: 'Porfolio' },
   // { path: 'contact', name: 'Contact' },
 
@@ -35,6 +48,12 @@ const navList: NavItem[] = [
 export default function MainLayout() {
   const [_theme, setTheme] = useState<string>(toggleTheme);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const menuIconSize = 24;
+  const activeMenuButtonClass = 'text-foreground';
+  const desktopMenuButtonClass =
+    'relative h-auto w-15 flex-col gap-1.5 rounded-none border-b-2 border-b-transparent py-2 transition-colors duration-200 hover:bg-transparent hover:text-muted-foreground';
+  const mobileMenuButtonClass =
+    'relative h-auto w-full flex-col gap-1.5 rounded-none border-b-2 border-b-transparent py-3 transition-colors duration-200 hover:bg-transparent hover:text-muted-foreground';
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,13 +98,37 @@ export default function MainLayout() {
     setIsDrawerOpen(false);
   };
 
+  const normalizePath = useCallback((pathname: string) => {
+    if (pathname === '/') {
+      return pathname;
+    }
+
+    return pathname.replace(/\/+$/, '');
+  }, []);
+
+  const isNavPathActive = useCallback(
+    (path: string) => {
+      const currentPath = normalizePath(location.pathname);
+      const targetPath = path ? `/${path}` : '/';
+
+      if (targetPath === '/') {
+        return currentPath === targetPath;
+      }
+
+      return currentPath === targetPath || currentPath.startsWith(`${targetPath}/`);
+    },
+    [location.pathname, normalizePath]
+  );
+
   const actionButtons: ActionButton[] = [
     {
       title: 'Mode',
+      icon: FaMoon,
       fn: handleThemeState
     },
     {
       title: 'Profile',
+      icon: FaUser,
       fn: () => {
         alert('show-profile-dropdown');
       }
@@ -123,7 +166,7 @@ export default function MainLayout() {
               aria-controls="mobile-navigation-drawer"
               aria-expanded={isDrawerOpen}
             >
-              {isDrawerOpen ? <X size={18} /> : <Menu size={18} />}
+              {isDrawerOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
             </Button>
           </div>
 
@@ -145,18 +188,33 @@ export default function MainLayout() {
               </button>
 
               <div className="flex flex-1 flex-wrap gap-2">
-                {navList.map(({ path, name }: NavItem) => (
-                  <Button
-                    key={path || 'dashboard'}
-                    size="sm"
-                    className="flex-1 sm:flex-none"
-                    onClick={() => {
-                      handleNav(path);
-                    }}
-                  >
-                    {name}
-                  </Button>
-                ))}
+                {navList.map(({ path, name, icon: Icon }: NavItem) => {
+                  const isActive = isNavPathActive(path);
+
+                  return (
+                    <Button
+                      key={path || 'dashboard'}
+                      size="sm"
+                      variant="ghost"
+                      className={cn(desktopMenuButtonClass, isActive && activeMenuButtonClass)}
+                      aria-label={`Navigate to ${name}`}
+                      aria-current={isActive ? 'page' : undefined}
+                      onClick={() => {
+                        handleNav(path);
+                      }}
+                    >
+                      <Icon size={menuIconSize} />
+                      <span className="text-[11px] leading-none">{name}</span>
+                      {isActive ? (
+                        <motion.span
+                          layoutId="desktop-nav-active-line"
+                          transition={{ type: 'spring', stiffness: 520, damping: 38 }}
+                          className="absolute bottom-0 left-1/2 h-0.5 w-4/5 -translate-x-1/2 rounded-full bg-muted-foreground"
+                        />
+                      ) : null}
+                    </Button>
+                  );
+                })}
               </div>
             </div>
 
@@ -165,12 +223,15 @@ export default function MainLayout() {
                 <Button
                   key={action.title}
                   size="sm"
-                  className="flex-1 sm:flex-none"
+                  variant="ghost"
+                  className={desktopMenuButtonClass}
+                  aria-label={action.title}
                   onClick={() => {
                     action.fn();
                   }}
                 >
-                  {action.title}
+                  <action.icon size={menuIconSize} />
+                  <span className="text-[11px] leading-none">{action.title}</span>
                 </Button>
               ))}
             </div>
@@ -233,37 +294,55 @@ export default function MainLayout() {
                 setIsDrawerOpen(false);
               }}
             >
-              <X size={16} />
+              <FaTimes size={16} />
             </Button>
           </div>
 
           <div className="space-y-2">
-            {navList.map(({ path, name }: NavItem) => (
-              <Button
-                key={`mobile-${path || 'dashboard'}`}
-                size="sm"
-                className="w-full justify-start"
-                onClick={() => {
-                  handleNavAndClose(path);
-                }}
-              >
-                {name}
-              </Button>
-            ))}
+            {navList.map(({ path, name, icon: Icon }: NavItem) => {
+              const isActive = isNavPathActive(path);
+
+              return (
+                <Button
+                  key={`mobile-${path || 'dashboard'}`}
+                  size="sm"
+                  variant="ghost"
+                  className={cn(mobileMenuButtonClass, isActive && activeMenuButtonClass)}
+                  aria-label={`Navigate to ${name}`}
+                  aria-current={isActive ? 'page' : undefined}
+                  onClick={() => {
+                    handleNavAndClose(path);
+                  }}
+                >
+                  <Icon size={menuIconSize} />
+                  <span className="text-[11px] leading-none">{name}</span>
+                  {isActive ? (
+                    <motion.span
+                      layoutId="mobile-nav-active-line"
+                      transition={{ type: 'spring', stiffness: 520, damping: 38 }}
+                      className="absolute bottom-0 left-1/2 h-0.5 w-4/5 -translate-x-1/2 rounded-full bg-muted-foreground"
+                    />
+                  ) : null}
+                </Button>
+              );
+            })}
           </div>
 
-          <div className="mt-4 border-t border-border pt-4 space-y-2">
+          <div className="flex flex-row mt-4 border-t border-border pt-4 space-y-1">
             {actionButtons.map((action: ActionButton) => (
               <Button
                 key={`mobile-action-${action.title}`}
                 size="sm"
-                className="w-full justify-start"
+                variant="ghost"
+                className={mobileMenuButtonClass}
+                aria-label={action.title}
                 onClick={() => {
                   action.fn();
                   setIsDrawerOpen(false);
                 }}
               >
-                {action.title}
+                <action.icon size={menuIconSize} />
+                <span className="text-[11px] leading-none">{action.title}</span>
               </Button>
             ))}
           </div>
