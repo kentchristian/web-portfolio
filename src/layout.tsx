@@ -102,13 +102,13 @@ export default function MainLayout() {
               onClick={() => {
                 handleNav('');
               }}
-              className="flex shrink-0 items-center gap-2"
+              className="group flex shrink-0 cursor-pointer items-center gap-2"
               aria-label="Go to home"
             >
               <img
                 src={images.keysiiLogo}
                 alt="Keysii logo"
-                className="h-10 w-10 rounded-full border object-cover"
+                className="h-10 w-10 rounded-full border object-cover transition-transform duration-200 group-hover:scale-105"
               />
             </button>
 
@@ -134,13 +134,13 @@ export default function MainLayout() {
                 onClick={() => {
                   handleNav('');
                 }}
-                className="mr-1 flex shrink-0 items-center gap-2"
+                className="group mr-1 flex shrink-0 cursor-pointer items-center gap-2"
                 aria-label="Go to home"
               >
                 <img
                   src={images.keysiiLogo}
                   alt="Keysii logo"
-                  className="h-10 w-10 rounded-full border object-cover"
+                  className="h-10 w-10 rounded-full border object-cover transition-transform duration-200 group-hover:scale-105"
                 />
               </button>
 
@@ -213,13 +213,13 @@ export default function MainLayout() {
               onClick={() => {
                 handleNavAndClose('');
               }}
-              className="flex items-center gap-2"
+              className="group flex cursor-pointer items-center gap-2"
               aria-label="Go to home"
             >
               <img
                 src={images.keysiiLogo}
                 alt="Keysii logo"
-                className="h-9 w-9 rounded-full border object-cover"
+                className="h-9 w-9 rounded-full border object-cover transition-transform duration-200 group-hover:scale-105"
               />
               <span className="text-sm font-semibold">Navigation</span>
             </button>
