@@ -14,6 +14,7 @@ import { Typography } from '../common/Typography';
 import ContentDisplay from '../components/cards/ContentDisplay';
 import PageContainer from '../components/containers/PageContainer';
 import GetInTouch from '../components/modals/GetInTouch';
+import ResumeViewer from '../components/modals/ResumeViewer';
 import { cn } from '../lib/cnUtils';
 import { biography } from '../lib/constants/biography';
 import { icons } from '../lib/constants/icons';
@@ -24,6 +25,7 @@ import experienceData from '../lib/data/experience-data.json';
 
 /** DEFAULT Scrollbar Config */
 const SCROLLBAR_CONFIG = 'overflow-auto themed-scrollbar';
+const RESUME_FILE_PATH = '/2026_CagadasKent_Resume.pdf';
 const SOCIAL_BUTTON_CLASS =
   'size-10 rounded-full border border-white/55 bg-black/30 text-white shadow-sm backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:cursor-pointer hover:bg-black/45';
 
@@ -36,6 +38,7 @@ type ExperienceSignal = {
 const Home = () => {
   const navigate = useNavigate();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   const roles = [
     biography.webDev,
@@ -64,7 +67,14 @@ const Home = () => {
   const businessIcons = [
     { name: 'LinkedIn', icon: icons.linkedIn, fn: () => window.open('https://www.linkedin.com/in/kent-christian-cagadas-0985a1350/', '_blank', 'noopener,noreferrer') },
     { name: 'GitHub', icon: icons.github, fn: () => window.open('https://github.com/kentchristian', '_blank', 'noopener,noreferrer') },
-    { name: 'Resume / CV', icon: icons.cv, fn: () => window.open('/resume.pdf', '_blank', 'noopener,noreferrer') },
+    {
+      name: 'Resume / CV',
+      icon: icons.cv,
+      fn: () => {
+        setIsContactModalOpen(false);
+        setIsResumeModalOpen(true);
+      },
+    },
   ];
 
   return (
@@ -237,6 +247,11 @@ const Home = () => {
         setIsContactModalOpen={setIsContactModalOpen}
         businessIcons={businessIcons}
         recipientEmail="kentchristiancagadas@gmail.com"
+      />
+      <ResumeViewer
+        isResumeModalOpen={isResumeModalOpen}
+        setIsResumeModalOpen={setIsResumeModalOpen}
+        resumeSrc={RESUME_FILE_PATH}
       />
 
 
