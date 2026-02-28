@@ -1,5 +1,5 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../shadcn/components/ui/button';
 import {
@@ -13,6 +13,7 @@ import ToolTip from '../common/ToolTip';
 import { Typography } from '../common/Typography';
 import ContentDisplay from '../components/cards/ContentDisplay';
 import PageContainer from '../components/containers/PageContainer';
+import GetInTouch from '../components/modals/GetInTouch';
 import { cn } from '../lib/cnUtils';
 import { biography } from '../lib/constants/biography';
 import { icons } from '../lib/constants/icons';
@@ -34,6 +35,7 @@ type ExperienceSignal = {
 
 const Home = () => {
   const navigate = useNavigate();
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const roles = [
     biography.webDev,
@@ -60,9 +62,9 @@ const Home = () => {
   }, []);
 
   const businessIcons = [
-    { name: 'LinkedIn', icon: icons.linkedIn, fn: () => window.open('https://www.linkedin.com/in/kent-christian-cagadas-0985a1350/', '_blank') },
-    { name: 'GitHub', icon: icons.github, fn: () => window.open('https://github.com/kentchristian', '_blank') },
-    { name: 'Resume / CV', icon: icons.cv, fn: () => window.open('/resume.pdf', '_blank') },
+    { name: 'LinkedIn', icon: icons.linkedIn, fn: () => window.open('https://www.linkedin.com/in/kent-christian-cagadas-0985a1350/', '_blank', 'noopener,noreferrer') },
+    { name: 'GitHub', icon: icons.github, fn: () => window.open('https://github.com/kentchristian', '_blank', 'noopener,noreferrer') },
+    { name: 'Resume / CV', icon: icons.cv, fn: () => window.open('/resume.pdf', '_blank', 'noopener,noreferrer') },
   ];
 
   return (
@@ -91,12 +93,12 @@ const Home = () => {
 
                 <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/25 to-black/75" />
 
-                <div className="relative z-10 flex h-full flex-col justify-between gap-4 p-4 sm:p-6">
-                  <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/50 bg-black/30 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur-sm">
-                    <Sparkles size={13} />
-                    Open For Collaboration
-                  </span>
+                <span className="absolute left-4 top-4 z-20 inline-flex w-fit items-center gap-2 rounded-full border border-white/50 bg-black/30 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur-sm sm:left-6 sm:top-6">
+                  <Sparkles size={13} />
+                  Open For Collaboration
+                </span>
 
+                <div className="mt-60 relative z-10 flex h-full flex-col justify-end gap-4 p-4 sm:p-6">
                   <div>
                     <Typography variant="h2" className="text-white">Kent Christian</Typography>
                     <Typography variant="body-sm" className="mt-2 max-w-sm text-white/90">
@@ -118,6 +120,15 @@ const Home = () => {
                       </ToolTip>
                     ))}
                   </div>
+                  <Button
+                    type="button"
+                    className="w-fit"
+                    onClick={() => {
+                      setIsContactModalOpen(true);
+                    }}
+                  >
+                    Get in Touch
+                  </Button>
                 </div>
               </ContentDisplay>
             </MotionImageMotionProv>
@@ -221,8 +232,15 @@ const Home = () => {
           </section>
         </div>
       </DynamicMotionProvider>
+      <GetInTouch
+        isContactModalOpen={isContactModalOpen}
+        setIsContactModalOpen={setIsContactModalOpen}
+        businessIcons={businessIcons}
+      />
+
 
     </PageContainer >
+
   );
 };
 
