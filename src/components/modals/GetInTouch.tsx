@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Button } from '../../../shadcn/components/ui/button';
+import { DynamicMotionProvider, FadeInMotionProv } from '../../animations/DynamicMotion';
 import { Typography } from '../../common/Typography';
 import { sendEmailWithEmailJs } from '../../lib/services/emailjs';
 
@@ -137,127 +138,131 @@ const GetInTouch = ({
   }
 
   return (
-    <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/55 p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Contact options"
-      onClick={handleCloseModal}
-    >
-      <div
-        className="w-full max-w-md rounded-2xl border border-border bg-background/95 p-5 shadow-2xl backdrop-blur-md"
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-      >
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <Typography variant="h3">Get In Touch</Typography>
-            <Typography variant="body-sm" className="mt-1 text-muted-foreground">
-              Choose your preferred channel and let&apos;s discuss your project.
-            </Typography>
-          </div>
-
-          <Button
-            type="button"
-            size="icon-sm"
-            variant="outline"
-            aria-label="Close contact modal"
-            disabled={isSendingMessage}
-            onClick={handleCloseModal}
+    <DynamicMotionProvider>
+      <FadeInMotionProv>
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/55 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Contact options"
+          onClick={handleCloseModal}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl border border-border bg-background/95 p-5 shadow-2xl backdrop-blur-md"
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
           >
-            <X size={16} />
-          </Button>
-        </div>
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <Typography variant="h3">Get In Touch</Typography>
+                <Typography variant="body-sm" className="mt-1 text-muted-foreground">
+                  Choose your preferred channel and let&apos;s discuss your project.
+                </Typography>
+              </div>
 
-        <div className="mt-4 grid gap-2">
-          <label htmlFor="from-email" className="text-sm font-medium">
-            From Email
-          </label>
-          <input
-            id="from-email"
-            type="email"
-            value={fromEmail}
-            disabled={isSendingMessage}
-            onChange={(event) => {
-              setFromEmail(event.target.value);
-              if (contactError) {
-                setContactError(null);
-              }
-            }}
-            placeholder="yourname@email.com"
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
-          />
-
-          <label htmlFor="contact-subject" className="mt-1 text-sm font-medium">
-            Subject
-          </label>
-          <input
-            id="contact-subject"
-            type="text"
-            value={contactSubject}
-            disabled={isSendingMessage}
-            onChange={(event) => {
-              setContactSubject(event.target.value);
-              if (contactError) {
-                setContactError(null);
-              }
-            }}
-            placeholder="Project inquiry"
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
-          />
-
-          <label htmlFor="contact-message" className="mt-1 text-sm font-medium">
-            Message
-          </label>
-          <textarea
-            id="contact-message"
-            value={contactMessage}
-            disabled={isSendingMessage}
-            onChange={(event) => {
-              setContactMessage(event.target.value);
-              if (contactError) {
-                setContactError(null);
-              }
-            }}
-            rows={5}
-            placeholder="Tell me about your project, timeline, and goals."
-            className="w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
-          />
-
-          {contactError && (
-            <Typography variant="caption" className="text-red-500 dark:text-red-400">
-              {contactError}
-            </Typography>
-          )}
-
-          <Button type="button" className="mt-2" onClick={handleSendMessage} disabled={isSendingMessage}>
-            {isSendingMessage ? 'Sending...' : 'Send Message'}
-          </Button>
-        </div>
-
-        <div className="mt-4">
-          <Typography variant="caption" className="text-muted-foreground">
-            Quick links
-          </Typography>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {businessIcons.map(({ name, icon, fn }) => (
               <Button
-                key={`contact-${name}`}
                 type="button"
+                size="icon-sm"
                 variant="outline"
-                size="sm"
-                className="gap-2"
-                onClick={fn}
+                aria-label="Close contact modal"
+                disabled={isSendingMessage}
+                onClick={handleCloseModal}
               >
-                {icon}
-                {name}
+                <X size={16} />
               </Button>
-            ))}
+            </div>
+
+            <div className="mt-4 grid gap-2">
+              <label htmlFor="from-email" className="text-sm font-medium">
+                From Email
+              </label>
+              <input
+                id="from-email"
+                type="email"
+                value={fromEmail}
+                disabled={isSendingMessage}
+                onChange={(event) => {
+                  setFromEmail(event.target.value);
+                  if (contactError) {
+                    setContactError(null);
+                  }
+                }}
+                placeholder="yourname@email.com"
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+              />
+
+              <label htmlFor="contact-subject" className="mt-1 text-sm font-medium">
+                Subject
+              </label>
+              <input
+                id="contact-subject"
+                type="text"
+                value={contactSubject}
+                disabled={isSendingMessage}
+                onChange={(event) => {
+                  setContactSubject(event.target.value);
+                  if (contactError) {
+                    setContactError(null);
+                  }
+                }}
+                placeholder="Project inquiry"
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+              />
+
+              <label htmlFor="contact-message" className="mt-1 text-sm font-medium">
+                Message
+              </label>
+              <textarea
+                id="contact-message"
+                value={contactMessage}
+                disabled={isSendingMessage}
+                onChange={(event) => {
+                  setContactMessage(event.target.value);
+                  if (contactError) {
+                    setContactError(null);
+                  }
+                }}
+                rows={5}
+                placeholder="Tell me about your project, timeline, and goals."
+                className="w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+              />
+
+              {contactError && (
+                <Typography variant="caption" className="text-red-500 dark:text-red-400">
+                  {contactError}
+                </Typography>
+              )}
+
+              <Button type="button" className="mt-2" onClick={handleSendMessage} disabled={isSendingMessage}>
+                {isSendingMessage ? 'Sending...' : 'Send Message'}
+              </Button>
+            </div>
+
+            <div className="mt-4">
+              <Typography variant="caption" className="text-muted-foreground">
+                Quick links
+              </Typography>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {businessIcons.map(({ name, icon, fn }) => (
+                  <Button
+                    key={`contact-${name}`}
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                    onClick={fn}
+                  >
+                    {icon}
+                    {name}
+                  </Button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </FadeInMotionProv>
+    </DynamicMotionProvider>
   );
 };
 
