@@ -44,7 +44,6 @@ const Home = () => {
 
   const roles = [
     biography.webDev,
-    biography.techWriter,
   ];
 
   const experienceSignals = useMemo(() => {
@@ -204,15 +203,11 @@ const Home = () => {
                 </Typography>
 
                 <Typography variant="h1" className="mt-4 text-3xl leading-tight sm:text-4xl lg:text-5xl">
-                  I build functional, user-customized web products.
+                  I Build Functional, User-Customized Web Products.
                 </Typography>
 
                 <Typography variant="body" className="mt-4 max-w-3xl text-foreground/85">
                   I&apos;m a <strong>{biography.webDev}</strong> specializing in React and TypeScript, focused on features that solve real workflows and deliver practical business value.
-                </Typography>
-
-                <Typography variant="body" className="mt-3 max-w-3xl text-foreground/80">
-                  I deliver user-customized products tailored to your goals, your users, and long-term maintainability. I also work as a <strong>{biography.techWriter}</strong>, producing documentation that keeps teams aligned and shipping confidently.
                 </Typography>
 
                 <div className="mt-5 flex flex-wrap gap-2">
