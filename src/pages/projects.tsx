@@ -158,6 +158,10 @@ function normalizeLookupValue(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
+function normalizeOwnerValue(value: string): string {
+  return value.trim().toLowerCase();
+}
+
 function dedupePinnedLinks(
   links: {
     label: string;
@@ -339,7 +343,9 @@ export default function Projects() {
     const filteredByOwner =
       selectedOwner === "all"
         ? sortedRepos
-        : sortedRepos.filter((repo) => repo.source === selectedOwner);
+        : sortedRepos.filter(
+            (repo) => normalizeOwnerValue(repo.source) === normalizeOwnerValue(selectedOwner)
+          );
 
     return filteredByOwner.filter((repo) => !highlightedRepoIds.has(repo.id));
   }, [highlightedRepoIds, projectRepos, selectedOwner]);
