@@ -333,19 +333,25 @@ export default function Projects() {
 
   const visibleRepos = useMemo(() => {
     const sortedRepos = [...projectRepos].sort((a, b) => {
+      const updatedAtRank = new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+      if (updatedAtRank !== 0) {
+        return updatedAtRank;
+      }
+
       const starsRank = b.stargazers_count - a.stargazers_count;
       if (starsRank !== 0) {
         return starsRank;
       }
-      return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+
+      return a.name.localeCompare(b.name);
     });
 
     const filteredByOwner =
       selectedOwner === "all"
         ? sortedRepos
         : sortedRepos.filter(
-            (repo) => normalizeOwnerValue(repo.source) === normalizeOwnerValue(selectedOwner)
-          );
+          (repo) => normalizeOwnerValue(repo.source) === normalizeOwnerValue(selectedOwner)
+        );
 
     return filteredByOwner.filter((repo) => !highlightedRepoIds.has(repo.id));
   }, [highlightedRepoIds, projectRepos, selectedOwner]);
