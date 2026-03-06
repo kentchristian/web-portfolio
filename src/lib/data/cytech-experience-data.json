@@ -2,7 +2,7 @@
   {
     "role": "Technical Writer",
     "company": "Cytech International",
-    "date": "2025 – Present",
+    "date": "February 2026 - March 2026",
     "description": [
       "Pioneered the development of a centralized documentation platform using MkDocs, supporting complex multi-versioning and seamless asset management.",
       "Capitalized on AI agents to automate rapid documentation generation, drastically reducing manual drafting time while ensuring high technical accuracy.",
@@ -25,7 +25,7 @@
   {
     "role": "Frontend Developer (White Labeling & Branding Systems)",
     "company": "Cytech International",
-    "date": "December 2025",
+    "date": "December 2025 - February 2026",
     "description": [
       "Architected white-labeling solutions for the entire Aquila platform, enabling dynamic UI adjustments to meet specific client branding requirements.",
       "Developed a robust theming system to ensure the platform's visual identity aligns seamlessly with diverse client targets and brand guidelines.",
@@ -47,7 +47,7 @@
   {
     "role": "Micro-Frontend Developer (Security & Core Architecture)",
     "company": "Cytech International",
-    "date": "December 2025",
+    "date": "December 2025 - January 2026",
     "description": [
       "Engineered a centralized Frontend Axios client with custom hooks to standardize secure API communication across micro-modules.",
       "Developed automated connectivity cases for API integrations to accelerate testing cycles and ensure endpoint reliability.",
@@ -89,9 +89,9 @@
     "icon": "cytech"
   },
   {
-    "role": "Strategic Components & Charts Frontend Developer",
+    "role": "Storybook Frontend Developer",
     "company": "Cytech International",
-    "date": "December 2025",
+    "date": "December 2025 - January 2026",
     "description": [
       "Collaborated on the development of a centralized UI library using Storybook to standardize component architecture.",
       "Partnered with Visual Designers (VD) and stakeholders to ensure component specifications met strict acceptance criteria.",
@@ -114,7 +114,7 @@
   {
     "role": "Web Developer - FE (Rapid Prototyping)",
     "company": "Cytech International",
-    "date": "October 2025 - Present",
+    "date": "October 2025 - 2026",
     "description": [
       "Collaborated on the strategic development of a rapid demo platform, optimizing the one-week production workflow to ensure timely delivery using stub data.",
       "Implemented stub data architectures to simulate live environments for stakeholder demonstrations.",
@@ -136,7 +136,7 @@
   {
     "role": "Web Developer",
     "company": "Cytech International",
-    "date": "October 2025 - Present",
+    "date": "October 2025 - 2026",
     "description": [
       "Refactored frontend scanning architecture to support concurrent multi-target requests, significantly improving batch processing efficiency.",
       "Engineered dynamic risk response interfaces with complex data tables to visualize mitigation actions and deep-dive threat forensics.",
