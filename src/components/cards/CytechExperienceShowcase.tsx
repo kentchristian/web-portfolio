@@ -146,18 +146,6 @@ const CytechExperienceShowcase = ({
           <Typography variant="overline" className="text-muted-foreground">
             Company Spotlight
           </Typography>
-          {websiteUrl ? (
-            <Typography variant="body-sm" asChild>
-              <a
-                href={websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex text-primary underline underline-offset-2 hover:opacity-90"
-              >
-                {websiteUrl}
-              </a>
-            </Typography>
-          ) : null}
           <Typography variant="h2">
             {company}
           </Typography>

@@ -1,3 +1,5 @@
+import { AnimatePresence, motion } from "framer-motion";
+import type { LucideIcon } from "lucide-react";
 import {
   Award,
   BookText,
@@ -12,9 +14,7 @@ import {
   ShieldCheck,
   X,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import type { IconType } from "react-icons";
 import { FaCode, FaGithub } from "react-icons/fa";
 import {
@@ -156,6 +156,24 @@ const SKILL_GROUPS: SkillGroup[] = [
 ];
 
 const CERTIFICATIONS: Certification[] = [
+  {
+    title: "Social Engineering Assessment",
+    provider: "CyTech x Aquila",
+    year: "2026",
+    image: "/certificates/cytech-social-engineering.svg",
+    imageAlt: "Social Engineering Assessment certificate preview",
+    certificateImage: "/certificates/cert_social_engineering.png",
+    certificateImageAlt: "Social Engineering Assessment certificate",
+  },
+  {
+    title: "Cloud Security Fundamentals Quiz",
+    provider: "CyTech x Aquila",
+    year: "2026",
+    image: "/certificates/cytech-cloud-security.svg",
+    imageAlt: "Cloud Security Fundamentals Quiz certificate preview",
+    certificateImage: "/certificates/cert_basic_cloud_security.png",
+    certificateImageAlt: "Cloud Security Fundamentals Quiz certificate",
+  },
   {
     title: "Problem Solving and Innovation",
     provider: "Wadhwani Foundation",
@@ -530,9 +548,9 @@ const Skills = () => {
             </section>
           </FadeUpMotionProv>
 
-          <section className="grid grid-cols-1 gap-4 xl:grid-cols-12">
-            <SlideRightMotionProv className="xl:col-span-8">
-              <article className="rounded-2xl border bg-card p-4 shadow-sm sm:p-5">
+          <section className="grid grid-cols-1 gap-4 xl:grid-cols-12 xl:items-stretch">
+            <SlideRightMotionProv className="min-h-0 xl:col-span-8">
+              <article className="h-full rounded-2xl border bg-card p-4 shadow-sm sm:p-5">
                 <header className="mb-4">
                   <Typography variant="h3">Core Skills</Typography>
                   <Typography variant="caption" className="mt-1 text-muted-foreground">
@@ -583,19 +601,20 @@ const Skills = () => {
               </article>
             </SlideRightMotionProv>
 
-            <SlideLeftMotionProv className="xl:col-span-4">
-              <article className="h-full rounded-2xl border bg-card p-4 shadow-sm sm:p-5">
+            <SlideLeftMotionProv className="min-h-0 xl:col-span-4">
+              <article className="flex h-full min-h-0 flex-col rounded-2xl border bg-card p-4 shadow-sm sm:p-5">
                 <header className="mb-4">
                   <div className="flex items-center gap-2">
                     <Award size={18} />
                     <Typography variant="h3">Certifications & Trainings</Typography>
                   </div>
                   <Typography variant="caption" className="mt-1 text-muted-foreground">
-                    Formal programs completed across innovation, writing, IT service management, and networking.
+                    Formal programs completed across security, innovation, writing, IT service
+                    management, and networking.
                   </Typography>
                 </header>
 
-                <ul className="relative flex flex-col pb-1 pt-1">
+                <ul className="relative flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden pb-1 pr-1 pt-1">
                   {CERTIFICATIONS.map((certification, index) => (
                     <motion.li
                       key={`${certification.title}-${certification.year}`}
