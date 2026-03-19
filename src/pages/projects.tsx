@@ -93,11 +93,29 @@ const HIGHLIGHT_TARGETS: HighlightTarget[] = [
       },
       {
         label: "bid_frontend",
-        url: "https://github.com/KC878/bid_frontend",
+        url: "https://github.com/kentchristian/bid_frontend",
       },
       {
         label: "bid_backend",
-        url: "https://github.com/KC878/bid_backend",
+        url: "https://github.com/kentchristian/bid_backend",
+      },
+    ],
+  },
+  {
+    key: "email-reader",
+    title: "Email Reader",
+    summary:
+      "Email Reader web app for organizing and reviewing inbox messages, with a focused UI for fast triage and follow-up.",
+    lookupTerms: ["email reader", "email-reader", "email_reader"],
+    searchTerm: "email reader",
+    pinnedLinks: [
+      {
+        label: "Live site",
+        url: "https://email-reader-lyart.vercel.app/",
+      },
+      {
+        label: "email_reader",
+        url: "https://github.com/kentchristian/email_reader",
       },
     ],
   },
