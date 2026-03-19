@@ -71,6 +71,36 @@ const HIGHLIGHT_TARGETS: HighlightTarget[] = [
     ],
   },
   {
+    key: "business-intelligence-management",
+    title: "Business Intelligence Management",
+    summary:
+      "Business Intelligence Management dashboard that brings reporting and operational insights together, supported by dedicated frontend and backend services.",
+    lookupTerms: [
+      "business intelligence management",
+      "business-intelligence-management",
+      "bid",
+      "bid frontend",
+      "bid backend",
+      "bid_frontend",
+      "bid_backend",
+    ],
+    searchTerm: "business intelligence management",
+    pinnedLinks: [
+      {
+        label: "Live site",
+        url: "https://business-intelligence-management.vercel.app/",
+      },
+      {
+        label: "bid_frontend",
+        url: "https://github.com/KC878/bid_frontend",
+      },
+      {
+        label: "bid_backend",
+        url: "https://github.com/KC878/bid_backend",
+      },
+    ],
+  },
+  {
     key: "mkdocs-template",
     title: "Cytech CRND Documentaiton (MkDocs)",
     summary: "Documentation template and starter structure for technical docs.",
