@@ -15,6 +15,7 @@ const PROTECTED_DOCUMENTATION_PATTERNS = [
   "cytech crnd documentation",
   "cytech crnd documentaiton",
 ] as const;
+const EXCLUDED_REPO_PATTERNS = ["web-portfolio"] as const;
 
 type HighlightTarget = {
   key: string;
@@ -74,7 +75,7 @@ const HIGHLIGHT_TARGETS: HighlightTarget[] = [
     key: "business-intelligence-management",
     title: "Business Intelligence Management",
     summary:
-      "Business Intelligence Management dashboard that brings reporting and operational insights together, supported by dedicated frontend and backend services.",
+      "Multi-tenant Business Intelligence Management application that unifies reporting and operational insights, powered by dedicated frontend and backend services.",
     lookupTerms: [
       "business intelligence management",
       "business-intelligence-management",
@@ -224,6 +225,13 @@ function isProtectedDocumentationRepo(repo: RepoWithSource): boolean {
   );
 }
 
+function isExcludedRepo(repo: RepoWithSource): boolean {
+  const searchable = normalizeLookupValue(`${repo.name} ${repo.description ?? ""}`);
+  return EXCLUDED_REPO_PATTERNS.some((pattern) =>
+    searchable.includes(normalizeLookupValue(pattern))
+  );
+}
+
 export default function Projects() {
   const [users, setUsers] = useState<GithubUser[]>([]);
   const [repos, setRepos] = useState<RepoWithSource[]>([]);
@@ -319,7 +327,7 @@ export default function Projects() {
   }, [ownerFilters, selectedOwner]);
 
   const projectRepos = useMemo(
-    () => repos.filter((repo) => !isProtectedDocumentationRepo(repo)),
+    () => repos.filter((repo) => !isProtectedDocumentationRepo(repo) && !isExcludedRepo(repo)),
     [repos]
   );
 
