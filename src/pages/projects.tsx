@@ -1,21 +1,33 @@
-import { ExternalLink, GitFork, Github, Lock, Search, Sparkles, Star, Users } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { Badge } from "../../shadcn/components/ui/badge";
-import { Button } from "../../shadcn/components/ui/button";
-import { DynamicMotionProvider, FadeUpMotionProv } from "../animations/DynamicMotion";
-import PageContainer from "../components/containers/PageContainer";
+import {
+  ExternalLink,
+  GitFork,
+  Github,
+  Lock,
+  Search,
+  Sparkles,
+  Star,
+  Users,
+} from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { Badge } from '../../shadcn/components/ui/badge';
+import { Button } from '../../shadcn/components/ui/button';
+import {
+  DynamicMotionProvider,
+  FadeUpMotionProv,
+} from '../animations/DynamicMotion';
+import PageContainer from '../components/containers/PageContainer';
 
-const GITHUB_ACCOUNTS = ["kc878", "kentchristian"] as const;
-const numberFormatter = new Intl.NumberFormat("en-US");
-const LOCKED_HIGHLIGHT_KEYS = new Set(["mkdocs-template"]);
+const GITHUB_ACCOUNTS = ['kc878', 'kentchristian'] as const;
+const numberFormatter = new Intl.NumberFormat('en-US');
+const LOCKED_HIGHLIGHT_KEYS = new Set(['mkdocs-template']);
 const PROTECTED_DOCUMENTATION_PATTERNS = [
-  "docs-template",
-  "mkdocs-template",
-  "mkdocs",
-  "cytech crnd documentation",
-  "cytech crnd documentaiton",
+  'docs-template',
+  'mkdocs-template',
+  'mkdocs',
+  'cytech crnd documentation',
+  'cytech crnd documentaiton',
 ] as const;
-const EXCLUDED_REPO_PATTERNS = ["web-portfolio"] as const;
+const EXCLUDED_REPO_PATTERNS = ['web-portfolio'] as const;
 
 type HighlightTarget = {
   key: string;
@@ -31,106 +43,94 @@ type HighlightTarget = {
 
 const HIGHLIGHT_TARGETS: HighlightTarget[] = [
   {
-    key: "forked-pos",
-    title: "Forked POS",
-    summary: "Forked POS project used for OJT work and process improvements.",
-    lookupTerms: ["forked_pos", "forked pos", "forked-pos"],
-    searchTerm: "forked_pos",
+    key: 'forked-pos',
+    title: 'Forked POS',
+    summary: 'Forked POS project used for OJT work and process improvements.',
+    lookupTerms: ['forked_pos', 'forked pos', 'forked-pos'],
+    searchTerm: 'forked_pos',
     pinnedLinks: [
       {
-        label: "logicbaseojt_msuiit",
-        url: "https://github.com/piscodev/logicbaseojt_msuiit",
+        label: 'logicbaseojt_msuiit',
+        url: 'https://github.com/piscodev/logicbaseojt_msuiit',
       },
     ],
   },
   {
-    key: "ojt-monitoring",
-    title: "OJT Monitoring",
-    summary: "Monitoring app for internship tracking, status updates, and reporting.",
-    lookupTerms: ["ojt_monitoring", "ojt monitoring", "ojt-monitoring"],
-    searchTerm: "ojt_monitoring",
-  },
-  {
-    key: "appointment-system",
-    title: "Appointment System",
-    summary: "Gakkcons appointment system across frontend, backend, and mobile repos.",
-    lookupTerms: ["appointment_system", "appointment system", "appointment-system"],
-    searchTerm: "appointment system",
-    pinnedLinks: [
-      {
-        label: "gakkcons-frontend",
-        url: "https://github.com/KC878/gakkcons-frontend",
-      },
-      {
-        label: "gakkcons-mobile",
-        url: "https://github.com/Hanz0u/gakkcons-mobile",
-      },
-      {
-        label: "gakkcons-backend",
-        url: "https://github.com/KC878/gakkcons-backend",
-      },
-    ],
-  },
-  {
-    key: "business-intelligence-management",
-    title: "Business Intelligence Management",
+    key: 'ojt-monitoring',
+    title: 'OJT Monitoring',
     summary:
-      "Multi-tenant Business Intelligence Management application that unifies reporting and operational insights, powered by dedicated frontend and backend services.",
-    lookupTerms: [
-      "business intelligence management",
-      "business-intelligence-management",
-      "bid",
-      "bid frontend",
-      "bid backend",
-      "bid_frontend",
-      "bid_backend",
-    ],
-    searchTerm: "business intelligence management",
-    pinnedLinks: [
-      {
-        label: "Live site",
-        url: "https://business-intelligence-management.vercel.app/",
-      },
-      {
-        label: "bid_frontend",
-        url: "https://github.com/kentchristian/bid_frontend",
-      },
-      {
-        label: "bid_backend",
-        url: "https://github.com/kentchristian/bid_backend",
-      },
-    ],
+      'Monitoring app for internship tracking, status updates, and reporting.',
+    lookupTerms: ['ojt_monitoring', 'ojt monitoring', 'ojt-monitoring'],
+    searchTerm: 'ojt_monitoring',
   },
   {
-    key: "email-reader",
-    title: "Email Reader",
+    key: 'appointment-system',
+    title: 'Appointment System',
     summary:
-      "Email Reader web app for organizing and reviewing inbox messages, with a focused UI for fast triage and follow-up.",
-    lookupTerms: ["email reader", "email-reader", "email_reader"],
-    searchTerm: "email reader",
+      'Gakkcons appointment system across frontend, backend, and mobile repos.',
+    lookupTerms: [
+      'appointment_system',
+      'appointment system',
+      'appointment-system',
+    ],
+    searchTerm: 'appointment system',
     pinnedLinks: [
       {
-        label: "Live site",
-        url: "https://email-reader-lyart.vercel.app/",
+        label: 'gakkcons-frontend',
+        url: 'https://github.com/KC878/gakkcons-frontend',
       },
       {
-        label: "email_reader",
-        url: "https://github.com/kentchristian/email_reader",
+        label: 'gakkcons-mobile',
+        url: 'https://github.com/Hanz0u/gakkcons-mobile',
+      },
+      {
+        label: 'gakkcons-backend',
+        url: 'https://github.com/KC878/gakkcons-backend',
       },
     ],
   },
   {
-    key: "mkdocs-template",
-    title: "Cytech CRND Documentaiton (MkDocs)",
-    summary: "Documentation template and starter structure for technical docs.",
+    key: 'business-intelligence-management',
+    title: 'Business Intelligence Management',
+    summary:
+      'Multi-tenant Business Intelligence Management application that unifies reporting and operational insights, powered by dedicated frontend and backend services.',
     lookupTerms: [
-      "docs-template",
-      "docs template",
-      "mkdocs",
-      "mkdocs-template",
-      "mkdocs docs template",
+      'business intelligence management',
+      'business-intelligence-management',
+      'bid',
+      'bid frontend',
+      'bid backend',
+      'bid_frontend',
+      'bid_backend',
     ],
-    searchTerm: "mkdocs docs template",
+    searchTerm: 'business intelligence management',
+    pinnedLinks: [
+      {
+        label: 'Live site',
+        url: 'https://business-intelligence-management.vercel.app/',
+      },
+      {
+        label: 'bid_frontend',
+        url: 'https://github.com/kentchristian/bid_frontend',
+      },
+      {
+        label: 'bid_backend',
+        url: 'https://github.com/kentchristian/bid_backend',
+      },
+    ],
+  },
+  {
+    key: 'mkdocs-template',
+    title: 'Cytech CRND Documentaiton (MkDocs)',
+    summary: 'Documentation template and starter structure for technical docs.',
+    lookupTerms: [
+      'docs-template',
+      'docs template',
+      'mkdocs',
+      'mkdocs-template',
+      'mkdocs docs template',
+    ],
+    searchTerm: 'mkdocs docs template',
   },
 ];
 
@@ -174,7 +174,7 @@ async function fetchJson<T>(url: string, signal: AbortSignal): Promise<T> {
   const response = await fetch(url, {
     signal,
     headers: {
-      Accept: "application/vnd.github+json",
+      Accept: 'application/vnd.github+json',
     },
   });
 
@@ -182,7 +182,10 @@ async function fetchJson<T>(url: string, signal: AbortSignal): Promise<T> {
   if (!response.ok) {
     const fallback = `Request failed with status ${response.status}`;
     const message =
-      typeof payload === "object" && payload && "message" in payload && payload.message
+      typeof payload === 'object' &&
+      payload &&
+      'message' in payload &&
+      payload.message
         ? payload.message
         : fallback;
     throw new Error(message);
@@ -194,17 +197,17 @@ async function fetchJson<T>(url: string, signal: AbortSignal): Promise<T> {
 function formatDate(dateISO: string): string {
   const date = new Date(dateISO);
   if (Number.isNaN(date.getTime())) {
-    return "Unknown date";
+    return 'Unknown date';
   }
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
   });
 }
 
 function normalizeLookupValue(value: string): string {
-  return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return value.toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
 function normalizeOwnerValue(value: string): string {
@@ -215,7 +218,7 @@ function dedupePinnedLinks(
   links: {
     label: string;
     url: string;
-  }[]
+  }[],
 ) {
   const byUrl = new Map<string, { label: string; url: string }>();
   for (const link of links) {
@@ -226,27 +229,37 @@ function dedupePinnedLinks(
   return [...byUrl.values()];
 }
 
-function repoMatchesHighlight(repo: RepoWithSource, highlight: HighlightTarget): boolean {
+function repoMatchesHighlight(
+  repo: RepoWithSource,
+  highlight: HighlightTarget,
+): boolean {
   const repoName = normalizeLookupValue(repo.name);
-  const repoDescription = normalizeLookupValue(repo.description ?? "");
+  const repoDescription = normalizeLookupValue(repo.description ?? '');
 
   return highlight.lookupTerms.some((term) => {
     const normalizedTerm = normalizeLookupValue(term);
-    return repoName.includes(normalizedTerm) || repoDescription.includes(normalizedTerm);
+    return (
+      repoName.includes(normalizedTerm) ||
+      repoDescription.includes(normalizedTerm)
+    );
   });
 }
 
 function isProtectedDocumentationRepo(repo: RepoWithSource): boolean {
-  const searchable = normalizeLookupValue(`${repo.name} ${repo.description ?? ""}`);
+  const searchable = normalizeLookupValue(
+    `${repo.name} ${repo.description ?? ''}`,
+  );
   return PROTECTED_DOCUMENTATION_PATTERNS.some((pattern) =>
-    searchable.includes(normalizeLookupValue(pattern))
+    searchable.includes(normalizeLookupValue(pattern)),
   );
 }
 
 function isExcludedRepo(repo: RepoWithSource): boolean {
-  const searchable = normalizeLookupValue(`${repo.name} ${repo.description ?? ""}`);
+  const searchable = normalizeLookupValue(
+    `${repo.name} ${repo.description ?? ''}`,
+  );
   return EXCLUDED_REPO_PATTERNS.some((pattern) =>
-    searchable.includes(normalizeLookupValue(pattern))
+    searchable.includes(normalizeLookupValue(pattern)),
   );
 }
 
@@ -256,7 +269,7 @@ export default function Projects() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
-  const [selectedOwner, setSelectedOwner] = useState<string>("all");
+  const [selectedOwner, setSelectedOwner] = useState<string>('all');
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
@@ -271,14 +284,17 @@ export default function Projects() {
         const settledResults = await Promise.allSettled(
           GITHUB_ACCOUNTS.map(async (account): Promise<AccountBundle> => {
             const [user, userRepos] = await Promise.all([
-              fetchJson<GithubUser>(`https://api.github.com/users/${account}`, controller.signal),
+              fetchJson<GithubUser>(
+                `https://api.github.com/users/${account}`,
+                controller.signal,
+              ),
               fetchJson<GithubRepo[]>(
                 `https://api.github.com/users/${account}/repos?per_page=100&sort=updated`,
-                controller.signal
+                controller.signal,
               ),
             ]);
             return { account, user, repos: userRepos };
-          })
+          }),
         );
 
         if (controller.signal.aborted) {
@@ -286,32 +302,36 @@ export default function Projects() {
         }
 
         const successfulResults = settledResults.flatMap((result) =>
-          result.status === "fulfilled" ? [result.value] : []
+          result.status === 'fulfilled' ? [result.value] : [],
         );
         const failedAccounts = settledResults.flatMap((result, index) =>
-          result.status === "rejected" ? [GITHUB_ACCOUNTS[index]] : []
+          result.status === 'rejected' ? [GITHUB_ACCOUNTS[index]] : [],
         );
 
         if (!successfulResults.length) {
-          throw new Error("Unable to load GitHub data for either account.");
+          throw new Error('Unable to load GitHub data for either account.');
         }
 
         setUsers(successfulResults.map(({ user }) => user));
         setRepos(
           successfulResults.flatMap(({ account, repos: accountRepos }) =>
-            accountRepos.map((repo) => ({ ...repo, source: account }))
-          )
+            accountRepos.map((repo) => ({ ...repo, source: account })),
+          ),
         );
 
         if (failedAccounts.length) {
-          setNotice(`Partial data loaded. Could not load: ${failedAccounts.join(", ")}.`);
+          setNotice(
+            `Partial data loaded. Could not load: ${failedAccounts.join(', ')}.`,
+          );
         }
       } catch (fetchError: unknown) {
         if (controller.signal.aborted) {
           return;
         }
         const message =
-          fetchError instanceof Error ? fetchError.message : "Unknown error while loading data.";
+          fetchError instanceof Error
+            ? fetchError.message
+            : 'Unknown error while loading data.';
         setError(message);
         setUsers([]);
         setRepos([]);
@@ -331,27 +351,31 @@ export default function Projects() {
 
   const ownerFilters = useMemo(() => {
     const dynamicOwners = users.map((user) => user.login);
-    return ["all", ...dynamicOwners];
+    return ['all', ...dynamicOwners];
   }, [users]);
   const accountMentions = useMemo(
-    () => GITHUB_ACCOUNTS.map((account) => `@${account}`).join(" and "),
-    []
+    () => GITHUB_ACCOUNTS.map((account) => `@${account}`).join(' and '),
+    [],
   );
 
   useEffect(() => {
-    if (selectedOwner !== "all" && !ownerFilters.includes(selectedOwner)) {
-      setSelectedOwner("all");
+    if (selectedOwner !== 'all' && !ownerFilters.includes(selectedOwner)) {
+      setSelectedOwner('all');
     }
   }, [ownerFilters, selectedOwner]);
 
   const projectRepos = useMemo(
-    () => repos.filter((repo) => !isProtectedDocumentationRepo(repo) && !isExcludedRepo(repo)),
-    [repos]
+    () =>
+      repos.filter(
+        (repo) => !isProtectedDocumentationRepo(repo) && !isExcludedRepo(repo),
+      ),
+    [repos],
   );
 
   const highlightedProjects = useMemo(() => {
     const reposByRecentUpdate = [...projectRepos].sort(
-      (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+      (a, b) =>
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
     );
 
     return HIGHLIGHT_TARGETS.map((highlight) => {
@@ -360,15 +384,17 @@ export default function Projects() {
         return {
           ...highlight,
           repo: null,
-          searchUrl: "",
+          searchUrl: '',
           pinnedLinks: [],
         };
       }
 
       const repo = reposByRecentUpdate.find((candidateRepo) =>
-        repoMatchesHighlight(candidateRepo, highlight)
+        repoMatchesHighlight(candidateRepo, highlight),
       );
-      const searchScope = GITHUB_ACCOUNTS.map((account) => `user:${account}`).join(" ");
+      const searchScope = GITHUB_ACCOUNTS.map(
+        (account) => `user:${account}`,
+      ).join(' ');
       const searchQuery = `${highlight.searchTerm} ${searchScope}`.trim();
       const searchUrl = `https://github.com/search?q=${encodeURIComponent(searchQuery)}&type=repositories`;
       const pinnedLinks = dedupePinnedLinks(highlight.pinnedLinks ?? []);
@@ -383,13 +409,19 @@ export default function Projects() {
   }, [projectRepos]);
 
   const highlightedRepoIds = useMemo(
-    () => new Set(highlightedProjects.flatMap((project) => (project.repo ? [project.repo.id] : []))),
-    [highlightedProjects]
+    () =>
+      new Set(
+        highlightedProjects.flatMap((project) =>
+          project.repo ? [project.repo.id] : [],
+        ),
+      ),
+    [highlightedProjects],
   );
 
   const visibleRepos = useMemo(() => {
     const sortedRepos = [...projectRepos].sort((a, b) => {
-      const updatedAtRank = new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+      const updatedAtRank =
+        new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
       if (updatedAtRank !== 0) {
         return updatedAtRank;
       }
@@ -403,30 +435,32 @@ export default function Projects() {
     });
 
     const filteredByOwner =
-      selectedOwner === "all"
+      selectedOwner === 'all'
         ? sortedRepos
         : sortedRepos.filter(
-          (repo) => normalizeOwnerValue(repo.source) === normalizeOwnerValue(selectedOwner)
-        );
+            (repo) =>
+              normalizeOwnerValue(repo.source) ===
+              normalizeOwnerValue(selectedOwner),
+          );
 
     return filteredByOwner.filter((repo) => !highlightedRepoIds.has(repo.id));
   }, [highlightedRepoIds, projectRepos, selectedOwner]);
 
   const totalStars = useMemo(
     () => projectRepos.reduce((sum, repo) => sum + repo.stargazers_count, 0),
-    [projectRepos]
+    [projectRepos],
   );
   const totalForks = useMemo(
     () => projectRepos.reduce((sum, repo) => sum + repo.forks_count, 0),
-    [projectRepos]
+    [projectRepos],
   );
   const totalFollowers = useMemo(
     () => users.reduce((sum, user) => sum + user.followers, 0),
-    [users]
+    [users],
   );
   const languageCount = useMemo(() => {
     const languageSet = new Set(
-      projectRepos.flatMap((repo) => (repo.language ? [repo.language] : []))
+      projectRepos.flatMap((repo) => (repo.language ? [repo.language] : [])),
     );
     return languageSet.size;
   }, [projectRepos]);
@@ -486,8 +520,9 @@ export default function Projects() {
                     One board for everything I build.
                   </h1>
                   <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-                    Repositories from <strong>{accountMentions}</strong> are combined here, with
-                    highlighted projects first and the full repo list organized below.
+                    Repositories from <strong>{accountMentions}</strong> are
+                    combined here, with highlighted projects first and the full
+                    repo list organized below.
                   </p>
                 </div>
 
@@ -507,8 +542,12 @@ export default function Projects() {
                         loading="lazy"
                       />
                       <div>
-                        <p className="text-sm font-semibold leading-none">{user.name || user.login}</p>
-                        <p className="mt-1 text-xs text-muted-foreground">@{user.login}</p>
+                        <p className="text-sm font-semibold leading-none">
+                          {user.name || user.login}
+                        </p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          @{user.login}
+                        </p>
                       </div>
                       <ExternalLink className="ml-auto size-4 opacity-60 transition group-hover:opacity-100" />
                     </a>
@@ -522,22 +561,22 @@ export default function Projects() {
             <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {[
                 {
-                  label: "Visible Projects",
+                  label: 'Visible Projects',
                   value: numberFormatter.format(projectRepos.length),
                   icon: Github,
                 },
                 {
-                  label: "Total Stars",
+                  label: 'Total Stars',
                   value: numberFormatter.format(totalStars),
                   icon: Star,
                 },
                 {
-                  label: "Total Forks",
+                  label: 'Total Forks',
                   value: numberFormatter.format(totalForks),
                   icon: GitFork,
                 },
                 {
-                  label: "Followers",
+                  label: 'Followers',
                   value: numberFormatter.format(totalFollowers),
                   icon: Users,
                 },
@@ -547,7 +586,9 @@ export default function Projects() {
                   className="rounded-2xl border border-border/70 bg-card/90 p-4 shadow-sm"
                 >
                   <div className="flex items-center justify-between">
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground">{metric.label}</p>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                      {metric.label}
+                    </p>
                     <metric.icon className="size-4 text-muted-foreground" />
                   </div>
                   <p className="mt-3 text-2xl font-semibold">{metric.value}</p>
@@ -560,7 +601,9 @@ export default function Projects() {
             <section className="rounded-3xl border border-border/70 bg-card/85 p-5 shadow-sm">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <h2 className="text-xl font-semibold">Highlighted Projects</h2>
+                  <h2 className="text-xl font-semibold">
+                    Highlighted Projects
+                  </h2>
                   <p className="mt-1 text-sm text-muted-foreground">
                     Searched across both accounts for your selected projects.
                   </p>
@@ -570,9 +613,12 @@ export default function Projects() {
 
               <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
                 {highlightedProjects.map((project) => {
-                  const isLockedProject = LOCKED_HIGHLIGHT_KEYS.has(project.key);
+                  const isLockedProject = LOCKED_HIGHLIGHT_KEYS.has(
+                    project.key,
+                  );
                   const hasPinnedLinks = project.pinnedLinks.length > 0;
-                  const [primaryPinnedLink, ...secondaryPinnedLinks] = project.pinnedLinks;
+                  const [primaryPinnedLink, ...secondaryPinnedLinks] =
+                    project.pinnedLinks;
 
                   return (
                     <article
@@ -585,16 +631,18 @@ export default function Projects() {
                         </h3>
                         <Badge
                           variant={
-                            !isLockedProject && (hasPinnedLinks || project.repo) ? "secondary" : "outline"
+                            !isLockedProject && (hasPinnedLinks || project.repo)
+                              ? 'secondary'
+                              : 'outline'
                           }
                         >
                           {isLockedProject
-                            ? "Private"
+                            ? 'Private'
                             : hasPinnedLinks
-                              ? "Curated"
+                              ? 'Curated'
                               : project.repo
                                 ? `@${project.repo.source}`
-                                : "Not Found"}
+                                : 'Not Found'}
                         </Badge>
                       </div>
 
@@ -604,13 +652,18 @@ export default function Projects() {
 
                       {isLockedProject ? (
                         <div className="mt-4 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-muted-foreground">
-                          This documentation project is protected by private-repo access control and
-                          is fully excluded from public project listings.
+                          This documentation project is protected by
+                          private-repo access control and is fully excluded from
+                          public project listings.
                         </div>
                       ) : hasPinnedLinks ? (
                         <div className="mt-4 grid gap-2">
                           {project.pinnedLinks.map((link) => (
-                            <Badge key={link.url} variant="outline" className="w-full justify-start sm:w-auto">
+                            <Badge
+                              key={link.url}
+                              variant="outline"
+                              className="w-full justify-start sm:w-auto"
+                            >
                               {link.label}
                             </Badge>
                           ))}
@@ -620,7 +673,9 @@ export default function Projects() {
                           <div className="rounded-md bg-muted/60 px-2 py-1.5 text-center">
                             <p>Stars</p>
                             <p className="mt-0.5 font-semibold text-foreground">
-                              {numberFormatter.format(project.repo.stargazers_count)}
+                              {numberFormatter.format(
+                                project.repo.stargazers_count,
+                              )}
                             </p>
                           </div>
                           <div className="rounded-md bg-muted/60 px-2 py-1.5 text-center">
@@ -638,7 +693,8 @@ export default function Projects() {
                         </div>
                       ) : (
                         <div className="mt-4 rounded-md bg-muted/60 px-3 py-2 text-xs text-muted-foreground">
-                          No direct match found yet. Use the search button to open GitHub results.
+                          No direct match found yet. Use the search button to
+                          open GitHub results.
                         </div>
                       )}
 
@@ -649,9 +705,19 @@ export default function Projects() {
                         </Button>
                       ) : hasPinnedLinks && primaryPinnedLink ? (
                         <div className="mt-5 flex flex-col gap-2">
-                          <Button asChild size="sm" className="w-full justify-between gap-2 overflow-hidden">
-                            <a href={primaryPinnedLink.url} target="_blank" rel="noreferrer noopener">
-                              <span className="truncate">Open {primaryPinnedLink.label}</span>
+                          <Button
+                            asChild
+                            size="sm"
+                            className="w-full justify-between gap-2 overflow-hidden"
+                          >
+                            <a
+                              href={primaryPinnedLink.url}
+                              target="_blank"
+                              rel="noreferrer noopener"
+                            >
+                              <span className="truncate">
+                                Open {primaryPinnedLink.label}
+                              </span>
                               <ExternalLink className="size-4" />
                             </a>
                           </Button>
@@ -663,8 +729,14 @@ export default function Projects() {
                               variant="outline"
                               className="w-full justify-between gap-2 overflow-hidden"
                             >
-                              <a href={link.url} target="_blank" rel="noreferrer noopener">
-                                <span className="truncate">Open {link.label}</span>
+                              <a
+                                href={link.url}
+                                target="_blank"
+                                rel="noreferrer noopener"
+                              >
+                                <span className="truncate">
+                                  Open {link.label}
+                                </span>
                                 <ExternalLink className="size-4" />
                               </a>
                             </Button>
@@ -673,12 +745,20 @@ export default function Projects() {
                       ) : (
                         <Button asChild size="sm" className="mt-5 w-full">
                           <a
-                            href={project.repo ? project.repo.html_url : project.searchUrl}
+                            href={
+                              project.repo
+                                ? project.repo.html_url
+                                : project.searchUrl
+                            }
                             target="_blank"
                             rel="noreferrer noopener"
                           >
-                            {project.repo ? "Open Project" : "Search Project"}
-                            {project.repo ? <ExternalLink className="size-4" /> : <Search className="size-4" />}
+                            {project.repo ? 'Open Project' : 'Search Project'}
+                            {project.repo ? (
+                              <ExternalLink className="size-4" />
+                            ) : (
+                              <Search className="size-4" />
+                            )}
                           </a>
                         </Button>
                       )}
@@ -689,13 +769,17 @@ export default function Projects() {
             </section>
           </FadeUpMotionProv>
 
-          <FadeUpMotionProv delay={0.12} viewport={{ once: true, amount: 0.03 }}>
+          <FadeUpMotionProv
+            delay={0.12}
+            viewport={{ once: true, amount: 0.03 }}
+          >
             <section className="rounded-3xl border border-border/70 bg-card/85 p-5 shadow-sm">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <h2 className="text-xl font-semibold">Repository Board</h2>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {languageCount} languages represented across {projectRepos.length} repositories.
+                    {languageCount} languages represented across{' '}
+                    {projectRepos.length} repositories.
                   </p>
                 </div>
 
@@ -704,12 +788,12 @@ export default function Projects() {
                     <Button
                       key={owner}
                       size="sm"
-                      variant={selectedOwner === owner ? "default" : "outline"}
+                      variant={selectedOwner === owner ? 'default' : 'outline'}
                       onClick={() => {
                         setSelectedOwner(owner);
                       }}
                     >
-                      {owner === "all" ? "All Accounts" : `@${owner}`}
+                      {owner === 'all' ? 'All Accounts' : `@${owner}`}
                     </Button>
                   ))}
                 </div>
@@ -729,17 +813,24 @@ export default function Projects() {
                   >
                     <div className="flex min-w-0 items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <h3 className="break-words text-lg font-semibold leading-tight">{repo.name}</h3>
+                        <h3 className="break-words text-lg font-semibold leading-tight">
+                          {repo.name}
+                        </h3>
                         <p className="mt-2 break-words text-sm leading-relaxed text-muted-foreground">
-                          {repo.description || "No repository description provided yet."}
+                          {repo.description ||
+                            'No repository description provided yet.'}
                         </p>
                       </div>
                       <Badge variant="outline">@{repo.source}</Badge>
                     </div>
 
                     <div className="mt-4 flex flex-wrap gap-2">
-                      <Badge variant="secondary">{repo.language || "Unspecified"}</Badge>
-                      {repo.archived && <Badge variant="outline">Archived</Badge>}
+                      <Badge variant="secondary">
+                        {repo.language || 'Unspecified'}
+                      </Badge>
+                      {repo.archived && (
+                        <Badge variant="outline">Archived</Badge>
+                      )}
                       {repo.fork && <Badge variant="outline">Fork</Badge>}
                     </div>
 
@@ -765,7 +856,11 @@ export default function Projects() {
                     </div>
 
                     <Button asChild size="sm" className="mt-5 w-full">
-                      <a href={repo.html_url} target="_blank" rel="noreferrer noopener">
+                      <a
+                        href={repo.html_url}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
                         Open Repository
                         <ExternalLink className="size-4" />
                       </a>
