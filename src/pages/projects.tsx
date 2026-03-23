@@ -409,13 +409,21 @@ export default function Projects() {
   }, [projectRepos]);
 
   const highlightedRepoIds = useMemo(
-    () =>
-      new Set(
-        highlightedProjects.flatMap((project) =>
-          project.repo ? [project.repo.id] : [],
-        ),
-      ),
-    [highlightedProjects],
+    () => {
+      const highlightableTargets = HIGHLIGHT_TARGETS.filter(
+        (target) => !LOCKED_HIGHLIGHT_KEYS.has(target.key),
+      );
+      const matchingIds = projectRepos
+        .filter((repo) =>
+          highlightableTargets.some((target) =>
+            repoMatchesHighlight(repo, target),
+          ),
+        )
+        .map((repo) => repo.id);
+
+      return new Set(matchingIds);
+    },
+    [projectRepos],
   );
 
   const visibleRepos = useMemo(() => {
