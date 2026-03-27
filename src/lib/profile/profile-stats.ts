@@ -1,5 +1,6 @@
 import cytechExperienceData from '../data/cytech-experience-data.json';
 import experienceData from '../data/experience-data.json';
+import profileStatsData from '../data/profile-stats-data.json';
 
 export type ExperienceSignal = {
   company: string;
@@ -55,106 +56,25 @@ type TrackDefinition = {
 export const RADAR_SIZE = 280;
 const RADAR_CENTER = RADAR_SIZE / 2;
 export const RADAR_RADIUS = 98;
-export const RADAR_LEVELS = [0.25, 0.5, 0.75, 1] as const;
+export const RADAR_LEVELS = profileStatsData.radarLevels as number[];
 
-const RADAR_DOMAINS: DomainDefinition[] = [
-  {
-    label: 'Frontend',
-    keywords: [
-      'react',
-      'frontend',
-      'ui',
-      'ux',
-      'storybook',
-      'theming',
-      'next.js',
-    ],
-  },
-  {
-    label: 'Backend',
-    keywords: [
-      'api',
-      'backend',
-      'django',
-      'laravel',
-      'database',
-      'integration',
-      'celery',
-    ],
-  },
-  {
-    label: 'Architecture',
-    keywords: [
-      'micro-frontend',
-      'architecture',
-      'scalable',
-      'performance',
-      'docker',
-      'system',
-    ],
-  },
-  {
-    label: 'Docs',
-    keywords: [
-      'technical writing',
-      'documentation',
-      'docs-as-code',
-      'mkdocs',
-      'markdown',
-    ],
-  },
-  {
-    label: 'Delivery',
-    keywords: [
-      'stakeholder',
-      'collaboration',
-      'agile',
-      'testing',
-      'debugging',
-      'team',
-    ],
-  },
-];
+const RADAR_DOMAINS = profileStatsData.radarDomains as DomainDefinition[];
 
-const PROJECT_TRACKS: TrackDefinition[] = [
-  {
-    label: 'Product Engineering',
-    keywords: [
-      'developer',
-      'frontend',
-      'full-stack',
-      'web',
-      'engineering',
-      'dashboard',
-    ],
-  },
-  {
-    label: 'Documentation',
-    keywords: ['writer', 'documentation', 'mkdocs', 'docs-as-code', 'markdown'],
-  },
-  {
-    label: 'Quality & Ops',
-    keywords: [
-      'qa',
-      'quality',
-      'testing',
-      'debugging',
-      'monitoring',
-      'data entry',
-    ],
-  },
-  {
-    label: 'Strategy',
-    keywords: [
-      'startup',
-      'strategic',
-      'planning',
-      'pitch',
-      'stakeholder',
-      'business',
-    ],
-  },
-];
+const PROJECT_TRACKS = profileStatsData.projectTracks as TrackDefinition[];
+
+type DerivedSkillTemplate = {
+  label: string;
+  note: string;
+};
+
+const DERIVED_SKILL_TEMPLATES =
+  profileStatsData.derivedSkillTemplates as DerivedSkillTemplate[];
+const INTEGRATION_KEYWORDS =
+  profileStatsData.integrationKeywords as string[];
+const DOCUMENTATION_KEYWORDS =
+  profileStatsData.documentationKeywords as string[];
+const COLLABORATION_KEYWORDS =
+  profileStatsData.collaborationKeywords as string[];
 
 const toPercentScore = (hits: number, total: number) => {
   if (total <= 0) {
@@ -279,47 +199,29 @@ export const buildProfileDashboardData = (): DashboardData => {
   const docsScore = scoreByLabel.get('Docs') ?? 0;
   const deliveryScore = scoreByLabel.get('Delivery') ?? 0;
 
-  const derivedSkills: DerivedSkill[] = [
-    {
-      label: 'Full-Stack Execution',
-      score: clampScore((frontendScore + backendScore) / 2),
-      note: 'Combines UI delivery with backend API execution.',
-    },
-    {
-      label: 'Product Reliability',
-      score: clampScore((architectureScore + backendScore + deliveryScore) / 3),
-      note: 'Shows stability focus across architecture and production workflows.',
-    },
-    {
-      label: 'Knowledge Sharing',
-      score: clampScore((docsScore + deliveryScore) / 2),
-      note: 'Reflects documentation depth and cross-team communication.',
-    },
-    {
-      label: 'Delivery Momentum',
-      score: clampScore((initiativeCount / 12) * 100),
-      note: 'Pace signal based on completed initiatives in the profile timeline.',
-    },
-  ];
+  const derivedSkillScores: Record<string, number> = {
+    'Full-Stack Execution': clampScore((frontendScore + backendScore) / 2),
+    'Product Reliability': clampScore(
+      (architectureScore + backendScore + deliveryScore) / 3,
+    ),
+    'Knowledge Sharing': clampScore((docsScore + deliveryScore) / 2),
+    'Delivery Momentum': clampScore((initiativeCount / 12) * 100),
+  };
+
+  const derivedSkills: DerivedSkill[] = DERIVED_SKILL_TEMPLATES.map((skill) => ({
+    label: skill.label,
+    note: skill.note,
+    score: derivedSkillScores[skill.label] ?? 0,
+  }));
 
   const integrationProjects = normalizedEntries.filter((entryText) =>
-    ['api', 'integration', 'backend', 'rest'].some((keyword) =>
-      entryText.includes(keyword),
-    ),
+    INTEGRATION_KEYWORDS.some((keyword) => entryText.includes(keyword)),
   ).length;
   const documentationProjects = normalizedEntries.filter((entryText) =>
-    [
-      'documentation',
-      'technical writing',
-      'mkdocs',
-      'docs-as-code',
-      'markdown',
-    ].some((keyword) => entryText.includes(keyword)),
+    DOCUMENTATION_KEYWORDS.some((keyword) => entryText.includes(keyword)),
   ).length;
   const collaborationProjects = normalizedEntries.filter((entryText) =>
-    ['stakeholder', 'team', 'collaboration', 'cross-functional'].some(
-      (keyword) => entryText.includes(keyword),
-    ),
+    COLLABORATION_KEYWORDS.some((keyword) => entryText.includes(keyword)),
   ).length;
 
   const insights: Insight[] =

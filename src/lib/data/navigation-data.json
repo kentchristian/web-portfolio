@@ -1,0 +1,9 @@
+{
+  "items": [
+    { "path": "", "name": "Home", "icon": "FaHome" },
+    { "path": "experience", "name": "Experience", "icon": "FaBriefcase" },
+    { "path": "projects", "name": "Projects", "icon": "FaFolderOpen" },
+    { "path": "skills", "name": "Skills", "icon": "FaCode" },
+    { "path": "assessments", "name": "Assessments", "icon": "FaFileAlt" }
+  ]
+}

@@ -44,6 +44,7 @@ import {
 import ToolTip from "../common/ToolTip";
 import { Typography } from "../common/Typography";
 import PageContainer from "../components/containers/PageContainer";
+import skillsData from "../lib/data/skills-data.json";
 
 type SkillGroup = {
   title: string;
@@ -96,258 +97,67 @@ type GithubSignalResult = {
   notice: string | null;
 };
 
-const GITHUB_ACCOUNTS = ["kc878", "kentchristian"] as const;
-
-const SKILL_GROUPS: SkillGroup[] = [
-  {
-    title: "Languages",
-    summary: "Core programming languages used for web and backend delivery.",
-    icon: FileCode2,
-    items: ["JavaScript", "PHP", "Python", "Java"],
-  },
-  {
-    title: "Frameworks & Libraries",
-    summary: "Production-ready frameworks and state/data utilities.",
-    icon: Layers,
-    items: ["Next.js", "React", "Laravel", "Django", "Zustand", "TanStack React Query"],
-  },
-  {
-    title: "Architecture & Tools",
-    summary: "Patterns and tooling for scalable and maintainable projects.",
-    icon: Braces,
-    items: ["Micro-Frontend (MFE)", "REST API Development", "Storybook", "MkDocs", "pnpm", "Rsbuild", "Docker"],
-  },
-  {
-    title: "Databases",
-    summary: "Relational data modeling and query-centric application storage.",
-    icon: Database,
-    items: ["MySQL", "PostgreSQL"],
-  },
-  {
-    title: "Version Control & Delivery",
-    summary: "Source control and deployment platforms across teams.",
-    icon: GitBranch,
-    items: ["Git", "GitHub", "GitLab", "Vercel", "GitHub Pages"],
-  },
-  {
-    title: "Networking & Security",
-    summary: "Infrastructure and access-control foundations for secure systems.",
-    icon: ShieldCheck,
-    items: [
-      "IP Addressing",
-      "VLANs",
-      "ACLs",
-      "Firewall Setup",
-      "Cisco Router/Switch Configuration",
-    ],
-  },
-  {
-    title: "Documentation",
-    summary: "Clear, versioned, docs-as-code workflows.",
-    icon: BookText,
-    items: ["Technical Writing", "Docs-as-Code", "Markdown"],
-  },
-  {
-    title: "Soft Skills",
-    summary: "Execution and collaboration capabilities for team outcomes.",
-    icon: MessageSquareText,
-    items: ["Problem Solving", "Collaboration", "Time Management", "Technical Communication"],
-  },
-];
-
-const CERTIFICATIONS: Certification[] = [
-  {
-    title: "Social Engineering Assessment",
-    provider: "CyTech x Aquila",
-    year: "2026",
-    image: "/certificates/cytech-social-engineering.svg",
-    imageAlt: "Social Engineering Assessment certificate preview",
-    certificateImage: "/certificates/cert_social_engineering.png",
-    certificateImageAlt: "Social Engineering Assessment certificate",
-  },
-  {
-    title: "Cloud Security Fundamentals Quiz",
-    provider: "CyTech x Aquila",
-    year: "2026",
-    image: "/certificates/cytech-cloud-security.svg",
-    imageAlt: "Cloud Security Fundamentals Quiz certificate preview",
-    certificateImage: "/certificates/cert_basic_cloud_security.png",
-    certificateImageAlt: "Cloud Security Fundamentals Quiz certificate",
-  },
-  {
-    title: "Problem Solving and Innovation",
-    provider: "Wadhwani Foundation",
-    year: "2025",
-    image: "/certificates/wadhwani-problem-solving.svg",
-    imageAlt: "Problem Solving and Innovation certificate preview",
-    overlayImage: "/certificates/wadhwani-problem-solving-overlay.svg",
-    overlayImageAlt: "Problem Solving and Innovation certificate full preview",
-    certificateImage: "/certificates/cert_problem_solving.jpeg",
-    certificateImageAlt: "Problem Solving and Innovation certificate",
-  },
-  {
-    title: "Impactful Writing Skills",
-    provider: "Wadhwani Foundation",
-    year: "2025",
-    image: "/certificates/wadhwani-impactful-writing.svg",
-    imageAlt: "Impactful Writing Skills certificate preview",
-    overlayImage: "/certificates/wadhwani-impactful-writing-overlay.svg",
-    overlayImageAlt: "Impactful Writing Skills certificate full preview",
-    certificateImage: "/certificates/cert_impactful_writing.jpeg",
-    certificateImageAlt: "Impactful Writing Skills certificate",
-  },
-  {
-    title: "Introduction to ITIL V4",
-    provider: "Simplilearn",
-    year: "2025",
-    image: "/certificates/simplilearn-itil.svg",
-    imageAlt: "Introduction to ITIL V4 certificate preview",
-    certificateImage: "/certificates/cert_simplearn.jpeg",
-    certificateImageAlt: "Introduction to ITIL V4 certificate",
-  },
-  {
-    title: "CCNAv7: Introduction to Networks",
-    provider: "Cisco Networking Academy",
-    year: "2021",
-    image: "/certificates/cisco-ccna.svg",
-    imageAlt: "CCNAv7 Introduction to Networks certificate preview",
-    certificateImage: "/certificates/cert_ccn_intro.jpeg",
-    certificateImageAlt: "CCNAv7 Introduction to Networks certificate",
-  },
-  {
-    title: "Techstars Startup Weekend",
-    provider: "USTP, Cagayan de Oro",
-    year: "2023",
-    image: "/certificates/techstars-weekend.svg",
-    imageAlt: "Techstars Startup Weekend certificate preview",
-  },
-];
-
-const DOMAIN_SCORES: DomainScore[] = [
-  {
-    label: "Web Engineering",
-    score: 92,
-    rationale:
-      "Driven by JavaScript, React, Next.js, Laravel, Django, REST APIs, and micro-frontend architecture experience.",
-    icon: Globe2,
-    iconClassName: "border-sky-500/35 bg-sky-500/15 text-sky-700 dark:text-sky-300",
-    barClassName: "from-sky-500 via-cyan-500 to-blue-500",
-  },
-  {
-    label: "Architecture & Delivery",
-    score: 87,
-    rationale:
-      "Grounded in MFE concepts, API design, Storybook workflows, Rsbuild, Docker, and platform delivery through Vercel/GitHub Pages.",
-    icon: Layers,
-    iconClassName: "border-indigo-500/35 bg-indigo-500/15 text-indigo-700 dark:text-indigo-300",
-    barClassName: "from-indigo-500 via-blue-500 to-cyan-500",
-  },
-  {
-    label: "Documentation & Technical Writing",
-    score: 89,
-    rationale: "Backed by technical writing, docs-as-code practices, MkDocs, and markdown-first documentation workflows.",
-    icon: BookText,
-    iconClassName: "border-emerald-500/35 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
-    barClassName: "from-emerald-500 via-teal-500 to-lime-500",
-  },
-  {
-    label: "Communication & Collaboration",
-    score: 86,
-    rationale: "Reflected through technical communication, collaboration habits, and structured stakeholder-facing writing.",
-    icon: MessageSquareText,
-    iconClassName: "border-fuchsia-500/35 bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300",
-    barClassName: "from-fuchsia-500 via-pink-500 to-rose-500",
-  },
-  {
-    label: "Networking & Security",
-    score: 79,
-    rationale: "Supported by IP addressing, VLANs, ACLs, firewall setup, and Cisco routing/switching foundations.",
-    icon: ShieldCheck,
-    iconClassName: "border-amber-500/35 bg-amber-500/15 text-amber-700 dark:text-amber-300",
-    barClassName: "from-amber-500 via-orange-500 to-red-500",
-  },
-];
-
-const LANGUAGE_THEMES: Record<string, LanguageTheme> = {
-  JavaScript: {
-    icon: SiJavascript,
-    chipClassName: "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-    barClassName: "from-amber-400 via-yellow-400 to-amber-500",
-    shareClassName: "text-amber-700 dark:text-amber-300",
-  },
-  TypeScript: {
-    icon: SiTypescript,
-    chipClassName: "border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300",
-    barClassName: "from-blue-500 via-sky-500 to-cyan-500",
-    shareClassName: "text-sky-700 dark:text-sky-300",
-  },
-  PHP: {
-    icon: SiPhp,
-    chipClassName: "border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300",
-    barClassName: "from-indigo-500 via-violet-500 to-blue-500",
-    shareClassName: "text-indigo-700 dark:text-indigo-300",
-  },
-  Python: {
-    icon: SiPython,
-    chipClassName: "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-    barClassName: "from-emerald-500 via-teal-500 to-cyan-500",
-    shareClassName: "text-emerald-700 dark:text-emerald-300",
-  },
-  Java: {
-    icon: SiOpenjdk,
-    chipClassName: "border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300",
-    barClassName: "from-orange-500 via-red-500 to-rose-500",
-    shareClassName: "text-orange-700 dark:text-orange-300",
-  },
-  HTML: {
-    icon: SiHtml5,
-    chipClassName: "border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300",
-    barClassName: "from-rose-500 via-orange-500 to-amber-500",
-    shareClassName: "text-rose-700 dark:text-rose-300",
-  },
-  CSS: {
-    icon: SiCss3,
-    chipClassName: "border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
-    barClassName: "from-cyan-500 via-blue-500 to-indigo-500",
-    shareClassName: "text-cyan-700 dark:text-cyan-300",
-  },
-  Go: {
-    icon: SiGo,
-    chipClassName: "border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300",
-    barClassName: "from-teal-500 via-cyan-500 to-blue-500",
-    shareClassName: "text-teal-700 dark:text-teal-300",
-  },
-  Rust: {
-    icon: SiRust,
-    chipClassName: "border-stone-500/40 bg-stone-500/10 text-stone-700 dark:text-stone-300",
-    barClassName: "from-stone-500 via-amber-500 to-orange-500",
-    shareClassName: "text-stone-700 dark:text-stone-300",
-  },
-  Ruby: {
-    icon: SiRuby,
-    chipClassName: "border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300",
-    barClassName: "from-red-500 via-rose-500 to-fuchsia-500",
-    shareClassName: "text-red-700 dark:text-red-300",
-  },
-  Kotlin: {
-    icon: SiKotlin,
-    chipClassName: "border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300",
-    barClassName: "from-violet-500 via-fuchsia-500 to-pink-500",
-    shareClassName: "text-violet-700 dark:text-violet-300",
-  },
-  Swift: {
-    icon: SiSwift,
-    chipClassName: "border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-    barClassName: "from-amber-500 via-orange-500 to-red-500",
-    shareClassName: "text-amber-700 dark:text-amber-300",
-  },
-  "C++": {
-    icon: SiCplusplus,
-    chipClassName: "border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300",
-    barClassName: "from-blue-500 via-indigo-500 to-violet-500",
-    shareClassName: "text-blue-700 dark:text-blue-300",
-  },
+type SkillGroupData = Omit<SkillGroup, "icon"> & { icon: string };
+type DomainScoreData = Omit<DomainScore, "icon"> & { icon: string };
+type LanguageThemeData = Omit<LanguageTheme, "icon"> & {
+  language: string;
+  icon: string;
 };
+
+const GITHUB_ACCOUNTS = skillsData.githubAccounts as string[];
+
+const SKILL_GROUP_ICON_MAP: Record<string, LucideIcon> = {
+  FileCode2,
+  Layers,
+  Braces,
+  Database,
+  GitBranch,
+  ShieldCheck,
+  BookText,
+  MessageSquareText,
+  Globe2,
+};
+
+const LANGUAGE_ICON_MAP: Record<string, IconType> = {
+  SiJavascript,
+  SiTypescript,
+  SiPhp,
+  SiPython,
+  SiOpenjdk,
+  SiHtml5,
+  SiCss3,
+  SiGo,
+  SiRust,
+  SiRuby,
+  SiKotlin,
+  SiSwift,
+  SiCplusplus,
+  FaCode,
+};
+
+const SKILL_GROUPS: SkillGroup[] = (skillsData.skillGroups as SkillGroupData[]).map((group) => ({
+  ...group,
+  icon: SKILL_GROUP_ICON_MAP[group.icon] ?? FileCode2,
+}));
+
+const CERTIFICATIONS = skillsData.certifications as Certification[];
+
+const DOMAIN_SCORES: DomainScore[] = (skillsData.domainScores as DomainScoreData[]).map((domain) => ({
+  ...domain,
+  icon: SKILL_GROUP_ICON_MAP[domain.icon] ?? Globe2,
+}));
+
+const LANGUAGE_THEMES: Record<string, LanguageTheme> = Object.fromEntries(
+  (skillsData.languageThemes as LanguageThemeData[]).map((theme) => [
+    theme.language,
+    {
+      icon: LANGUAGE_ICON_MAP[theme.icon] ?? FaCode,
+      chipClassName: theme.chipClassName,
+      barClassName: theme.barClassName,
+      shareClassName: theme.shareClassName,
+    },
+  ]),
+);
 
 const DEFAULT_LANGUAGE_THEME: LanguageTheme = {
   icon: FaCode,
@@ -358,15 +168,9 @@ const DEFAULT_LANGUAGE_THEME: LanguageTheme = {
 
 const getLanguageTheme = (language: string): LanguageTheme => LANGUAGE_THEMES[language] ?? DEFAULT_LANGUAGE_THEME;
 
-const FALLBACK_LANGUAGE_METRICS: LanguageMetric[] = [
-  { language: "JavaScript", count: 4, share: 40 },
-  { language: "PHP", count: 2, share: 20 },
-  { language: "Python", count: 2, share: 20 },
-  { language: "Java", count: 2, share: 20 },
-];
+const FALLBACK_LANGUAGE_METRICS = skillsData.fallbackLanguageMetrics as LanguageMetric[];
 
-const GITHUB_FALLBACK_NOTICE =
-  "Live GitHub language data is temporarily unavailable. Showing a curated language profile.";
+const GITHUB_FALLBACK_NOTICE = skillsData.githubFallbackNotice as string;
 
 async function fetchGithubLanguageSignal(signal: AbortSignal): Promise<GithubSignalResult> {
   const settledResults = await Promise.allSettled(

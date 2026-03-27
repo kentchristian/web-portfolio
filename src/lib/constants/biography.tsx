@@ -1,18 +1,10 @@
-const webDeveloper = `Full - Stack Web Developer`
-const techWriter = `Technical Writer`
+import biographyData from '../data/biography-data.json';
 
-const INTRO = "Hello, I'am Kent Christian";
-
-
-
-
-
-export const biography = {
-  intro: INTRO,
-  webDev: webDeveloper,
-  techWriter: techWriter,
-}
-
+export const biography = biographyData as {
+  intro: string;
+  webDev: string;
+  techWriter: string;
+};
 
 
 

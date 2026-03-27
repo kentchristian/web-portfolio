@@ -16,18 +16,16 @@ import {
   FadeUpMotionProv,
 } from '../animations/DynamicMotion';
 import PageContainer from '../components/containers/PageContainer';
+import projectsData from '../lib/data/projects-data.json';
 
-const GITHUB_ACCOUNTS = ['kc878', 'kentchristian'] as const;
+const GITHUB_ACCOUNTS = projectsData.githubAccounts as string[];
 const numberFormatter = new Intl.NumberFormat('en-US');
-const LOCKED_HIGHLIGHT_KEYS = new Set(['mkdocs-template']);
-const PROTECTED_DOCUMENTATION_PATTERNS = [
-  'docs-template',
-  'mkdocs-template',
-  'mkdocs',
-  'cytech crnd documentation',
-  'cytech crnd documentaiton',
-] as const;
-const EXCLUDED_REPO_PATTERNS = ['web-portfolio'] as const;
+const PROTECTED_DOCUMENTATION_PATTERNS =
+  projectsData.protectedDocumentationPatterns as string[];
+const EXCLUDED_REPO_PATTERNS = projectsData.excludedRepoPatterns as string[];
+const LOCKED_HIGHLIGHT_KEYS = new Set(
+  projectsData.lockedHighlightKeys as string[],
+);
 
 type HighlightTarget = {
   key: string;
@@ -42,96 +40,7 @@ type HighlightTarget = {
 };
 
 const HIGHLIGHT_TARGETS: HighlightTarget[] = [
-  {
-    key: 'forked-pos',
-    title: 'Forked POS',
-    summary: 'Forked POS project used for OJT work and process improvements.',
-    lookupTerms: ['forked_pos', 'forked pos', 'forked-pos'],
-    searchTerm: 'forked_pos',
-    pinnedLinks: [
-      {
-        label: 'logicbaseojt_msuiit',
-        url: 'https://github.com/piscodev/logicbaseojt_msuiit',
-      },
-    ],
-  },
-  {
-    key: 'ojt-monitoring',
-    title: 'OJT Monitoring',
-    summary:
-      'Monitoring app for internship tracking, status updates, and reporting.',
-    lookupTerms: ['ojt_monitoring', 'ojt monitoring', 'ojt-monitoring'],
-    searchTerm: 'ojt_monitoring',
-  },
-  {
-    key: 'appointment-system',
-    title: 'Appointment System',
-    summary:
-      'Gakkcons appointment system across frontend, backend, and mobile repos.',
-    lookupTerms: [
-      'appointment_system',
-      'appointment system',
-      'appointment-system',
-    ],
-    searchTerm: 'appointment system',
-    pinnedLinks: [
-      {
-        label: 'gakkcons-frontend',
-        url: 'https://github.com/KC878/gakkcons-frontend',
-      },
-      {
-        label: 'gakkcons-mobile',
-        url: 'https://github.com/Hanz0u/gakkcons-mobile',
-      },
-      {
-        label: 'gakkcons-backend',
-        url: 'https://github.com/KC878/gakkcons-backend',
-      },
-    ],
-  },
-  {
-    key: 'business-intelligence-management',
-    title: 'Business Intelligence Management',
-    summary:
-      'Multi-tenant Business Intelligence Management application that unifies reporting and operational insights, powered by dedicated frontend and backend services.',
-    lookupTerms: [
-      'business intelligence management',
-      'business-intelligence-management',
-      'bid',
-      'bid frontend',
-      'bid backend',
-      'bid_frontend',
-      'bid_backend',
-    ],
-    searchTerm: 'business intelligence management',
-    pinnedLinks: [
-      {
-        label: 'Live site',
-        url: 'https://business-intelligence-management.vercel.app/',
-      },
-      {
-        label: 'bid_frontend',
-        url: 'https://github.com/kentchristian/bid_frontend',
-      },
-      {
-        label: 'bid_backend',
-        url: 'https://github.com/kentchristian/bid_backend',
-      },
-    ],
-  },
-  {
-    key: 'mkdocs-template',
-    title: 'Cytech CRND Documentaiton (MkDocs)',
-    summary: 'Documentation template and starter structure for technical docs.',
-    lookupTerms: [
-      'docs-template',
-      'docs template',
-      'mkdocs',
-      'mkdocs-template',
-      'mkdocs docs template',
-    ],
-    searchTerm: 'mkdocs docs template',
-  },
+  ...(projectsData.highlightTargets as HighlightTarget[]),
 ];
 
 type GithubUser = {

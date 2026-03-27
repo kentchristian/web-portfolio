@@ -1,0 +1,19 @@
+{
+  "derivedSkillIcons": [
+    { "label": "Full-Stack Execution", "icon": "FaLaptopCode" },
+    { "label": "Product Reliability", "icon": "FaShieldAlt" },
+    { "label": "Knowledge Sharing", "icon": "FaBookOpen" },
+    { "label": "Delivery Momentum", "icon": "FaRocket" }
+  ],
+  "projectTrackIcons": [
+    { "label": "Product Engineering", "icon": "FaCubes" },
+    { "label": "Documentation", "icon": "FaFileAlt" },
+    { "label": "Quality & Ops", "icon": "FaClipboardCheck" },
+    { "label": "Strategy", "icon": "FaBullseye" }
+  ],
+  "insightIcons": [
+    { "label": "Integration-heavy delivery", "icon": "FaLink" },
+    { "label": "Docs included in execution", "icon": "FaBook" },
+    { "label": "Cross-team collaboration is a core pattern", "icon": "FaUsers" }
+  ]
+}

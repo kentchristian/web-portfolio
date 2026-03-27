@@ -1,45 +1,36 @@
-import { CreditCard, Package, Star, TrendingUp, User } from "lucide-react"
-import { v4 as uuidv4 } from "uuid"
-import type { overViewType } from "../../lib/types/dashboard-types"
-import CardContainer from "../containers/CardContainer"
+import { CreditCard, Package, Star, TrendingUp, User } from "lucide-react";
+import CardContainer from "../containers/CardContainer";
+import overviewData from "../../lib/data/overview-data.json";
+import type { overViewType } from "../../lib/types/dashboard-types";
+
+type OverviewItemData = {
+  id: string;
+  icon: string;
+  iconClassName: string;
+  amount: number;
+  trends: string;
+  title: string;
+};
+
+const ICON_MAP = {
+  CreditCard,
+  TrendingUp,
+  User,
+  Package,
+  Star,
+};
+
 const OverviewCard = () => {
-  const overViewItems: overViewType[] = [
-    {
-      key: uuidv4(),
-      icon: <CreditCard className="w-6 h-6 text-blue-500" />,
-      amount: 12500,
-      trends: "+12%",
-      title: "Total Balance",
-    },
-    {
-      key: uuidv4(),
-      icon: <TrendingUp className="w-6 h-6 text-green-500" />,
-      amount: 3200,
-      trends: "+8%",
-      title: "Monthly Profit",
-    },
-    {
-      key: uuidv4(),
-      icon: <User className="w-6 h-6 text-purple-500" />,
-      amount: 48,
-      trends: "+5%",
-      title: "New Investors",
-    },
-    {
-      key: uuidv4(),
-      icon: <Package className="w-6 h-6 text-yellow-500" />,
-      amount: 150,
-      trends: "-2%",
-      title: "Stocks Purchased",
-    },
-    {
-      key: uuidv4(),
-      icon: <Star className="w-6 h-6 text-orange-500" />,
-      amount: 4.8,
-      trends: "+0%",
-      title: "Portfolio Rating",
-    },
-  ];
+  const overViewItems: overViewType[] = (overviewData as OverviewItemData[]).map((item) => {
+    const Icon = ICON_MAP[item.icon as keyof typeof ICON_MAP] ?? CreditCard;
+    return {
+      key: item.id,
+      icon: <Icon className={item.iconClassName} />,
+      amount: item.amount,
+      trends: item.trends,
+      title: item.title,
+    };
+  });
 
 
   return (
@@ -69,4 +60,3 @@ const OverviewCard = () => {
 }
 
 export default OverviewCard
-

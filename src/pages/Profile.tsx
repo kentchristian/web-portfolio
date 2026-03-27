@@ -32,27 +32,50 @@ import { Typography } from '../common/Typography';
 import PageContainer from '../components/containers/PageContainer';
 import ProfileRadarChart from '../components/profile/ProfileRadarChart';
 import { images } from '../lib/constants/images';
+import profileIconsData from '../lib/data/profile-icons-data.json';
 import { buildProfileDashboardData } from '../lib/profile/profile-stats';
 
-const DERIVED_SKILL_ICONS: Record<string, IconType> = {
-  'Full-Stack Execution': FaLaptopCode,
-  'Product Reliability': FaShieldAlt,
-  'Knowledge Sharing': FaBookOpen,
-  'Delivery Momentum': FaRocket,
+type ProfileIconEntry = {
+  label: string;
+  icon: string;
 };
 
-const PROJECT_TRACK_ICONS: Record<string, IconType> = {
-  'Product Engineering': FaCubes,
-  Documentation: FaFileAlt,
-  'Quality & Ops': FaClipboardCheck,
-  Strategy: FaBullseye,
+const PROFILE_ICON_MAP: Record<string, IconType> = {
+  FaLaptopCode,
+  FaShieldAlt,
+  FaBookOpen,
+  FaRocket,
+  FaCubes,
+  FaFileAlt,
+  FaClipboardCheck,
+  FaBullseye,
+  FaLink,
+  FaBook,
+  FaUsers,
+  FaChartLine,
+  FaProjectDiagram,
 };
 
-const INSIGHT_ICONS: Record<string, IconType> = {
-  'Integration-heavy delivery': FaLink,
-  'Docs included in execution': FaBook,
-  'Cross-team collaboration is a core pattern': FaUsers,
-};
+const buildIconMap = (entries: ProfileIconEntry[], fallback: IconType) =>
+  entries.reduce<Record<string, IconType>>((acc, entry) => {
+    acc[entry.label] = PROFILE_ICON_MAP[entry.icon] ?? fallback;
+    return acc;
+  }, {});
+
+const DERIVED_SKILL_ICONS = buildIconMap(
+  profileIconsData.derivedSkillIcons as ProfileIconEntry[],
+  FaChartLine,
+);
+
+const PROJECT_TRACK_ICONS = buildIconMap(
+  profileIconsData.projectTrackIcons as ProfileIconEntry[],
+  FaProjectDiagram,
+);
+
+const INSIGHT_ICONS = buildIconMap(
+  profileIconsData.insightIcons as ProfileIconEntry[],
+  FaLightbulb,
+);
 
 const Profile = () => {
   const navigate = useNavigate();

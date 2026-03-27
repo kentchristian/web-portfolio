@@ -21,6 +21,7 @@ import ProfileStatsModal from './components/modals/ProfileStatsModal';
 import './layout.css';
 import { cn } from './lib/cnUtils';
 import { images } from './lib/constants/images';
+import navigationData from './lib/data/navigation-data.json';
 import { applyTheme } from './lib/utils/theming-helpers/applyTheme';
 import { getInitialTheme } from './lib/utils/theming-helpers/getInitialTheme';
 
@@ -40,18 +41,22 @@ type DocumentWithViewTransition = Document & {
   startViewTransition?: (updateCallback: () => void) => unknown;
 };
 
-const navList: NavItem[] = [
-  { path: '', name: 'Home', icon: FaHome },
-  { path: 'experience', name: 'Experience', icon: FaBriefcase },
-  { path: 'projects', name: 'Projects', icon: FaFolderOpen },
-  { path: 'skills', name: 'Skills', icon: FaCode },
-  { path: 'assessments', name: 'Assessments', icon: FaFileAlt },
-  // { path: 'portfolio', name: 'Porfolio' },
-  // { path: 'contact', name: 'Contact' },
+type NavItemData = Omit<NavItem, 'icon'> & { icon: string };
 
-  // { path: 'projects-boiler-plate', name: 'Projects BoilerPlate' },
-  // { path: 'activity-boiler-plate', name: 'Activity' }
-];
+const NAV_ICON_MAP: Record<string, IconType> = {
+  FaHome,
+  FaBriefcase,
+  FaFolderOpen,
+  FaFileAlt,
+  FaCode,
+};
+
+const navList: NavItem[] = (navigationData.items as NavItemData[]).map(
+  (item) => ({
+    ...item,
+    icon: NAV_ICON_MAP[item.icon] ?? FaHome,
+  }),
+);
 
 export default function MainLayout() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => getInitialTheme());

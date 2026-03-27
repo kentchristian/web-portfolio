@@ -1,0 +1,23 @@
+{
+  "roles": ["Full - Stack Web Developer"],
+  "resumePath": "2026_CagadasKent_Resume.pdf?v=20260228-2230",
+  "socialLinks": [
+    {
+      "name": "LinkedIn",
+      "icon": "linkedIn",
+      "type": "link",
+      "url": "https://www.linkedin.com/in/kent-christian-cagadas-0985a1350/"
+    },
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "type": "link",
+      "url": "https://github.com/kentchristian"
+    },
+    {
+      "name": "Resume / CV",
+      "icon": "cv",
+      "type": "resume"
+    }
+  ]
+}

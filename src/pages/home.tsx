@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useMemo, useState, type KeyboardEvent, type MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../shadcn/components/ui/button';
@@ -20,13 +20,15 @@ import { cn } from '../lib/cnUtils';
 import { biography } from '../lib/constants/biography';
 import { icons } from '../lib/constants/icons';
 import { images } from '../lib/constants/images';
+import homeData from '../lib/data/home-data.json';
 import cytechExperienceData from '../lib/data/cytech-experience-data.json';
 import experienceData from '../lib/data/experience-data.json';
 
-
 /** DEFAULT Scrollbar Config */
 const SCROLLBAR_CONFIG = 'overflow-auto themed-scrollbar';
-const RESUME_FILE_PATH = `${import.meta.env.BASE_URL}2026_CagadasKent_Resume.pdf?v=20260228-2230`;
+const baseUrl = import.meta.env.BASE_URL ?? '/';
+const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const RESUME_FILE_PATH = `${normalizedBaseUrl}${homeData.resumePath}`;
 const SOCIAL_BUTTON_CLASS =
   'size-10 rounded-full border border-white/55 bg-black/30 text-white shadow-sm backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:cursor-pointer hover:bg-black/45';
 
@@ -36,25 +38,37 @@ type ExperienceSignal = {
   skills: string[];
 };
 
+type SocialLink = {
+  name: string;
+  icon: keyof typeof icons;
+  type: 'link' | 'resume';
+  url?: string;
+};
+
 const Home = () => {
   const navigate = useNavigate();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const [isProfileStatsModalOpen, setIsProfileStatsModalOpen] = useState(false);
 
-  const roles = [
-    biography.webDev,
-  ];
+  const roles = homeData.roles as string[];
 
   const experienceSignals = useMemo(() => {
-    const entries = [...cytechExperienceData, ...experienceData] as ExperienceSignal[];
+    const entries = [
+      ...cytechExperienceData,
+      ...experienceData,
+    ] as ExperienceSignal[];
 
     const initiatives = entries.length;
     const organizations = new Set(
-      entries.map((entry) => (entry.companyUrl?.trim() ? entry.companyUrl : entry.company))
+      entries.map((entry) =>
+        entry.companyUrl?.trim() ? entry.companyUrl : entry.company,
+      ),
     ).size;
     const appliedSkills = new Set(
-      entries.flatMap((entry) => entry.skills.map((skill) => skill.trim().toLowerCase()))
+      entries.flatMap((entry) =>
+        entry.skills.map((skill) => skill.trim().toLowerCase()),
+      ),
     ).size;
 
     return [
@@ -65,22 +79,29 @@ const Home = () => {
     ];
   }, []);
 
-  const businessIcons = [
-    { name: 'LinkedIn', icon: icons.linkedIn, fn: () => window.open('https://www.linkedin.com/in/kent-christian-cagadas-0985a1350/', '_blank', 'noopener,noreferrer') },
-    { name: 'GitHub', icon: icons.github, fn: () => window.open('https://github.com/kentchristian', '_blank', 'noopener,noreferrer') },
-    {
-      name: 'Resume / CV',
-      icon: icons.cv,
-      fn: () => {
+  const businessIcons = (homeData.socialLinks as SocialLink[]).map((link) => ({
+    name: link.name,
+    icon: icons[link.icon] ?? icons.github,
+    fn: () => {
+      if (link.type === 'link' && link.url) {
+        window.open(link.url, '_blank', 'noopener,noreferrer');
+        return;
+      }
+
+      if (link.type === 'resume') {
         setIsContactModalOpen(false);
         setIsResumeModalOpen(true);
-      },
+      }
     },
-  ];
+  }));
 
   const shouldIgnoreProfileModalOpen = (target: EventTarget | null) =>
     target instanceof HTMLElement &&
-    Boolean(target.closest('button') || target.closest('a') || target.closest('input'));
+    Boolean(
+      target.closest('button') ||
+      target.closest('a') ||
+      target.closest('input'),
+    );
 
   const handleProfileCardClick = (event: MouseEvent<HTMLElement>) => {
     if (shouldIgnoreProfileModalOpen(event.target)) {
@@ -106,12 +127,7 @@ const Home = () => {
     <PageContainer className="h-full overflow-x-hidden">
       <DynamicMotionProvider>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[minmax(18rem,1.1fr)_2fr] md:gap-5">
-          <section className={
-            cn(
-              'p-3 sm:p-4 md:p-5',
-              SCROLLBAR_CONFIG,
-            )
-          }>
+          <section className={cn('p-3 sm:p-4 md:p-5', SCROLLBAR_CONFIG)}>
             <MotionImageMotionProv className="overflow-hidden rounded-xl">
               <div
                 role="button"
@@ -136,16 +152,23 @@ const Home = () => {
 
                   <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/25 to-black/75" />
 
-                  <span className="absolute left-4 top-4 z-20 inline-flex w-fit items-center gap-2 rounded-full border border-white/50 bg-black/30 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur-sm sm:left-6 sm:top-6">
+                  {/* <span className="absolute left-4 top-4 z-20 inline-flex w-fit items-center gap-2 rounded-full border border-white/50 bg-black/30 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur-sm sm:left-6 sm:top-6">
                     <Sparkles size={13} />
                     Open For Collaboration
-                  </span>
+                  </span> */}
 
                   <div className="mt-60 relative z-10 flex h-full flex-col justify-end gap-4 p-4 sm:p-6">
                     <div>
-                      <Typography variant="h2" className="text-white">Kent Christian</Typography>
-                      <Typography variant="body-sm" className="mt-2 max-w-sm text-white/90">
-                        Building scalable web applications with clean architecture, smooth UX, and production-grade reliability.
+                      <Typography variant="h2" className="text-white">
+                        Kent Christian
+                      </Typography>
+                      <Typography
+                        variant="body-sm"
+                        className="mt-2 max-w-sm text-white/90"
+                      >
+                        Building scalable web applications with clean
+                        architecture, smooth UX, and production-grade
+                        reliability.
                       </Typography>
                     </div>
 
@@ -176,14 +199,8 @@ const Home = () => {
                 </ContentDisplay>
               </div>
             </MotionImageMotionProv>
-
           </section>
-          <section className={
-            cn(
-              'p-3 sm:p-4 md:p-5',
-              SCROLLBAR_CONFIG,
-            )
-          }>
+          <section className={cn('p-3 sm:p-4 md:p-5', SCROLLBAR_CONFIG)}>
             <FadeInMotionProv>
               <ContentDisplay className="relative !h-auto min-h-[24rem] !w-full overflow-hidden border-0 !p-5 sm:min-h-[26rem] sm:!p-6 md:!p-8">
                 <div className="pointer-events-none absolute inset-0 -z-10">
@@ -198,16 +215,27 @@ const Home = () => {
                   <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_20%_10%,rgba(255,255,255,0.45),rgba(255,255,255,0))] dark:bg-[radial-gradient(80%_60%_at_20%_10%,rgba(2,2,2,0.4),rgba(2,2,2,0))]" />
                 </div>
 
-                <Typography variant="overline" className="ml-auto inline-flex w-fit rounded-full border border-foreground/30 bg-background/60 px-3 py-1 backdrop-blur-sm">
+                <Typography
+                  variant="overline"
+                  className="ml-auto inline-flex w-fit rounded-full border border-foreground/30 bg-background/60 px-3 py-1 backdrop-blur-sm"
+                >
                   Portfolio Snapshot
                 </Typography>
 
-                <Typography variant="h1" className="mt-4 text-3xl leading-tight sm:text-4xl lg:text-5xl">
+                <Typography
+                  variant="h1"
+                  className="mt-4 text-3xl leading-tight sm:text-4xl lg:text-5xl"
+                >
                   I Build Functional, User-Customized Web Products.
                 </Typography>
 
-                <Typography variant="body" className="mt-4 max-w-3xl text-foreground/85">
-                  I&apos;m a <strong>{biography.webDev}</strong> specializing in React and TypeScript, focused on features that solve real workflows and deliver practical business value.
+                <Typography
+                  variant="body"
+                  className="mt-4 max-w-3xl text-foreground/85"
+                >
+                  I&apos;m a <strong>{biography.webDev}</strong> specializing in
+                  React and TypeScript, focused on features that solve real
+                  workflows and deliver practical business value.
                 </Typography>
 
                 <div className="mt-5 flex flex-wrap gap-2">
@@ -244,10 +272,8 @@ const Home = () => {
                     See Experience
                   </Button>
                 </div>
-
               </ContentDisplay>
             </FadeInMotionProv>
-
 
             <div className="overflow-x-hidden">
               <SideFromRightMotionProv delay={0.5}>
@@ -258,8 +284,13 @@ const Home = () => {
                       className="group relative overflow-hidden rounded-xl border bg-background/60 px-4 py-5 backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:border-foreground/35"
                     >
                       <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-transparent via-foreground/35 to-transparent opacity-70 transition duration-200 group-hover:opacity-100" />
-                      <Typography variant="h3" className="tracking-tight">{exp.amount}</Typography>
-                      <Typography variant="body-sm" className="mt-1 text-muted-foreground">
+                      <Typography variant="h3" className="tracking-tight">
+                        {exp.amount}
+                      </Typography>
+                      <Typography
+                        variant="body-sm"
+                        className="mt-1 text-muted-foreground"
+                      >
                         {exp.desc}
                       </Typography>
                     </article>
@@ -267,8 +298,6 @@ const Home = () => {
                 </div>
               </SideFromRightMotionProv>
             </div>
-
-
           </section>
         </div>
       </DynamicMotionProvider>
@@ -287,10 +316,7 @@ const Home = () => {
         isOpen={isProfileStatsModalOpen}
         setIsOpen={setIsProfileStatsModalOpen}
       />
-
-
-    </PageContainer >
-
+    </PageContainer>
   );
 };
 

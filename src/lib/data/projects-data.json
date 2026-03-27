@@ -1,0 +1,101 @@
+{
+  "githubAccounts": ["kc878", "kentchristian"],
+  "protectedDocumentationPatterns": [
+    "docs-template",
+    "mkdocs-template",
+    "mkdocs",
+    "cytech crnd documentation",
+    "cytech crnd documentaiton"
+  ],
+  "excludedRepoPatterns": ["web-portfolio"],
+  "lockedHighlightKeys": ["mkdocs-template"],
+  "highlightTargets": [
+    {
+      "key": "forked-pos",
+      "title": "Forked POS",
+      "summary": "Forked POS project used for OJT work and process improvements.",
+      "lookupTerms": ["forked_pos", "forked pos", "forked-pos"],
+      "searchTerm": "forked_pos",
+      "pinnedLinks": [
+        {
+          "label": "logicbaseojt_msuiit",
+          "url": "https://github.com/piscodev/logicbaseojt_msuiit"
+        }
+      ]
+    },
+    {
+      "key": "ojt-monitoring",
+      "title": "OJT Monitoring",
+      "summary": "Monitoring app for internship tracking, status updates, and reporting.",
+      "lookupTerms": ["ojt_monitoring", "ojt monitoring", "ojt-monitoring"],
+      "searchTerm": "ojt_monitoring"
+    },
+    {
+      "key": "appointment-system",
+      "title": "Appointment System",
+      "summary": "Gakkcons appointment system across frontend, backend, and mobile repos.",
+      "lookupTerms": [
+        "appointment_system",
+        "appointment system",
+        "appointment-system"
+      ],
+      "searchTerm": "appointment system",
+      "pinnedLinks": [
+        {
+          "label": "gakkcons-frontend",
+          "url": "https://github.com/KC878/gakkcons-frontend"
+        },
+        {
+          "label": "gakkcons-mobile",
+          "url": "https://github.com/Hanz0u/gakkcons-mobile"
+        },
+        {
+          "label": "gakkcons-backend",
+          "url": "https://github.com/KC878/gakkcons-backend"
+        }
+      ]
+    },
+    {
+      "key": "business-intelligence-management",
+      "title": "Business Intelligence Management",
+      "summary": "Multi-tenant Business Intelligence Management application that unifies reporting and operational insights, powered by dedicated frontend and backend services.",
+      "lookupTerms": [
+        "business intelligence management",
+        "business-intelligence-management",
+        "bid",
+        "bid frontend",
+        "bid backend",
+        "bid_frontend",
+        "bid_backend"
+      ],
+      "searchTerm": "business intelligence management",
+      "pinnedLinks": [
+        {
+          "label": "Live site",
+          "url": "https://business-intelligence-management.vercel.app/"
+        },
+        {
+          "label": "bid_frontend",
+          "url": "https://github.com/kentchristian/bid_frontend"
+        },
+        {
+          "label": "bid_backend",
+          "url": "https://github.com/kentchristian/bid_backend"
+        }
+      ]
+    },
+    {
+      "key": "mkdocs-template",
+      "title": "Cytech CRND Documentaiton (MkDocs)",
+      "summary": "Documentation template and starter structure for technical docs.",
+      "lookupTerms": [
+        "docs-template",
+        "docs template",
+        "mkdocs",
+        "mkdocs-template",
+        "mkdocs docs template"
+      ],
+      "searchTerm": "mkdocs docs template"
+    }
+  ]
+}

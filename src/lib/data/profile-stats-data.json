@@ -1,0 +1,138 @@
+{
+  "radarLevels": [0.25, 0.5, 0.75, 1],
+  "radarDomains": [
+    {
+      "label": "Frontend",
+      "keywords": [
+        "react",
+        "frontend",
+        "ui",
+        "ux",
+        "storybook",
+        "theming",
+        "next.js"
+      ]
+    },
+    {
+      "label": "Backend",
+      "keywords": [
+        "api",
+        "backend",
+        "django",
+        "laravel",
+        "database",
+        "integration",
+        "celery"
+      ]
+    },
+    {
+      "label": "Architecture",
+      "keywords": [
+        "micro-frontend",
+        "architecture",
+        "scalable",
+        "performance",
+        "docker",
+        "system"
+      ]
+    },
+    {
+      "label": "Docs",
+      "keywords": [
+        "technical writing",
+        "documentation",
+        "docs-as-code",
+        "mkdocs",
+        "markdown"
+      ]
+    },
+    {
+      "label": "Delivery",
+      "keywords": [
+        "stakeholder",
+        "collaboration",
+        "agile",
+        "testing",
+        "debugging",
+        "team"
+      ]
+    }
+  ],
+  "projectTracks": [
+    {
+      "label": "Product Engineering",
+      "keywords": [
+        "developer",
+        "frontend",
+        "full-stack",
+        "web",
+        "engineering",
+        "dashboard"
+      ]
+    },
+    {
+      "label": "Documentation",
+      "keywords": [
+        "writer",
+        "documentation",
+        "mkdocs",
+        "docs-as-code",
+        "markdown"
+      ]
+    },
+    {
+      "label": "Quality & Ops",
+      "keywords": [
+        "qa",
+        "quality",
+        "testing",
+        "debugging",
+        "monitoring",
+        "data entry"
+      ]
+    },
+    {
+      "label": "Strategy",
+      "keywords": [
+        "startup",
+        "strategic",
+        "planning",
+        "pitch",
+        "stakeholder",
+        "business"
+      ]
+    }
+  ],
+  "derivedSkillTemplates": [
+    {
+      "label": "Full-Stack Execution",
+      "note": "Combines UI delivery with backend API execution."
+    },
+    {
+      "label": "Product Reliability",
+      "note": "Shows stability focus across architecture and production workflows."
+    },
+    {
+      "label": "Knowledge Sharing",
+      "note": "Reflects documentation depth and cross-team communication."
+    },
+    {
+      "label": "Delivery Momentum",
+      "note": "Pace signal based on completed initiatives in the profile timeline."
+    }
+  ],
+  "integrationKeywords": ["api", "integration", "backend", "rest"],
+  "documentationKeywords": [
+    "documentation",
+    "technical writing",
+    "mkdocs",
+    "docs-as-code",
+    "markdown"
+  ],
+  "collaborationKeywords": [
+    "stakeholder",
+    "team",
+    "collaboration",
+    "cross-functional"
+  ]
+}
