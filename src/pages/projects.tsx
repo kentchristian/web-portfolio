@@ -549,8 +549,9 @@ export default function Projects() {
                   return (
                     <article
                       key={project.key}
-                      className="group flex h-full min-w-0 flex-col rounded-2xl border border-border/70 bg-background/70 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                      className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/70 bg-background/70 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                     >
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(125,211,252,0.2),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(110,231,183,0.15),transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                       <div className="flex min-w-0 items-start justify-between gap-3">
                         <h3 className="min-w-0 break-words text-lg font-semibold leading-tight">
                           {project.title}
@@ -735,8 +736,9 @@ export default function Projects() {
                 {visibleRepos.map((repo) => (
                   <article
                     key={repo.id}
-                    className="group flex h-full min-w-0 flex-col rounded-2xl border border-border/70 bg-background/70 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                    className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/70 bg-background/70 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                   >
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(125,211,252,0.2),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(110,231,183,0.15),transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <div className="flex min-w-0 items-start justify-between gap-3">
                       <div className="min-w-0">
                         <h3 className="break-words text-lg font-semibold leading-tight">

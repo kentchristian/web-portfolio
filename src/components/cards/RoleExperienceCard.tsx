@@ -39,7 +39,7 @@ const RoleExperienceCard = ({
   return (
     <div
       className={cn(
-        "cursor-pointer",
+        "group relative cursor-pointer",
         "h-auto min-h-[28rem] w-full min-w-0 max-w-full sm:h-[30rem] sm:max-w-[25rem]",
         "border border-border bg-card text-card-foreground",
         "flex flex-col gap-2 overflow-hidden rounded-lg",
@@ -50,6 +50,7 @@ const RoleExperienceCard = ({
         "will-change-transform"
       )}
     >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(125,211,252,0.2),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(110,231,183,0.15),transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       <header className="flex flex-row items-center justify-between gap-3 border-b border-border p-2 shadow-sm">
         <div className="min-w-0 flex-1">
           {isCompanyTruncated ? (
