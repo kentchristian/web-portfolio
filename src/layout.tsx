@@ -1,17 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import type { IconType } from 'react-icons';
 import {
   FaBars,
   FaBriefcase,
   FaCode,
+  FaFileAlt,
   FaFolderOpen,
   FaHome,
   FaMoon,
   FaSun,
   FaTimes,
-  FaUser
+  FaUser,
 } from 'react-icons/fa';
-import type { IconType } from 'react-icons';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '../shadcn/components/ui/button';
@@ -44,9 +45,9 @@ const navList: NavItem[] = [
   { path: 'experience', name: 'Experience', icon: FaBriefcase },
   { path: 'projects', name: 'Projects', icon: FaFolderOpen },
   { path: 'skills', name: 'Skills', icon: FaCode },
+  { path: 'assessments', name: 'Assessments', icon: FaFileAlt },
   // { path: 'portfolio', name: 'Porfolio' },
   // { path: 'contact', name: 'Contact' },
-
 
   // { path: 'projects-boiler-plate', name: 'Projects BoilerPlate' },
   // { path: 'activity-boiler-plate', name: 'Activity' }
@@ -70,7 +71,7 @@ export default function MainLayout() {
     (path: string) => {
       navigate(path);
     },
-    [navigate]
+    [navigate],
   );
 
   const beginThemeTransition = useCallback(() => {
@@ -96,10 +97,15 @@ export default function MainLayout() {
       setTheme(nextTheme);
     };
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
     const documentWithViewTransition = document as DocumentWithViewTransition;
 
-    if (!prefersReducedMotion && documentWithViewTransition.startViewTransition) {
+    if (
+      !prefersReducedMotion &&
+      documentWithViewTransition.startViewTransition
+    ) {
       documentWithViewTransition.startViewTransition(() => {
         applyNextTheme();
       });
@@ -167,9 +173,11 @@ export default function MainLayout() {
         return currentPath === targetPath;
       }
 
-      return currentPath === targetPath || currentPath.startsWith(`${targetPath}/`);
+      return (
+        currentPath === targetPath || currentPath.startsWith(`${targetPath}/`)
+      );
     },
-    [location.pathname, normalizePath]
+    [location.pathname, normalizePath],
   );
 
   const actionButtons: ActionButton[] = [
@@ -178,8 +186,8 @@ export default function MainLayout() {
       icon: FaUser,
       fn: () => {
         setIsProfileStatsModalOpen(true);
-      }
-    }
+      },
+    },
   ];
 
   return (
@@ -209,7 +217,9 @@ export default function MainLayout() {
               onClick={() => {
                 setIsDrawerOpen((prev) => !prev);
               }}
-              aria-label={isDrawerOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-label={
+                isDrawerOpen ? 'Close navigation menu' : 'Open navigation menu'
+              }
               aria-controls="mobile-navigation-drawer"
               aria-expanded={isDrawerOpen}
             >
@@ -243,7 +253,10 @@ export default function MainLayout() {
                       key={path || 'dashboard'}
                       size="sm"
                       variant="ghost"
-                      className={cn(desktopMenuButtonClass, isActive && activeMenuButtonClass)}
+                      className={cn(
+                        desktopMenuButtonClass,
+                        isActive && activeMenuButtonClass,
+                      )}
                       aria-label={`Navigate to ${name}`}
                       aria-current={isActive ? 'page' : undefined}
                       onClick={() => {
@@ -255,7 +268,11 @@ export default function MainLayout() {
                       {isActive ? (
                         <motion.span
                           layoutId="desktop-nav-active-line"
-                          transition={{ type: 'spring', stiffness: 520, damping: 38 }}
+                          transition={{
+                            type: 'spring',
+                            stiffness: 520,
+                            damping: 38,
+                          }}
                           className="absolute bottom-0 left-1/2 h-0.5 w-4/5 -translate-x-1/2 rounded-full bg-muted-foreground"
                         />
                       ) : null}
@@ -270,19 +287,37 @@ export default function MainLayout() {
                 size="sm"
                 variant="ghost"
                 className={desktopMenuButtonClass}
-                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                aria-label={
+                  theme === 'dark'
+                    ? 'Switch to light mode'
+                    : 'Switch to dark mode'
+                }
                 onClick={handleThemeState}
               >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span
                     key={theme}
-                    initial={{ rotate: theme === 'dark' ? -35 : 35, scale: 0.7, opacity: 0 }}
+                    initial={{
+                      rotate: theme === 'dark' ? -35 : 35,
+                      scale: 0.7,
+                      opacity: 0,
+                    }}
                     animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                    exit={{ rotate: theme === 'dark' ? 35 : -35, scale: 0.7, opacity: 0 }}
+                    exit={{
+                      rotate: theme === 'dark' ? 35 : -35,
+                      scale: 0.7,
+                      opacity: 0,
+                    }}
                     transition={{ duration: 0.24, ease: 'easeOut' }}
-                    className={theme === 'dark' ? 'text-amber-400' : 'text-sky-500'}
+                    className={
+                      theme === 'dark' ? 'text-amber-400' : 'text-sky-500'
+                    }
                   >
-                    {theme === 'dark' ? <FaMoon size={menuIconSize} /> : <FaSun size={menuIconSize} />}
+                    {theme === 'dark' ? (
+                      <FaMoon size={menuIconSize} />
+                    ) : (
+                      <FaSun size={menuIconSize} />
+                    )}
                   </motion.span>
                 </AnimatePresence>
                 <span className="text-[11px] leading-none">Mode</span>
@@ -300,7 +335,9 @@ export default function MainLayout() {
                   }}
                 >
                   <action.icon size={menuIconSize} />
-                  <span className="text-[11px] leading-none">{action.title}</span>
+                  <span className="text-[11px] leading-none">
+                    {action.title}
+                  </span>
                 </Button>
               ))}
             </div>
@@ -311,7 +348,7 @@ export default function MainLayout() {
       <div
         className={cn(
           'fixed inset-0 z-50 md:hidden',
-          isDrawerOpen ? 'pointer-events-auto' : 'pointer-events-none'
+          isDrawerOpen ? 'pointer-events-auto' : 'pointer-events-none',
         )}
         aria-hidden={!isDrawerOpen}
       >
@@ -320,7 +357,7 @@ export default function MainLayout() {
           aria-label="Close menu overlay"
           className={cn(
             'absolute inset-0 bg-black/50 transition-opacity duration-300',
-            isDrawerOpen ? 'opacity-100' : 'opacity-0'
+            isDrawerOpen ? 'opacity-100' : 'opacity-0',
           )}
           onClick={() => {
             setIsDrawerOpen(false);
@@ -334,7 +371,7 @@ export default function MainLayout() {
           aria-label="Mobile navigation drawer"
           className={cn(
             'absolute right-0 top-0 h-full w-[82%] max-w-xs border-l border-border bg-background p-4 shadow-xl transition-transform duration-300 ease-out',
-            isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+            isDrawerOpen ? 'translate-x-0' : 'translate-x-full',
           )}
         >
           <div className="mb-4 flex items-center justify-between">
@@ -376,7 +413,10 @@ export default function MainLayout() {
                   key={`mobile-${path || 'dashboard'}`}
                   size="sm"
                   variant="ghost"
-                  className={cn(mobileMenuButtonClass, isActive && activeMenuButtonClass)}
+                  className={cn(
+                    mobileMenuButtonClass,
+                    isActive && activeMenuButtonClass,
+                  )}
                   aria-label={`Navigate to ${name}`}
                   aria-current={isActive ? 'page' : undefined}
                   onClick={() => {
@@ -388,7 +428,11 @@ export default function MainLayout() {
                   {isActive ? (
                     <motion.span
                       layoutId="mobile-nav-active-line"
-                      transition={{ type: 'spring', stiffness: 520, damping: 38 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 520,
+                        damping: 38,
+                      }}
                       className="absolute bottom-0 left-1/2 h-0.5 w-4/5 -translate-x-1/2 rounded-full bg-muted-foreground"
                     />
                   ) : null}
@@ -402,19 +446,37 @@ export default function MainLayout() {
               size="sm"
               variant="ghost"
               className={mobileMenuButtonClass}
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label={
+                theme === 'dark'
+                  ? 'Switch to light mode'
+                  : 'Switch to dark mode'
+              }
               onClick={handleThemeState}
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
                   key={theme}
-                  initial={{ rotate: theme === 'dark' ? -35 : 35, scale: 0.7, opacity: 0 }}
+                  initial={{
+                    rotate: theme === 'dark' ? -35 : 35,
+                    scale: 0.7,
+                    opacity: 0,
+                  }}
                   animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                  exit={{ rotate: theme === 'dark' ? 35 : -35, scale: 0.7, opacity: 0 }}
+                  exit={{
+                    rotate: theme === 'dark' ? 35 : -35,
+                    scale: 0.7,
+                    opacity: 0,
+                  }}
                   transition={{ duration: 0.24, ease: 'easeOut' }}
-                  className={theme === 'dark' ? 'text-amber-400' : 'text-sky-500'}
+                  className={
+                    theme === 'dark' ? 'text-amber-400' : 'text-sky-500'
+                  }
                 >
-                  {theme === 'dark' ? <FaMoon size={menuIconSize} /> : <FaSun size={menuIconSize} />}
+                  {theme === 'dark' ? (
+                    <FaMoon size={menuIconSize} />
+                  ) : (
+                    <FaSun size={menuIconSize} />
+                  )}
                 </motion.span>
               </AnimatePresence>
               <span className="text-sm leading-none">Mode</span>
