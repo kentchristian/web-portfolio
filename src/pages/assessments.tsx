@@ -1,7 +1,6 @@
-import { FileText, Sparkles } from 'lucide-react';
+import { Eye, FileText, Sparkles } from 'lucide-react';
 import { useState, type KeyboardEvent, type MouseEvent } from 'react';
 import { Badge } from '../../shadcn/components/ui/badge';
-import { Button } from '../../shadcn/components/ui/button';
 import {
   DynamicMotionProvider,
   FadeUpMotionProv,
@@ -18,6 +17,7 @@ const HERO_RADIAL_OVERLAY =
   'pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.16),transparent_52%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.14),transparent_48%)]';
 const CARD_STAGGER_STEP = 0.08;
 const CARD_STAGGER_MAX = 0.28;
+const VIEW_ICON = Eye;
 
 type AssessmentCard = {
   id: string;
@@ -164,17 +164,26 @@ const Assessments = () => {
                       <Sparkles size={14} className="text-foreground/60" />
                       Click to view the full report
                     </span>
-                    <Button
+                    <button
                       type="button"
-                      size="sm"
                       data-card-action="true"
+                      aria-label={`View ${assessment.title} PDF`}
+                      className="hover:cursor-pointer group/view inline-flex flex-col items-center gap-1 text-foreground/70 transition hover:text-foreground"
                       onClick={(event) => {
                         event.stopPropagation();
                         setSelectedAssessment(assessment);
                       }}
                     >
-                      View PDF
-                    </Button>
+                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-background/80 shadow-sm transition group-hover/view:-translate-y-0.5 group-hover/view:bg-background">
+                        <VIEW_ICON size={16} />
+                      </span>
+                      <Typography
+                        variant="caption"
+                        className="text-muted-foreground"
+                      >
+                        View PDF
+                      </Typography>
+                    </button>
                   </div>
                 </article>
               </SideFromRightMotionProv>
