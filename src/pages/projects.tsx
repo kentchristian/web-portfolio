@@ -17,8 +17,14 @@ import {
 } from '../animations/DynamicMotion';
 import PageContainer from '../components/containers/PageContainer';
 import projectsData from '../lib/data/projects-data.json';
+import { baseGitHubApi } from '../../global-config';
 
 const GITHUB_ACCOUNTS = projectsData.githubAccounts as string[];
+const GITHUB_API_BASE = baseGitHubApi.endsWith('/')
+  ? baseGitHubApi
+  : `${baseGitHubApi}/`;
+const normalizedAccounts = GITHUB_ACCOUNTS.map((account) => account.trim())
+  .filter((account) => account.length > 0);
 const numberFormatter = new Intl.NumberFormat('en-US');
 const PROTECTED_DOCUMENTATION_PATTERNS =
   projectsData.protectedDocumentationPatterns as string[];
@@ -190,15 +196,18 @@ export default function Projects() {
       setNotice(null);
 
       try {
+        if (!normalizedAccounts.length) {
+          throw new Error('No GitHub accounts configured.');
+        }
         const settledResults = await Promise.allSettled(
-          GITHUB_ACCOUNTS.map(async (account): Promise<AccountBundle> => {
+          normalizedAccounts.map(async (account): Promise<AccountBundle> => {
             const [user, userRepos] = await Promise.all([
               fetchJson<GithubUser>(
-                `https://api.github.com/users/${account}`,
+                `${GITHUB_API_BASE}${account}`,
                 controller.signal,
               ),
               fetchJson<GithubRepo[]>(
-                `https://api.github.com/users/${account}/repos?per_page=100&sort=updated`,
+                `${GITHUB_API_BASE}${account}/repos?per_page=100&sort=updated`,
                 controller.signal,
               ),
             ]);
@@ -214,7 +223,7 @@ export default function Projects() {
           result.status === 'fulfilled' ? [result.value] : [],
         );
         const failedAccounts = settledResults.flatMap((result, index) =>
-          result.status === 'rejected' ? [GITHUB_ACCOUNTS[index]] : [],
+          result.status === 'rejected' ? [normalizedAccounts[index]] : [],
         );
 
         if (!successfulResults.length) {
@@ -263,7 +272,7 @@ export default function Projects() {
     return ['all', ...dynamicOwners];
   }, [users]);
   const accountMentions = useMemo(
-    () => GITHUB_ACCOUNTS.map((account) => `@${account}`).join(' and '),
+    () => normalizedAccounts.map((account) => `@${account}`).join(' and '),
     [],
   );
 
@@ -301,7 +310,7 @@ export default function Projects() {
       const repo = reposByRecentUpdate.find((candidateRepo) =>
         repoMatchesHighlight(candidateRepo, highlight),
       );
-      const searchScope = GITHUB_ACCOUNTS.map(
+      const searchScope = normalizedAccounts.map(
         (account) => `user:${account}`,
       ).join(' ');
       const searchQuery = `${highlight.searchTerm} ${searchScope}`.trim();

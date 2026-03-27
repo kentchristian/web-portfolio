@@ -1,12 +1,19 @@
 
 // api/client.ts
 import axios from 'axios';
-import {  baseGitHubApi, } from "../../../global-config"
+import { baseGitHubApi } from '../../../global-config';
+
+const FALLBACK_GITHUB_API = 'https://api.github.com/users/';
+const resolvedBaseGitHubApi = (baseGitHubApi || FALLBACK_GITHUB_API).endsWith(
+  '/',
+)
+  ? baseGitHubApi || FALLBACK_GITHUB_API
+  : `${baseGitHubApi || FALLBACK_GITHUB_API}/`;
 
 export const gitHubApi = axios.create({
-  // client setup is good but not reading the process.env or that import 
-  baseURL: baseGitHubApi, // use this first for simulation
+  baseURL: resolvedBaseGitHubApi,
   headers: {
+    Accept: 'application/vnd.github+json',
     'Content-Type': 'application/json',
   },
 });
