@@ -10,6 +10,7 @@ import {
 import { Typography } from '../common/Typography';
 import PageContainer from '../components/containers/PageContainer';
 import PdfViewerModal from '../components/modals/PdfViewerModal';
+import assessmentsData from '../lib/data/assessments-data.json';
 
 const HERO_SURFACE =
   'relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-sky-100/80 via-white to-emerald-100/70 p-6 shadow-lg dark:from-zinc-900 dark:via-zinc-900 dark:to-emerald-950/60 sm:p-7';
@@ -28,22 +29,7 @@ type AssessmentCard = {
   fileName: string;
 };
 
-const ASSESSMENTS: AssessmentCard[] = [
-  {
-    id: 'workplace-insights',
-    title: 'Workplace Insights',
-    subtitle: 'Workstyle Assessment Report',
-    summary:
-      'A personalized report that highlights collaboration preferences, motivators, and communication cues to support better team alignment.',
-    context: [
-      'Maps collaboration and teamwork patterns.',
-      'Surfaces decision-making and communication tendencies.',
-      'Highlights growth cues with practical next steps.',
-    ],
-    tags: ['Behavioral', 'Workstyle', 'PDF Report'],
-    fileName: 'Workplace Insights - Kent Christian  Cagadas-Workplace-Insights.pdf',
-  },
-];
+const ASSESSMENTS = assessmentsData as AssessmentCard[];
 
 const baseUrl = import.meta.env.BASE_URL ?? '/';
 const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -52,30 +38,34 @@ const resolveAssessmentSrc = (fileName: string) =>
   `${normalizedBaseUrl}assessments/${encodeURIComponent(fileName)}`;
 
 const Assessments = () => {
-  const [selectedAssessment, setSelectedAssessment] = useState<AssessmentCard | null>(null);
+  const [selectedAssessment, setSelectedAssessment] =
+    useState<AssessmentCard | null>(null);
 
   const shouldIgnoreCardClick = (target: EventTarget | null) =>
-    target instanceof HTMLElement && Boolean(target.closest('[data-card-action="true"]'));
+    target instanceof HTMLElement &&
+    Boolean(target.closest('[data-card-action="true"]'));
 
-  const handleCardClick = (assessment: AssessmentCard) => (event: MouseEvent<HTMLElement>) => {
-    if (shouldIgnoreCardClick(event.target)) {
-      return;
-    }
-    setSelectedAssessment(assessment);
-  };
+  const handleCardClick =
+    (assessment: AssessmentCard) => (event: MouseEvent<HTMLElement>) => {
+      if (shouldIgnoreCardClick(event.target)) {
+        return;
+      }
+      setSelectedAssessment(assessment);
+    };
 
-  const handleCardKeyDown = (assessment: AssessmentCard) => (event: KeyboardEvent<HTMLElement>) => {
-    if (shouldIgnoreCardClick(event.target)) {
-      return;
-    }
+  const handleCardKeyDown =
+    (assessment: AssessmentCard) => (event: KeyboardEvent<HTMLElement>) => {
+      if (shouldIgnoreCardClick(event.target)) {
+        return;
+      }
 
-    if (event.key !== 'Enter' && event.key !== ' ') {
-      return;
-    }
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
 
-    event.preventDefault();
-    setSelectedAssessment(assessment);
-  };
+      event.preventDefault();
+      setSelectedAssessment(assessment);
+    };
 
   return (
     <PageContainer className="h-full w-full overflow-x-hidden">
@@ -95,8 +85,8 @@ const Assessments = () => {
                   Assessment reports with context and quick access to full PDFs.
                 </Typography>
                 <Typography variant="body" className="text-muted-foreground">
-                  Explore each assessment for a snapshot of focus areas, then open the full report to review deeper
-                  findings.
+                  Explore each assessment for a snapshot of focus areas, then
+                  open the full report to review deeper findings.
                 </Typography>
               </div>
             </section>
@@ -106,7 +96,10 @@ const Assessments = () => {
             {ASSESSMENTS.map((assessment, index) => (
               <SideFromRightMotionProv
                 key={assessment.id}
-                delay={Math.min((index + 1) * CARD_STAGGER_STEP, CARD_STAGGER_MAX)}
+                delay={Math.min(
+                  (index + 1) * CARD_STAGGER_STEP,
+                  CARD_STAGGER_MAX,
+                )}
               >
                 <article
                   role="button"
@@ -123,7 +116,10 @@ const Assessments = () => {
                       <Typography variant="h3" className="text-lg sm:text-xl">
                         {assessment.title}
                       </Typography>
-                      <Typography variant="caption" className="mt-1 block text-muted-foreground">
+                      <Typography
+                        variant="caption"
+                        className="mt-1 block text-muted-foreground"
+                      >
                         {assessment.subtitle}
                       </Typography>
                     </div>
@@ -132,7 +128,10 @@ const Assessments = () => {
                     </span>
                   </div>
 
-                  <Typography variant="body-sm" className="text-muted-foreground">
+                  <Typography
+                    variant="body-sm"
+                    className="text-muted-foreground"
+                  >
                     {assessment.summary}
                   </Typography>
 
@@ -150,7 +149,10 @@ const Assessments = () => {
 
                   <div className="space-y-2">
                     {assessment.context.map((item) => (
-                      <div key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <div
+                        key={item}
+                        className="flex items-start gap-2 text-sm text-muted-foreground"
+                      >
                         <span className="mt-2 inline-flex h-1.5 w-1.5 rounded-full bg-foreground/40" />
                         <span>{item}</span>
                       </div>
@@ -185,9 +187,17 @@ const Assessments = () => {
           onClose={() => {
             setSelectedAssessment(null);
           }}
-          src={selectedAssessment ? resolveAssessmentSrc(selectedAssessment.fileName) : ''}
+          src={
+            selectedAssessment
+              ? resolveAssessmentSrc(selectedAssessment.fileName)
+              : ''
+          }
           title={selectedAssessment?.title ?? 'Assessment'}
-          ariaLabel={selectedAssessment ? `${selectedAssessment.title} PDF preview` : 'Assessment PDF preview'}
+          ariaLabel={
+            selectedAssessment
+              ? `${selectedAssessment.title} PDF preview`
+              : 'Assessment PDF preview'
+          }
         />
       </DynamicMotionProvider>
     </PageContainer>
