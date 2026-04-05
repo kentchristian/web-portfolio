@@ -16,11 +16,11 @@
     "id": "berlitz-assessment",
     "title": "Berlitz Assessment Result",
     "subtitle": "Language Proficiency Report",
-    "summary": "A concise Berlitz assessment result sheet capturing placement outcomes and a snapshot of proficiency.",
+    "summary": "Berlitz Online Placement Test for English showing a Level 8 (CEF B2.1) result, plus recommended follow‑up programs.",
     "context": [
-      "Summarizes placement or level outcome.",
-      "Provides a quick reference for language proficiency.",
-      "Useful for benchmarking and readiness checks."
+      "Initial placement assessment based on listening and reading skills.",
+      "Recommended Program Level 8 (B2.1) for review or Level 9 (B2.2).",
+      "Prepared for Mr. Kent Cagadas."
     ],
     "tags": ["Language", "Assessment", "PDF Result"],
     "fileName": "BerlitzAssessmentResult.pdf"
