@@ -11,5 +11,18 @@
     ],
     "tags": ["Behavioral", "Workstyle", "PDF Report"],
     "fileName": "Workplace Insights - Kent Christian  Cagadas-Workplace-Insights.pdf"
+  },
+  {
+    "id": "berlitz-assessment",
+    "title": "Berlitz Assessment Result",
+    "subtitle": "Language Proficiency Report",
+    "summary": "A concise Berlitz assessment result sheet capturing placement outcomes and a snapshot of proficiency.",
+    "context": [
+      "Summarizes placement or level outcome.",
+      "Provides a quick reference for language proficiency.",
+      "Useful for benchmarking and readiness checks."
+    ],
+    "tags": ["Language", "Assessment", "PDF Result"],
+    "fileName": "BerlitzAssessmentResult.pdf"
   }
 ]
